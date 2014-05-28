@@ -1,12 +1,11 @@
 <?php
 
-include "../core/conexion.php";
-
     $metodo = $_SERVER['REQUEST_METHOD'];  
     $url = $_SERVER['REQUEST_URI'];
     $split = explode('/', $url);
     $entidad = null;
     $param = null;
+    $conexion = new ConexionMySQL();
 
     foreach ($split as $key => $value) {
     	switch($key){
@@ -35,8 +34,8 @@ include "../core/conexion.php";
 
     function getFromDB($entidadParam, $idParam){
         switch ($entidadParam) {
-            case 'vuelos':
-                $entidad = 'Vuelo';
+            case 'recorridos':
+                $entidad = new Recorrido();
                 break;
             default:
                 return;
@@ -44,7 +43,7 @@ include "../core/conexion.php";
         }
 
         $condicion['id'] = $idParam;
-        $retorno = obtenerEntidad($entidad, $condicion);
+        $retorno = $conexion.obtenerEntidad($entidad, $condicion);
         return json_encode($retorno);
     }
  ?>       
