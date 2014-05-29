@@ -37,13 +37,11 @@
             case 'recorridos':
                 $entidad = new Recorrido();
                 break;
-            default:
-                return;
-                break;
         }
 
-        $condicion['id'] = $idParam;
-        $retorno = $conexion.obtenerEntidad($entidad, $condicion);
+        $idParam;
+
+        $retorno = $entidad.obtenerEntidad();
         return json_encode($retorno);
     }
  ?>       

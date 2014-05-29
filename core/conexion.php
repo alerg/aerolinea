@@ -21,16 +21,23 @@
 			}
 		}
 
-		public function obtenerEntidad($nombreTabla, $condicion){
+		public function obtener($nombreTabla, $condicion){
 			$query = 'SELECT * FROM `' .$nombreTabla .'`';
 			if(isset($condicion)){
-				$query .= " WHERE ";
-				foreach ($condicion as $key => $value) {
-					$query .= '`'.$key . "`=" . $value; 
-				}
+				$query .= ' WHERE '. key($condicion[0]) .'='. $condicion[0];
 				return ejecutarQuery($query);
 			}
 			return false;
+		}
+
+		protected function modificar($tabla, $campos, $condicion){
+			$campos = $this->obtenerCampos();
+			$query = 'UPDATE '. $tabla .' SET ';
+			foreach ($campos as $key => $value) {
+				$query .= .'`'.$key . '`=`' . $value .'`' 
+			}
+			$query .= ' WHERE '. key($condicion[0]) .'='. $condicion[0];
+			return ejecutarQuery($query);
 		}
 
 	//Metodos privados
