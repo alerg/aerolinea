@@ -1,7 +1,7 @@
 <?php
 	error_reporting(E_ERROR);
 
-	Class ConexionMySQL
+	class ConexionMySQL
 	{
 		private $conexion = null; 
 		

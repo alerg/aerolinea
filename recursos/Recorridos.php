@@ -1,5 +1,5 @@
 <?php
-	Class Recurso_Recorridos extends Recurso{
+	Class Recurso_Recorridos extends Recorridos{
 		private $id;
 		private $precioPrimera;
 		private $precioEconomy;

@@ -1,10 +1,16 @@
 <?php
-include "../core/conexion.php";
+include "/core/ConexionMySQL.php";
 
-	Class Entidad{
-		//nombreId: contiene el nombre del identificador. Se usara en la condiciones
+	class Entidad{
+		//filtrarPor: contiene el nombre del identificador. Se usara en la condiciones
 		//para obtener la entidad.
-		protected $nombreId;
+		private $filtrarPor = array();
+		
+		public function setFiltrarPor($valor){
+			foreach ($valor as $key => $value) {
+			}
+			$this->filtrarPor = $valor;
+		} 
 		//Array que posee como key el nombre de los campos de la tabla sql.
 		//protected $campos = array();
 		//Nombre de la tabla
@@ -12,36 +18,40 @@ include "../core/conexion.php";
 		//Conexion SQL
 		private $conexion;
 
-		public function __construct() {
+		public function __construct($tabla) {
 			//creacion de conexion SQL
-			$conexion = new ConexionMySQL();
+			$this->conexion = new ConexionMySQL();
+			$this->nombreTabla = $tabla;
 		}
 
 		protected function obtener(){
 			//Condicion es un array que espera como key el nombre del campo por el cual
-			//se va a obtener la entidad. 
-			$campos = $this->obtenerCampos();
-			$condicion[$this->$nombreId] = $campos[$this->$nombreId];
-			return $this->parse($this->$conexion.obtener($this->$name, $condicion));
+			//se va a obtener la entidad.
+			$registros = $this->conexion->obtener($this->nombreTabla, $this->filtrarPor);
+			return $registros;
+		}
+
+		protected function obtenerTodos(){
+			//Condicion es un array que espera como key el nombre del campo por el cual
+			//se va a obtener la entidad.
+			return $this->conexion->obtener($this->nombreTabla);
 		}
 
 		protected function modificar(){
 			$campos = $this->obtenerCampos();
-			$query = 'UPDATE '. $this->$nombreTabla .' SET ';
+			$query = 'UPDATE '. $this->nombreTabla .' SET ';
 			foreach ($campos as $key => $value) {
-				$query .= .'`'.$key . '`=`' . $value .'`' 
+				$query .= '`'.$key . '`=`' . $value .'`';
 			}
-			$query .= ' WHERE '. $this->$nombreId.'='. $campos[$this->$nombreId];
-
-			return $this->$conexion.modificar($this->$nombreTabla, $campos, array($this->$nombreId => $campos[$this->$nombreId]));
-		}
-
-		protected function setNombreTabla($nombreTabla){
-			$this->$nombreTabla = $nombreTabla;
+			foreach ($this->filtrarPor as $key => $value) {
+				$query .= ' WHERE `'. $key.'`='. $value;
+			}
+			
+			return $this->conexion->modificar($this->nombreTabla, $campos, array($this->filtrarPor => $campos[$this->filtrarPor]));
 		}
 
 		protected function obtenerCampos(){
-			$ancestro = get_class_vars('Entidad')
+			$ancestro = get_class_vars('Entidad');
 			if(get_called_class() != 'Entidad'){
 		        $hijo = get_class_vars(get_class($this));  
 		        $atributos = array();
@@ -55,5 +65,13 @@ include "../core/conexion.php";
     			return $ancestro;
 	    	}
 		}
+
+		//protected function setNombreTabla($nombreTabla){
+		//	$this->nombreTabla = $nombreTabla;
+		//}
+
+		//public function filtrarPor($key, $value){
+		//	$this->filtrarPor[$key] = $value;
+		//}
 	}
 ?>

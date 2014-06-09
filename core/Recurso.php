@@ -1,5 +1,5 @@
 <?php
-	Class Recurso{
+	abstract class Recurso{
 		protected $atributos;
 
 		function __construct(){

@@ -25,7 +25,7 @@
 		case "POST":  
 			echo " method post";
         break;  
-		case "DELETE"://"falling though". Se ejecutará el case siguiente  
+		case "DELETE":
 		case "PUT":  
         break;  
 		default:  
@@ -36,6 +36,9 @@
         switch ($entidadParam) {
             case 'recorridos':
                 $entidad = new Recorrido();
+                break;
+            case 'Aeropuestos':
+                $entidad = new Aeropuertos();
                 break;
         }
 
