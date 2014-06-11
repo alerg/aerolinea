@@ -1,6 +1,6 @@
 <?php
 	//Representa la tabla recorridos de SQL.
-	Class Entidad_Recorrido extends Entidad{
+	class Entidad_Recorrido extends Entidad{
 
 		private $id_recorrido;
 		private $precio_primera;
@@ -10,30 +10,25 @@
 
 		public function __construct() {
 			//Llama al constructor de Entidad
-			Entidad::__construct();
+			parent::__construct('recorrido');
 			//Se asigna a la variable heredada $nombreTabla el nombre de la tabla SQL
-			$this->setNombreTabla('recorrido');
-			$this->$nombreId = 'id_recorrido';
+			//Se marca cual es el id de la tabla
 		}
 
-		public function setId($valor){
-			$this->$id_recorrido = $valor;
+		public function obtener(){
+			if($this->id_ciudad_origen != null && $this->id_ciudad_destino != null){
+				parent::setFiltrarPor(array('id_ciudad_origen' => $this->id_ciudad_origen,'id_ciudad_destino' => $this->id_ciudad_destino));
+			}
+			$registros = parent::obtener();
+			return $registros;
 		}
 
-		public function setPrecioPrimera($valor){
-			$this->$precio_primera = $valor;
+		public function setOrigen($valor){
+			$this->id_ciudad_origen = $valor;
 		}
 
-		public function setPrecioEconomy($valor){
-			$this->$precio_economy = $valor;
-		}
-
-		public function setIdCiudadOrigen($valor){
-			$this->$id_ciudad_origen = $valor;
-		}
-
-		public function setIdCiudadDestino($valor){
-			$this->$id_ciudad_destino = $valor;
+		public function setDestino($valor){
+			$this->id_ciudad_destino = $valor;
 		}
 	}
 ?>

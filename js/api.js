@@ -14,21 +14,38 @@ Aeropuerto.prototype = {
 			if(cb)
 				cb(that);
 		});
-	},
+	}
+}
+
+Aeropuerto.obtenerTodos = function(cb){
+	var that = this;
+	jQuery.get('/api/aeropuertos/obtenerTodos', {}, function(data){
+		var retorno = [];
+		for (var index in data) {
+			var aeropuerto = new Aeropuerto();
+			jQuery.extend(aeropuerto, data[index]);
+			retorno.push(aeropuerto);
+		}
+		cb(retorno);
+	});
+}
+
+//Necesita CORE
+var Recorrido = function (){
+	this.origen = '';
+	this.destino = '';
+}
+
+Recorrido.prototype = {
 	obtenerTodos : function(cb){
 		var that = this;
-		jQuery.get('/api/aeropuertos/obtenerTodos', {}, function(data){
-			var retorno = [];
-			for (var index in data) {
-				var aeropuerto = new Aeropuerto();
-				jQuery.extend(aeropuerto, data[index]);
-				retorno.push(aeropuerto);
-			}
-			cb(retorno);
+		jQuery.get('/api/recorridos/obtenerTodos', {origen:this.origen, destino:this.destino}, function(data){
+			jQuery.extend(that, data);
+			if(cb)
+				cb(that);
 		});
 	}
-}	
-
+}
 /*
 var recorridos = {
 	id:null,
@@ -39,11 +56,5 @@ var recorridos = {
 		jQuery.get('/api/recorridos/' + id, function(data){
 			jQuery.extend(that, data);
 		});
-	},
-	obtenerTodos : function(){
-		var that = this;
-		jQuery.get('/api/recorridos/dameTodos', {origen, destino}, function(data){
-			jQuery.extend(that, data);
-		});	
-	}	
+	}
 }*/

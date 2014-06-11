@@ -1,11 +1,12 @@
 <?php
     include "/recursos/Aeropuertos.php";
+    include "/recursos/Vuelos.php";
 
     header('Content-Type: application/json');
 
     $httpMetodo = $_SERVER['REQUEST_METHOD'];  
     $url = $_SERVER['REQUEST_URI'];
-    $split = explode('/', $url);
+    $split = explode('/', explode('?', $url)[0]);
     $entidad = null;
     $param = null;
     $metodo = null;
@@ -36,6 +37,7 @@
      }
 
     function get($entidadParam, $param){
+        $retorno = null;
         switch ($entidadParam) {
             case 'aeropuertos':
                 $entidad = new Recurso_Aeropuertos();
@@ -47,6 +49,13 @@
                     $entidad->setCodigo($param);
                     $retorno = $entidad->obtener();
                 }
+            break;
+            case 'recorridos':
+                $origen = $_GET['origen'];
+                $destino = $_GET['destino'];
+                $entidad = new Recurso_Vuelos($origen, $destino);
+                $retorno = $entidad->obtener();
+            break;
         }
         return json_encode($retorno);
     }

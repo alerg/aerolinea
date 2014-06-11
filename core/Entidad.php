@@ -43,8 +43,11 @@ include "/core/ConexionMySQL.php";
 			foreach ($campos as $key => $value) {
 				$query .= '`'.$key . '`=`' . $value .'`';
 			}
+			if($this->filtrarPor != null)
+				$query .= ' WHERE `';
+			$and = false;
 			foreach ($this->filtrarPor as $key => $value) {
-				$query .= ' WHERE `'. $key.'`='. $value;
+				
 			}
 			
 			return $this->conexion->modificar($this->nombreTabla, $campos, array($this->filtrarPor => $campos[$this->filtrarPor]));

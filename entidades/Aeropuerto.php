@@ -8,7 +8,7 @@
 		private $provincia;
 		private $nombre;
 
-		public function __construct($valor) {
+		public function __construct() {
 			//Llama al constructor de Entidad
 			parent::__construct('aeropuerto');
 			//Se asigna a la variable heredada $nombreTabla el nombre de la tabla SQL

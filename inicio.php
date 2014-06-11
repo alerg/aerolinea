@@ -7,13 +7,15 @@
 </head>
 <body>
 <script>
-	var aeropuerto = new Aeropuerto('SAVR');
+	//var aeropuerto = new Aeropuerto();
 	/*
 	aeropuerto.obtener(function(aeropuerto){
 		console.log(aeropuerto.codigo);
 	});
 	*/
-	aeropuerto.obtenerTodos(function(aeropuertos){
+	var aeropuertos =[]; 
+	Aeropuerto.obtenerTodos(function(data){
+		aeropuertos = data;
 		jQuery(document).ready(function(){
 			for(var index in aeropuertos){
 				var option = document.createElement("option");
@@ -23,9 +25,42 @@
 			}
 		});
 	});
+jQuery(document).ready(function(){
+	jQuery('[data-interactive="origen"]').on('change', function(e){
+		var select = document.querySelector('[data-interactive="destino"]');
+		var longitud = select.options.length;
+		if(longitud > 1 ){
+			for(var index = 1 ; index < longitud ; index++){
+				select.removeChild(select.options[1]);
+			}
+		}
+		for(var index in aeropuertos){
+			if(aeropuertos[index].codigo != e.target.value){
+				var option = document.createElement("option");
+				option.value = aeropuertos[index].codigo;
+				option.textContent = aeropuertos[index].nombre;
+				select.appendChild(option);
+			}
+		}
+	});
+	jQuery('[data-interactive="buscar"]').on('click', function(e){
+		var recorrido = new Recorrido();
+		recorrido.origen = document.querySelector('[data-interactive="origen"]').options[document.querySelector('[data-interactive="origen"]').selectedIndex].value;
+		recorrido.destino = document.querySelector('[data-interactive="destino"]').options[document.querySelector('[data-interactive="destino"]').selectedIndex].value;
+		recorrido.obtenerTodos(function(recorridos){
+			for(var index in recorridos){
+				console.log(recorridos[index]);
+			}
+		});
+	});
+});
 </script>
 <select data-interactive="origen">
-	<option value="">Seleccione un Destino</option>
+	<option value="">Seleccione origen</option>
 </select>
+<select data-interactive="destino">
+	<option value="">Seleccione destino</option>
+</select>
+<button data-interactive="buscar">Buscar recorrido</button>
 </body>
 </html>

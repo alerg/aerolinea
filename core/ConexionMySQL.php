@@ -1,13 +1,12 @@
 <?php
-	error_reporting(E_ERROR);
-	class ConexionMySQL
-	{
+	//error_reporting(E_ERROR);
+	class ConexionMySQL{
 		private $conexion;
 		//private $nombreTabla;
 		//private $condicion; 
 		
 		public function __construct() {
-			$this->conexion = new mysqli("localhost", "root", "", "aerolinea");
+			$this->conexion = new mysqli("localhost", "root", "", "aerolineas");
 			if($this->conexion->errno)
 				echo 'Error al conectar con la base de datos. Nro: ' . $this->conexion->errno .' / '. $this->conexion->error;
 		}
@@ -20,7 +19,11 @@
 			$query = 'SELECT * FROM `' .$nombreTabla .'`';
 			if(count($condicion)>0){
 				$query .= ' WHERE ';
+				$and = false;
 				foreach ($condicion as $key => $value) {
+					if($and)
+						$query .= ' AND ';
+					$and = true;
 					$query .= '`'. $key .'`=\''. $value .'\'';
 				}
 			}
@@ -42,7 +45,7 @@
 
 	    private function cerrarConexion(){
 			if ($this->conexion) {
-				$this->conexion->close();
+				//$this->conexion->close();
 			}
 		}
 

@@ -1,13 +1,12 @@
 <?php
-	include "/core/Recurso.php";
 	include "/entidades/Aeropuerto.php";
-	//include "/recursos/Aeropuertos.php";
-
-	class Recurso_Aeropuertos extends Recurso{
+	
+	class Recurso_Aeropuertos{
 		public $codigo = null;
 		public $ciudad;
 		public $provincia;
 		public $nombre;
+
 		private $entidad;
 
 		public function __construct() {
@@ -47,15 +46,14 @@
 		public function obtenerTodos(){
 			$registros = $this->entidad->obtener();
 			$recursos = array();
-
 			foreach ($registros as $key => $value) {
 				//$recurso = array();
 				//$recurso[$key] = $value;
 				$recurso = new Recurso_Aeropuertos();
-				$recurso->codigo = $value['codigo'];
-				$recurso->ciudad = $value['ciudad'];
-				$recurso->provincia = $value['provincia'];
-				$recurso->nombre = $value['nombre'];
+				$recurso->codigo = utf8_encode($value['codigo']);
+				$recurso->ciudad = utf8_encode($value['ciudad']);
+				$recurso->provincia = utf8_encode($value['provincia']);
+				$recurso->nombre = utf8_encode($value['nombre']);
 				array_push($recursos, $recurso);
 			}
 			return $recursos;
