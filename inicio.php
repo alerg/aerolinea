@@ -47,9 +47,13 @@ jQuery(document).ready(function(){
 		var recorrido = new Recorrido();
 		recorrido.origen = document.querySelector('[data-interactive="origen"]').options[document.querySelector('[data-interactive="origen"]').selectedIndex].value;
 		recorrido.destino = document.querySelector('[data-interactive="destino"]').options[document.querySelector('[data-interactive="destino"]').selectedIndex].value;
-		recorrido.obtenerTodos(function(recorridos){
-			for(var index in recorridos){
-				console.log(recorridos[index]);
+		recorrido.obtenerTodos(function(vuelos){
+			var menu = jQuery('[data-interactive="vuelos"]');
+			for(var index in vuelos){
+				var vuelo = vuelos[index];
+				var item = document.createElement('menuItem');
+				item.setAttribute('label', 'precio primera: '+ vuelo.precioPrimera +' / precio economy: '+ vuelo.precioEconomy +' / vuelo: '+ vuelo.idVuelo +' / fecha: '+ vuelo.fecha +' / Asientos disponibles: '+ vuelo.asientos_disponibles);
+				menu.append(item);
 			}
 		});
 	});
@@ -62,5 +66,7 @@ jQuery(document).ready(function(){
 	<option value="">Seleccione destino</option>
 </select>
 <button data-interactive="buscar">Buscar recorrido</button>
+
+<menu data-interactive="vuelos"></menu>
 </body>
 </html>
