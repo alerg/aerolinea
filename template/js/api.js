@@ -31,16 +31,13 @@ Aeropuerto.obtenerTodos = function(cb){
 }
 
 //Necesita CORE
-var Recorrido = function (){
-	this.origen = '';
-	this.destino = '';
-}
+var Vuelo = function (){}
 
-Recorrido.prototype = {
-	obtenerTodos : function(cb){
+Vuelo.prototype = {
+	obtenerTodosPor : function(origen, destino, cb){
 		var that = this;
-		jQuery.get('/api/recorridos/obtenerTodos', {origen:this.origen, destino:this.destino}, function(data){
-			jQuery.extend(that, data);
+		jQuery.get('/api/vuelos/obtenerTodosPor', {'origen':origen, 'destino':destino}, function(data){
+			that = data;
 			if(cb)
 				cb(that);
 		});

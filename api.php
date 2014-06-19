@@ -50,7 +50,7 @@
                     $retorno = $entidad->obtener();
                 }
             break;
-            case 'recorridos':
+            case 'vuelos':
                 $origen = $_GET['origen'];
                 $destino = $_GET['destino'];
                 $entidad = new Recurso_Vuelos($origen, $destino);

@@ -305,3 +305,27 @@ footer{
 footer p{
 	padding:30px 0 0 0;
 }
+
+section.reserva{
+	display:none;
+}
+section.pago{
+	display:none;
+}
+section.asiento{
+	display:none;
+}
+
+section[data-mode="step1"] section.reserva{
+	display:block;
+}
+section[data-mode="step2"] section.pago{
+	display:block;
+}
+section[data-mode="step3"] section.asiento{
+	display:block;
+}
+
+.hide{
+	display:none;
+}

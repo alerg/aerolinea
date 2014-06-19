@@ -1,50 +1,107 @@
-﻿
-<?php include('includes/header.php'); ?>
+﻿<?php include('includes/header.php'); ?>
+<script>
+	//var aeropuerto = new Aeropuerto();
+	/*
+	aeropuerto.obtener(function(aeropuerto){
+		console.log(aeropuerto.codigo);
+	});
+	*/
+	var aeropuertos =[]; 
+	Aeropuerto.obtenerTodos(function(data){
+		aeropuertos = data;
+		jQuery(document).ready(function(){
+			for(var index in aeropuertos){
+				var option = document.createElement("option");
+				option.value = aeropuertos[index].codigo;
+				option.textContent = aeropuertos[index].nombre;
+				jQuery('[data-interactive="origen"]').append(option);
+			}
+		});
+	});
+jQuery(document).ready(function(){
+	jQuery('[data-interactive="origen"]').change(function(e){
+		var select = document.querySelector('[data-interactive="destino"]');
+		var longitud = select.options.length;
+		if(longitud > 1 ){
+			for(var index = 1 ; index < longitud ; index++){
+				select.removeChild(select.options[1]);
+			}
+		}
+		for(var index in aeropuertos){
+			if(aeropuertos[index].codigo != e.target.value){
+				var option = document.createElement("option");
+				option.value = aeropuertos[index].codigo;
+				option.textContent = aeropuertos[index].nombre;
+				select.appendChild(option);
+			}
+		}
+	});
+	jQuery('[data-interactive="destino"]').change(function(e){
+		var select = jQuery('[data-interactive="vuelos"]');
+		jQuery.each( select.children(), function( key, option ) {
+			if(option.value!='')
+				option.remove();
+		});
+		var vuelo = new Vuelo();
+		var origen = document.querySelector('[data-interactive="origen"]').options[document.querySelector('[data-interactive="origen"]').selectedIndex].value;
+		var destino = document.querySelector('[data-interactive="destino"]').options[document.querySelector('[data-interactive="destino"]').selectedIndex].value;
+		vuelo.obtenerTodosPor(origen, destino, function(vuelos){
+			jQuery.each( vuelos, function( key, vuelo ) {
+				var option = document.createElement('option');
+				option.textContent = 'Numero: '+ vuelo.id +' / Fecha: '+ vuelo.fecha +' / Asientos disponibles: '+ vuelo.asientos_disponibles;
+				option.setAttribute('value', vuelo.idVuelo);
+				select.append(option);
+			});
 
-	<section class="contenedor contenido">
-		
+			jQuery('[data-interactive="fieldVuelos"]').removeClass('hide');
+		});
+	});
+
+	jQuery('[data-interactive="reservar"]').click(function(e){
+		e.preventDefault();
+		var vuelo = jQuery('[data-interactive="vuelos"]').val();
+		if( vuelo == undefined || vuelo == ''){
+			console.log('No se selecciono vuelo');
+			return;
+		}
+	});
+
+	jQuery('[data-interactive="contenedor"]').attr('data-mode', 'step1');
+	//document.querySelector('[data-interactive="contenedor"]').setAttribute('data-mode', 'step1');
+});
+</script>
+<section data-interactive="contenedor" class="contenedor contenido">
+	<section class="reserva">
 		<h2>Reservas</h2>
 		
 		<h3>Paso1:</h3>
-		<form>
-			<fieldset>
-				<div class="columna columna--triple">
-					<label for="nombre">Nombre:</label>
-					<input name="nombre" type="text">
-					
-					<label for="apellido">Apellido:</label>
-					<input name="apellido" type="text" >
-								
-					<label for="telefono">Teléfono:</label>
-					<input name="telefono" type="text">
-				</div>
-				
-				<div class="columna columna--triple">
-					<label for="empresa">Empresa:</label>
-					<input name="empresa" type="text">
-					 
-					<label for="email">E-mail:</label>
-					<input name="email" type="text" >
-					
-					<label for="mensaje">Mensaje</label>
-					<textarea name="mensaje"></textarea>
-				</div>
-				
-				<div class="columna columna--triple">
-					<label for="empresa">Empresa:</label>
-					<input name="empresa" type="text">
-					 
-					<label for="email">E-mail:</label>
-					<input name="email" type="text" >
-					
-					<label for="mensaje">Mensaje</label>
-					<textarea name="mensaje"></textarea>
-				</div>
-			</fieldset>	
-			
-			<input class="boton" type="submit" name="enviar" value="Enviar">
-		</form>
-		
+		<fieldset>
+			<div class="columna columna--doble">
+				<label for="origen">Origen:</label>
+				<select id="origen" name="origen" data-interactive="origen">
+					<option value="">Seleccione origen</option>
+				</select>
+			</div>
+			<div class="columna columna--doble">
+				<label for="destino">Destino:</label>
+				<select id="destino" name="destino" data-interactive="destino">
+					<option value="">Seleccione destino</option>
+				</select>
+			</div>
+		</fieldset>
+		<fieldset class="hide" data-interactive="fieldVuelos">
+			<div class="columna columna">
+				<label for="vuelos">Vuelos:</label>
+				<select id="vuelos" name="vuelos" data-interactive="vuelos">
+					<option value=''>Seleccione uno</option>
+				</select>
+			</div>
+			<div class="columna columna--triple">
+				<button class="boton" data-interactive='reservar'>Reservar</button>
+			</div>
+		</fieldset>
+	</section>
+	<section class="pago">	
 		<h2>Pagos</h2>
 		<form>
 			<fieldset>
@@ -82,7 +139,8 @@
 			
 			<input class="boton" type="submit" name="enviar" value="Enviar">
 		</form>
-		
+	</section>
+	<section class="asiento">	
 		<h2>Asiento</h2>
 		<form>
 			<fieldset class="asientos">
@@ -204,11 +262,13 @@
 			
 			<input class="boton" type="submit" name="enviar" value="Enviar">
 		</form>
+	</section>
+	<section class="">	
 		<div class="progreso">
 			<span class="paso">1</span><span class="separador"></span>
 			<span class="paso">2</span><span class="separador"></span>
 			<span class="paso">3</span>
 		</div>
 	</section>
-
+</section>
 <?php include('includes/footer.php'); ?>

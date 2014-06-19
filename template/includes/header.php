@@ -5,7 +5,9 @@
 	<meta name="description" content="" />
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
+	<script type="text/javascript" src="/js/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="/js/jquery-ui-1.10.4.custom.min.js"></script>
+	<script type="text/javascript" src="/js/api.js"></script>
 	<link rel="icon" href="img/favicon.png" type="image/png" />
 	<link rel="stylesheet" type="text/css" href="css/estilos.css" />
 </head>

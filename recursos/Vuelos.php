@@ -5,7 +5,7 @@
 	class Recurso_Vuelos{
 		public $precioPrimera;
 		public $precioEconomy;
-		public $idVuelo;
+		public $id;
 		public $fecha;
 		public $asientos_disponibles;
 
@@ -32,7 +32,7 @@
 					$recurso = new Recurso_Vuelos(null, null);
 					$recurso->precioPrimera = $recorrido[0]['precio_primera'];
 					$recurso->precioEconomy = $recorrido[0]['precio_economy'];
-					$recurso->idVuelo = $value['id_vuelo'];
+					$recurso->id = $value['id_vuelo'];
 					$recurso->fecha = $value['fecha'];
 					$recurso->asientos_disponibles = $value['asientos_disponibles'];
 
