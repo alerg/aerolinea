@@ -18,6 +18,7 @@
 			}
 		});
 	});
+	
 jQuery(document).ready(function(){
 	jQuery('[data-interactive="origen"]').change(function(e){
 		var select = document.querySelector('[data-interactive="destino"]');
@@ -75,72 +76,99 @@ jQuery(document).ready(function(){
 		<h2>Reservas</h2>
 		
 		<h3>Paso1:</h3>
-		<fieldset>
-			<div class="columna columna--doble">
-				<label for="origen">Origen:</label>
-				<select id="origen" name="origen" data-interactive="origen">
-					<option value="">Seleccione origen</option>
-				</select>
-			</div>
-			<div class="columna columna--doble">
-				<label for="destino">Destino:</label>
-				<select id="destino" name="destino" data-interactive="destino">
-					<option value="">Seleccione destino</option>
-				</select>
-			</div>
-		</fieldset>
-		<fieldset class="hide" data-interactive="fieldVuelos">
-			<div class="columna columna">
-				<label for="vuelos">Vuelos:</label>
-				<select id="vuelos" name="vuelos" data-interactive="vuelos">
-					<option value=''>Seleccione uno</option>
-				</select>
-			</div>
-			<div class="columna columna--triple">
-				<button class="boton" data-interactive='reservar'>Reservar</button>
-			</div>
-		</fieldset>
-	</section>
-	<section class="pago">	
-		<h2>Pagos</h2>
 		<form>
 			<fieldset>
-				<div class="columna columna--doble">
-					<label for="empresa">Empresa:</label>
-					<input name="empresa" type="text">
-					 
-					<label for="email">E-mail:</label>
-					<input name="email" type="text" >
-					
-					<label for="mensaje">Mensaje</label>
-					<textarea name="mensaje"></textarea>
-				</div>
-				
-				<div class="columna columna--doble">
+				<div class="columna">
 					<label for="nombre">Nombre:</label>
 					<input name="nombre" type="text">
 					
 					<label for="apellido">Apellido:</label>
-					<input name="apellido" type="text" >
-								
-					<label for="telefono">Teléfono:</label>
-					<input name="telefono" type="text">
-					
-					<label for="empresa">Empresa:</label>
-					<input name="empresa" type="text">
+					<input name="apellido" type="text">
 					 
 					<label for="email">E-mail:</label>
-					<input name="email" type="text" >
-					
-					<label for="mensaje">Mensaje</label>
-					<textarea name="mensaje"></textarea>
+					<input name="email" type="email" >
 				</div>
-			</fieldset>	
+			</fieldset>
 			
-			<input class="boton" type="submit" name="enviar" value="Enviar">
+			<fieldset>
+				<div class="columna columna--doble">
+					<label for="origen">Origen:</label>
+					<select id="origen" name="origen" data-interactive="origen">
+						<option value="" selected disabled>Seleccione origen</option>
+					</select>
+				</div>
+				
+				<div class="columna columna--doble">
+					<label for="destino">Destino:</label>
+					<select id="destino" name="destino" data-interactive="destino">
+						<option value="" selected disabled>Seleccione destino</option>
+					</select>
+				</div>
+			</fieldset>
+			<button class="boton" data-interactive=''>Buscar vuelos</button>
+			<!-- Nuevo data-interactive -->
+		</form>
+		
+		<h3>Paso 2:</h3>
+		<form>
+			<fieldset class="hide" data-interactive="fieldVuelos">
+				<div class="columna columna--doble">
+					<label for="vuelos">Vuelos:</label>
+					<select id="vuelos" name="vuelos" data-interactive="vuelos">
+						<option value='' selected disabled>Seleccione uno</option>
+					</select>
+				</div>
+				<div class="columna columna--doble">
+					<button class="boton" data-interactive='reservar'>Reservar</button>
+				</div>
+			</fieldset>
 		</form>
 	</section>
-	<section class="asiento">	
+	
+	<section class="pago hide">	
+		<h2>Pagos</h2>
+		<form>
+		
+			<fieldset>
+				<div class="columna">
+					<label for="codigo_reserva">Código de reserva:</label>
+					<input name="codigo_reserva" type="text">
+				</div>
+				<button class="boton" data-interactive='buscar_pago'>Buscar</button>
+				<!-- Nuevo data-interactive -->
+			</fieldset>
+			
+			<fieldset class="hide">	
+				<div class="columna columna--doble">
+					<label for="formas_pago">Formas de pago:</label>
+					<select id="formas_pago" name="formas_pago" data-interactive="formas_pago">
+						<option value='' selected disabled>Seleccione uno</option>
+						<option value="tarjeta">Tarjeta</option>
+					</select>
+					<!-- Nuevo data-interactive -->
+				</div>
+				<div class="columna hide">
+					<label for="nro_tarjeta">Número:</label>
+					<input id="nro_tarjeta" name="nro_tarjeta" type="text"/>
+					
+					<label for="cod_tarjeta">Código:</label>
+					<input id="cod_tarjeta" name="cod_tarjeta" type="text"/>
+					
+					<label for="vto_tarjeta">Vencimiento:</label>
+					<input id="vto_tarjeta" name="vto_tarjeta" type="date"/>
+					
+					<label for="nom_tarjeta">Nombre y apellido:</label>
+					<input id="nom_tarjeta" name="nom_tarjeta" type="text"/>
+				</div>
+				<div class="columna columna--doble">
+					<button class="boton" data-interactive='pagar'>Pagar</button>
+					<!-- Nuevo data-interactive -->
+				</div>
+			</fieldset>
+		</form>
+	</section>
+	
+	<section class="asiento hide">	
 		<h2>Asiento</h2>
 		<form>
 			<fieldset class="asientos">
@@ -263,7 +291,7 @@ jQuery(document).ready(function(){
 			<input class="boton" type="submit" name="enviar" value="Enviar">
 		</form>
 	</section>
-	<section class="">	
+	<section class="hide">	
 		<div class="progreso">
 			<span class="paso">1</span><span class="separador"></span>
 			<span class="paso">2</span><span class="separador"></span>
