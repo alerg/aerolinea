@@ -4,19 +4,20 @@ include "/core/ConexionMySQL.php";
 	class Entidad{
 		//filtrarPor: contiene el nombre del identificador. Se usara en la condiciones
 		//para obtener la entidad.
-		private $filtrarPor = array();
+		public $filtrarPor = array();
 		
+		//Array que posee como key el nombre de los campos de la tabla sql.
+		//protected $campos = array();
+		//Nombre de la tabla
+		public $nombreTabla;
+		//Conexion SQL
+		public $conexion;
+
 		public function setFiltrarPor($valor){
 			foreach ($valor as $key => $value) {
 			}
 			$this->filtrarPor = $valor;
 		} 
-		//Array que posee como key el nombre de los campos de la tabla sql.
-		//protected $campos = array();
-		//Nombre de la tabla
-		private $nombreTabla;
-		//Conexion SQL
-		private $conexion;
 
 		public function __construct($tabla) {
 			//creacion de conexion SQL
@@ -37,31 +38,25 @@ include "/core/ConexionMySQL.php";
 			return $this->conexion->obtener($this->nombreTabla);
 		}
 
-		protected function modificar(){
-			$campos = $this->obtenerCampos();
-			$query = 'UPDATE '. $this->nombreTabla .' SET ';
-			foreach ($campos as $key => $value) {
-				$query .= '`'.$key . '`=`' . $value .'`';
-			}
-			if($this->filtrarPor != null)
-				$query .= ' WHERE `';
-			$and = false;
-			foreach ($this->filtrarPor as $key => $value) {
-				
-			}
-			
-			return $this->conexion->modificar($this->nombreTabla, $campos, array($this->filtrarPor => $campos[$this->filtrarPor]));
+		protected function crear(){
+			return $this->conexion->crear($this->nombreTabla, $this->obtenerCampos());	
 		}
 
-		protected function obtenerCampos(){
+		private function obtenerCampos(){
 			$ancestro = get_class_vars('Entidad');
 			if(get_called_class() != 'Entidad'){
 		        $hijo = get_class_vars(get_class($this));  
 		        $atributos = array();
-		        foreach ($hijo as $key => $value) {
-		            if (!in_array($key, $parent_vars)) {
-		                $atributos[$key] = $value;
-		            }
+		        foreach ($hijo as $keyHijo => $valueHijo) {
+		        	$exists = false;
+		        	foreach ($ancestro as $ancestroKey => $ancestroValue) {
+		            	if ($keyHijo == $ancestroKey) {
+		        			$exists = true;
+			            }
+					}
+					if(!$exists){
+						$atributos[$keyHijo] = $this->$keyHijo;
+		        	}
 		        }
 				return $atributos;
 	    	}else{

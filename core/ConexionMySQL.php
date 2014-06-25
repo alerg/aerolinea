@@ -41,6 +41,33 @@
 			return $registro;
 		}
 
+		public function crear($tabla, $campos){
+			$primero = true;
+			$query = 'INSERT INTO '. $tabla .'(';
+			foreach ($campos as $key => $value) {
+				if($primero){
+					$primero = false;
+				}else{
+					$query .= ',';	
+				}
+				$query .= '`'.$key . '`';
+			}
+			$query .= ')';
+			$query .= ' VALUES (';
+			$primero = true;
+			foreach ($campos as $key => $value) {
+				if($primero){
+					$primero = false;
+				}else{
+					$query .= ',';	
+				}
+				$query .= '\''.$value . '\'';
+			}
+			$query .= ')';
+			$this->ejecutarQuery($query);
+			return $this->conexion->insert_id;
+		}
+
 	//Metodos privados
 
 	    private function cerrarConexion(){
@@ -55,14 +82,17 @@
 				$matriz = array(); 
 			    /* obtener array asociativo */
 			    $retorno = $this->conexion->use_result();
-			    while ($fila = $retorno->fetch_assoc()) {
-			    	array_push($matriz, $fila);
-			    }
-			    /* liberar el resultset */
-			    $retorno->free();
-				/* cerrar la conexión */
+			    if($retorno){
+				    while ($fila = $retorno->fetch_assoc()) {
+				    	array_push($matriz, $fila);
+				    }
+				    /* liberar el resultset */
+				    $retorno->free();
+					/* cerrar la conexión */
+					
+					return $matriz;
+				}
 				$this->cerrarConexion();
-				return $matriz;
 			}
 
 			return false;

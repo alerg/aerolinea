@@ -1,6 +1,7 @@
 <?php
     include "/recursos/Aeropuertos.php";
     include "/recursos/Vuelos.php";
+    include "/recursos/Reservas.php";
 
     header('Content-Type: application/json');
 
@@ -24,17 +25,33 @@
 
     switch ($httpMetodo) {  
         case "GET":
-        echo get($entidad, $param);
+            echo get($entidad, $param);
 		break;
 		case "POST":  
-			echo " method post";
+            echo post($entidad);
         break;  
-		case "DELETE"://"falling though". Se ejecutará el case siguiente  
-		case "PUT":  
-        break;  
-		default:  
-        break;
      }
+
+    function post($entidadParam){
+        switch ($entidadParam) {
+            case 'reservas':
+                $recurso = new Recurso_Reservas();
+                $recurso->vuelo = $_POST['vuelo'];
+                $recurso->nombre = $_POST['nombre'];
+                $recurso->email = $_POST['email'];
+                $recurso->fecha = $_POST['fecha'];
+                $recurso->dni = $_POST['dni'];
+                $recurso->categoria = $_POST['categoria'];
+                if($_POST['id'] == null){
+                    $recurso->crear();
+                }else{
+                    $recurso->id = $_POST['id'];
+                    //Modificar
+                }
+            break;
+        }
+        return json_encode($recurso);
+    }
 
     function get($entidadParam, $param){
         $retorno = null;
@@ -42,12 +59,12 @@
             case 'aeropuertos':
                 $entidad = new Recurso_Aeropuertos();
                 switch($param){
-                case 'obtenerTodos':
-                    $retorno = $entidad->obtenerTodos();
-                break;
-                default:
-                    $entidad->setCodigo($param);
-                    $retorno = $entidad->obtener();
+                    case 'obtenerTodos':
+                        $retorno = $entidad->obtenerTodos();
+                    break;
+                    default:
+                        $entidad->setCodigo($param);
+                        $retorno = $entidad->obtener();
                 }
             break;
             case 'vuelos':

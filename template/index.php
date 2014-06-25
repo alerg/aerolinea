@@ -50,8 +50,17 @@ jQuery(document).ready(function(){
 			jQuery.each( vuelos, function( key, vuelo ) {
 				var option = document.createElement('option');
 				option.textContent = 'Numero: '+ vuelo.id +' / Fecha: '+ vuelo.fecha +' / Asientos disponibles: '+ vuelo.asientos_disponibles;
-				option.setAttribute('value', vuelo.idVuelo);
+				option.setAttribute('value', vuelo.id);
 				select.append(option);
+				/*DECOMENTAR CUANDO ESTE HECHO EL CAMBIO EN LA BASE
+				if(vuelo.asientos_disponibles_primera > 0 ){
+					jQuery('[data-interactive="primera"]').removeClass('hide');
+				}
+				if(vuelo.asientos_disponibles_economy > 0 ){
+					jQuery('[data-interactive="economy"]').removeClass('hide');
+				}*/
+				jQuery('[data-interactive="primera"]').removeClass('hide');
+				jQuery('[data-interactive="economy"]').removeClass('hide');
 			});
 
 			jQuery('[data-interactive="fieldVuelos"]').removeClass('hide');
@@ -60,12 +69,19 @@ jQuery(document).ready(function(){
 
 	jQuery('[data-interactive="reservar"]').click(function(e){
 		e.preventDefault();
-		var vuelo = jQuery('[data-interactive="vuelos"]').val();
-		if( vuelo == undefined || vuelo == ''){
-			console.log('No se selecciono vuelo');
-			return;
-		}
-	});
+		var vuelo = jQuery('[data-interactive="vuelos"] option:selected').val();
+		var nombre = jQuery('[data-interactive="nombre"]').val();
+		var email = jQuery('[data-interactive="email"]').val();
+		var fecha = jQuery('[data-interactive="fecha"]').val();
+		var dni = jQuery('[data-interactive="dni"]').val();
+		var categoria = jQuery('[name="categoria"]:checked').val()
+
+		var reserva = new Reserva(vuelo, nombre, email, fecha, dni, categoria);
+
+		reserva.crear(function(){
+			Console.log('Reserva numero: ' + reserva.id);
+		});
+ 	});
 
 	jQuery('[data-interactive="contenedor"]').attr('data-mode', 'step1');
 	//document.querySelector('[data-interactive="contenedor"]').setAttribute('data-mode', 'step1');
@@ -78,18 +94,22 @@ jQuery(document).ready(function(){
 		<h3>Paso1:</h3>
 		<form>
 			<fieldset>
-				<div class="columna">
-					<label for="nombre">Nombre:</label>
-					<input name="nombre" type="text">
+				<div class="columna columna--doble">
+					<label for="nombre">Nombre y Apellido:</label>
+					<input name="nombre" data-interactive="nombre" type="text">
 					
-					<label for="apellido">Apellido:</label>
-					<input name="apellido" type="text">
-					 
+					<label for="apellido">DNI:</label>
+					<input name="apellido" data-interactive="dni" type="text">
+				</div>
+				<div class="columna columna--doble">
 					<label for="email">E-mail:</label>
-					<input name="email" type="email" >
+					<input name="email" data-interactive="email" type="email" >
+
+					<label for="fecha">Fecha de nacimiento:</label>
+					<input name="fecha" data-interactive="fecha" type="fecha" >
 				</div>
 			</fieldset>
-			
+
 			<fieldset>
 				<div class="columna columna--doble">
 					<label for="origen">Origen:</label>
@@ -105,26 +125,28 @@ jQuery(document).ready(function(){
 					</select>
 				</div>
 			</fieldset>
-			<button class="boton" data-interactive=''>Buscar vuelos</button>
-			<!-- Nuevo data-interactive -->
 		</form>
-		
-		<h3>Paso 2:</h3>
-		<form>
-			<fieldset class="hide" data-interactive="fieldVuelos">
-				<div class="columna columna--doble">
-					<label for="vuelos">Vuelos:</label>
-					<select id="vuelos" name="vuelos" data-interactive="vuelos">
-						<option value='' selected disabled>Seleccione uno</option>
-					</select>
-				</div>
-				<div class="columna columna--doble">
-					<button class="boton" data-interactive='reservar'>Reservar</button>
-				</div>
-			</fieldset>
-		</form>
+		<div class="hide" data-interactive="fieldVuelos">
+			<h3>Paso 2:</h3>
+			<form>
+				<fieldset>
+					<div class="columna columna--doble">
+						<label for="vuelos">Vuelos:</label>
+						<select id="vuelos" name="vuelos" data-interactive="vuelos">
+							<option value='' selected disabled>Seleccione uno</option>
+						</select>
+						<label for="primera">Primera:</label>
+						<input type="radio" id="categoria" name="categoria" value="Primera" class="hide" data-interactive="primera"/>
+						<label for="economy">Economica:</label>
+						<input type="radio" id="categoria" name="categoria" value="Economy" class="hide" data-interactive="economy"/>
+					</div>
+					<div class="columna columna--doble">
+						<button class="boton" data-interactive='reservar'>Reservar</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
 	</section>
-	
 	<section class="pago hide">	
 		<h2>Pagos</h2>
 		<form>

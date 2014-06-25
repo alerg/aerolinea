@@ -40,6 +40,35 @@
 			return ejecutarQuery($query);
 		}
 
+		protected function crear($tabla, $campos){
+			$primero = true;
+			$query = 'INSERT INTO '. $tabla .'(';
+			foreach ($campos as $key => $value) {
+				if($primero){
+					$primero = false;
+				}else{
+					$query .= ',';	
+				}
+				$query .= '`'.$key . '`';
+			}
+			$query .= ')';
+			$query = ' VALUES (';
+			foreach ($campos as $key => $value) {
+				if($primero){
+					$primero = false;
+				}else{
+					$query .= ',';	
+				}
+				if(is_string($value)){
+					$query .= '`'.$value . '`';
+				}else{
+					$query .= $value;
+				}
+			}
+			$query .= ')';
+
+			return ejecutarQuery($query);
+		}
 	//Metodos privados
 
 		private function ejecutarQuery($query){

@@ -43,15 +43,34 @@ Vuelo.prototype = {
 		});
 	}
 }
-/*
-var recorridos = {
-	id:null,
-	origen:'pepe',
-	destino:'pepa',
-	obtener : function(){
+
+//Necesita CORE
+var Reserva = function (vuelo, nombre, email, fecha, dni, categoria){
+	this.id = null;
+	this.vuelo = vuelo;
+	this.nombre = nombre;
+	this.email = email;
+	this.fecha = fecha;
+	this.dni = dni;
+	this.categoria = categoria;
+}
+
+Reserva.prototype = {
+	crear : function(cb){
 		var that = this;
-		jQuery.get('/api/recorridos/' + id, function(data){
-			jQuery.extend(that, data);
-		});
+
+		jQuery.post('/api/reservas/', 
+				{id: that.id,
+				vuelo: that.vuelo,
+				nombre: that.nombre,
+				email: that.email,
+				fecha: that.fecha,
+				dni: that.dni,
+				categoria: that.categoria})
+			.done( function(data) {
+			    jQuery.extend(that, data);
+					if(cb)
+						cb(that);
+		    });
 	}
-}*/
+}
