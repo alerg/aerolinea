@@ -6,7 +6,7 @@
 		//private $condicion; 
 		
 		public function __construct() {
-			$this->conexion = new mysqli("localhost", "root", "", "aerolineas");
+			$this->conexion = new mysqli("localhost", "root", "", "aerolinea");
 			if($this->conexion->errno)
 				echo 'Error al conectar con la base de datos. Nro: ' . $this->conexion->errno .' / '. $this->conexion->error;
 		}

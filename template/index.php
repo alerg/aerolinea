@@ -49,16 +49,15 @@ jQuery(document).ready(function(){
 		vuelo.obtenerTodosPor(origen, destino, function(vuelos){
 			jQuery.each( vuelos, function( key, vuelo ) {
 				var option = document.createElement('option');
-				option.textContent = 'Numero: '+ vuelo.id +' / Fecha: '+ vuelo.fecha +' / Asientos disponibles: '+ vuelo.asientos_disponibles;
+				option.textContent = 'Numero: '+ vuelo.id +' / Fecha: '+ vuelo.fecha +' / Asientos disponibles primera: '+ vuelo.asientosDisponiblesPrimera+' / Asientos disponibles Economy: '+ vuelo.asientosDisponiblesEconomica;
 				option.setAttribute('value', vuelo.id);
 				select.append(option);
-				/*DECOMENTAR CUANDO ESTE HECHO EL CAMBIO EN LA BASE
-				if(vuelo.asientos_disponibles_primera > 0 ){
+				if(vuelo.asientosDisponiblesPrimera > 0 ){
 					jQuery('[data-interactive="primera"]').removeClass('hide');
 				}
-				if(vuelo.asientos_disponibles_economy > 0 ){
+				if(vuelo.asientosDisponiblesEconomica > 0 ){
 					jQuery('[data-interactive="economy"]').removeClass('hide');
-				}*/
+				}
 				jQuery('[data-interactive="primera"]').removeClass('hide');
 				jQuery('[data-interactive="economy"]').removeClass('hide');
 			});
@@ -79,7 +78,7 @@ jQuery(document).ready(function(){
 		var reserva = new Reserva(vuelo, nombre, email, fecha, dni, categoria);
 
 		reserva.crear(function(){
-			Console.log('Reserva numero: ' + reserva.id);
+			console.log('Reserva numero: ' + reserva.id);
 		});
  	});
 

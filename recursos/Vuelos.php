@@ -7,7 +7,8 @@
 		public $precioEconomy;
 		public $id;
 		public $fecha;
-		public $asientos_disponibles;
+		public $asientosDisponiblesPrimera;
+		public $asientosDisponiblesEconomica;
 
 		private $origen;
 		private $destino;
@@ -34,7 +35,8 @@
 					$recurso->precioEconomy = $recorrido[0]['precio_economy'];
 					$recurso->id = $value['id_vuelo'];
 					$recurso->fecha = $value['fecha'];
-					$recurso->asientos_disponibles = $value['asientos_disponibles'];
+					$recurso->asientosDisponiblesPrimera = $value['asientos_disponibles_primera'];
+					$recurso->asientosDisponiblesEconomica = $value['asientos_disponibles_economy'];
 
 					array_push($recursos, $recurso);
 				}
