@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-06-2014 a las 00:12:09
+-- Tiempo de generación: 27-06-2014 a las 00:17:36
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.9
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `aerolinea`
 --
+CREATE DATABASE IF NOT EXISTS `aerolinea` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `aerolinea`;
 
 -- --------------------------------------------------------
 
@@ -151,6 +153,12 @@ CREATE TABLE IF NOT EXISTS `avion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- RELACIONES PARA LA TABLA `avion`:
+--   `tipo_avion`
+--       `tipo_avion` -> `id_tipo`
+--
+
+--
 -- Volcado de datos para la tabla `avion`
 --
 
@@ -219,6 +227,14 @@ CREATE TABLE IF NOT EXISTS `dias_recorridos` (
   KEY `id_dias` (`id_dias`),
   KEY `id_recorridos` (`id_recorridos`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- RELACIONES PARA LA TABLA `dias_recorridos`:
+--   `id_dias`
+--       `dias` -> `id_dia`
+--   `id_recorridos`
+--       `recorrido` -> `id_recorrido`
+--
 
 --
 -- Volcado de datos para la tabla `dias_recorridos`
@@ -302,6 +318,12 @@ CREATE TABLE IF NOT EXISTS `pago` (
   KEY `forma_pago` (`forma_pago`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- RELACIONES PARA LA TABLA `pago`:
+--   `forma_pago`
+--       `forma_de_pago` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -323,6 +345,14 @@ CREATE TABLE IF NOT EXISTS `pasaje` (
   KEY `id_estado` (`id_estado`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
+--
+-- RELACIONES PARA LA TABLA `pasaje`:
+--   `id_estado`
+--       `estado` -> `id`
+--   `id_vuelo`
+--       `vuelo` -> `id_vuelo`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -339,6 +369,14 @@ CREATE TABLE IF NOT EXISTS `recorrido` (
   KEY `id_ciudad_destino` (`id_ciudad_destino`),
   KEY `id_ciudad_origen` (`id_ciudad_origen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- RELACIONES PARA LA TABLA `recorrido`:
+--   `id_ciudad_origen`
+--       `aeropuerto` -> `codigo`
+--   `id_ciudad_destino`
+--       `aeropuerto` -> `codigo`
+--
 
 --
 -- Volcado de datos para la tabla `recorrido`
@@ -659,8 +697,18 @@ CREATE TABLE IF NOT EXISTS `vuelo` (
   `asientos_exedidos` int(2) NOT NULL DEFAULT '0',
   `id_avion` int(11) NOT NULL,
   `id_recorrido` int(11) NOT NULL,
-  PRIMARY KEY (`id_vuelo`)
+  PRIMARY KEY (`id_vuelo`),
+  KEY `id_avion` (`id_avion`),
+  KEY `id_recorrido` (`id_recorrido`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- RELACIONES PARA LA TABLA `vuelo`:
+--   `id_recorrido`
+--       `recorrido` -> `id_recorrido`
+--   `id_avion`
+--       `avion` -> `id_avion`
+--
 
 --
 -- Volcado de datos para la tabla `vuelo`
@@ -734,6 +782,13 @@ ALTER TABLE `pasaje`
 ALTER TABLE `recorrido`
   ADD CONSTRAINT `recorrido_ibfk_1` FOREIGN KEY (`id_ciudad_origen`) REFERENCES `aeropuerto` (`codigo`),
   ADD CONSTRAINT `recorrido_ibfk_2` FOREIGN KEY (`id_ciudad_destino`) REFERENCES `aeropuerto` (`codigo`);
+
+--
+-- Filtros para la tabla `vuelo`
+--
+ALTER TABLE `vuelo`
+  ADD CONSTRAINT `vuelo_ibfk_2` FOREIGN KEY (`id_recorrido`) REFERENCES `recorrido` (`id_recorrido`),
+  ADD CONSTRAINT `vuelo_ibfk_1` FOREIGN KEY (`id_avion`) REFERENCES `avion` (`id_avion`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
