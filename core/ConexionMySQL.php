@@ -23,7 +23,9 @@
 				foreach ($condicion as $key => $value) {
 					if($and)
 						$query .= ' AND ';
-					$and = true;
+					else
+						$and = true;
+
 					$query .= '`'. $key .'`=\''. $value .'\'';
 				}
 			}

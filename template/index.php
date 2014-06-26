@@ -46,7 +46,7 @@ jQuery(document).ready(function(){
 		var vuelo = new Vuelo();
 		var origen = document.querySelector('[data-interactive="origen"]').options[document.querySelector('[data-interactive="origen"]').selectedIndex].value;
 		var destino = document.querySelector('[data-interactive="destino"]').options[document.querySelector('[data-interactive="destino"]').selectedIndex].value;
-		vuelo.obtenerTodosPor(origen, destino, function(vuelos){
+		vuelo.obtenerTodos(origen, destino, function(vuelos){
 			jQuery.each( vuelos, function( key, vuelo ) {
 				var option = document.createElement('option');
 				option.textContent = 'Numero: '+ vuelo.id +' / Fecha: '+ vuelo.fecha +' / Asientos disponibles primera: '+ vuelo.asientosDisponiblesPrimera+' / Asientos disponibles Economy: '+ vuelo.asientosDisponiblesEconomica;

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-06-2014 a las 03:12:47
+-- Tiempo de generación: 27-06-2014 a las 00:12:09
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.9
 
@@ -315,11 +315,13 @@ CREATE TABLE IF NOT EXISTS `pasaje` (
   `fecha_nacimiento` int(11) NOT NULL,
   `id_vuelo` int(11) NOT NULL,
   `id_estado` int(11) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `categoria` varchar(20) NOT NULL,
   PRIMARY KEY (`id_pasaje`),
   KEY `id_vuelo` (`id_vuelo`),
   KEY `id_vuelo_2` (`id_vuelo`),
   KEY `id_estado` (`id_estado`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 -- --------------------------------------------------------
 

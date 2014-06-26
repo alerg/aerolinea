@@ -76,7 +76,6 @@
 				crearConexion();
 				$retorno = mysql_query($query);
 				$retorno = mysql_fetch_array($retorno, MYSQL_ASSOC);
-				echo $retorno;
 				cerrarConexion();
 				return $retorno;
 			}

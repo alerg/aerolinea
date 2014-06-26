@@ -1,7 +1,7 @@
 <?php
 	include "/entidades/Pasaje.php";
 	
-	class Recurso_Reservas{
+	class Recurso_Pasajes{
 		public $vuelo;
 		public $nombre;
 		public $email;
@@ -17,6 +17,10 @@
 		}
 
 		public function crear(){
+			$entidadVuelo = new Entidad_Vuelo();
+			$entidadVuelo->id_vuelo = $this->entidadPasaje->id_vuelo;
+			$entidadVuelo->obtener('id_vuelo');
+
 			$this->entidadPasaje->id_vuelo = $this->vuelo;
 			$this->entidadPasaje->email = $this->email;
 			$this->entidadPasaje->nombre = $this->nombre;
@@ -24,7 +28,14 @@
 			$this->entidadPasaje->dni = $this->dni;
 			$this->entidadPasaje->categoria = $this->categoria;
 
-			$this->id = $this->entidadPasaje->crear();
+			$this->id_pasaje = (string)$this->entidadPasaje->crear();
+			if($this->id_pasaje <> null){
+				$entidadVuelo = new Entidad_Vuelo();
+				$entidadVuelo->id_vuelo = $this->entidadPasaje->id_vuelo;
+				$entidadVuelo->descontarAsiento($this->entidadPasaje->categoria);
+			}
+
+			return $this;
 		}
 
 	}
