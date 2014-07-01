@@ -67,6 +67,10 @@ jQuery(document).ready(function(){
 	});
 
 	jQuery('[data-interactive="reservar"]').click(function(e){
+		jQuery('[data-interactive="fieldDatosPersonales"]').removeClass('hide');
+	});
+
+	jQuery('[data-interactive="confirmar"]').click(function(e){
 		e.preventDefault();
 		var vuelo = jQuery('[data-interactive="vuelos"] option:selected').val();
 		var nombre = jQuery('[data-interactive="nombre"]').val();
@@ -79,6 +83,10 @@ jQuery(document).ready(function(){
 
 		reserva.crear(function(){
 			console.log('Reserva numero: ' + reserva.id);
+			if(reserva.id =! null){
+				jQuery('[data-interactive="reserva"]').addClass('hide');
+				jQuery('[data-interactive="pago"]').removeClass('hide');
+			}
 		});
  	});
 
@@ -87,11 +95,44 @@ jQuery(document).ready(function(){
 });
 </script>
 <section data-interactive="contenedor" class="contenedor contenido">
-	<section class="reserva">
+	<section data-interactive="reserva" class="reserva">
 		<h2>Reservas</h2>
-		
 		<h3>Paso1:</h3>
-		<form>
+		<fieldset>
+			<div class="columna columna--doble">
+				<label for="origen">Origen:</label>
+				<select id="origen" name="origen" data-interactive="origen">
+					<option value="" selected disabled>Seleccione origen</option>
+				</select>
+			</div>
+			
+			<div class="columna columna--doble">
+				<label for="destino">Destino:</label>
+				<select id="destino" name="destino" data-interactive="destino">
+					<option value="" selected disabled>Seleccione destino</option>
+				</select>
+			</div>
+		</fieldset>
+		<div class="hide" data-interactive="fieldVuelos">
+			<h3>Paso 2:</h3>
+			<fieldset>
+				<div class="columna columna--doble">
+					<label for="vuelos">Vuelos:</label>
+					<select id="vuelos" name="vuelos" data-interactive="vuelos">
+						<option value='' selected disabled>Seleccione uno</option>
+					</select>
+					<label for="primera">Primera:</label>
+					<input type="radio" id="categoria" name="categoria" value="Primera" class="hide" data-interactive="primera"/>
+					<label for="economy">Economica:</label>
+					<input type="radio" id="categoria" name="categoria" value="Economy" class="hide" data-interactive="economy"/>
+				</div>
+				<div class="columna columna--doble">
+					<button class="boton" data-interactive='reservar'>Reservar</button>
+				</div>
+			</fieldset>
+		</div>
+		<div class="hide" data-interactive="fieldDatosPersonales">
+			<h3>Para poder realizar la reserva necesitamos los siguientes datos:</h3>		
 			<fieldset>
 				<div class="columna columna--doble">
 					<label for="nombre">Nombre y Apellido:</label>
@@ -107,46 +148,13 @@ jQuery(document).ready(function(){
 					<label for="fecha">Fecha de nacimiento:</label>
 					<input name="fecha" data-interactive="fecha" type="fecha" >
 				</div>
-			</fieldset>
-
-			<fieldset>
 				<div class="columna columna--doble">
-					<label for="origen">Origen:</label>
-					<select id="origen" name="origen" data-interactive="origen">
-						<option value="" selected disabled>Seleccione origen</option>
-					</select>
-				</div>
-				
-				<div class="columna columna--doble">
-					<label for="destino">Destino:</label>
-					<select id="destino" name="destino" data-interactive="destino">
-						<option value="" selected disabled>Seleccione destino</option>
-					</select>
+					<button class="boton" data-interactive='confirmar'>Confirmar reserva</button>
 				</div>
 			</fieldset>
-		</form>
-		<div class="hide" data-interactive="fieldVuelos">
-			<h3>Paso 2:</h3>
-			<form>
-				<fieldset>
-					<div class="columna columna--doble">
-						<label for="vuelos">Vuelos:</label>
-						<select id="vuelos" name="vuelos" data-interactive="vuelos">
-							<option value='' selected disabled>Seleccione uno</option>
-						</select>
-						<label for="primera">Primera:</label>
-						<input type="radio" id="categoria" name="categoria" value="Primera" class="hide" data-interactive="primera"/>
-						<label for="economy">Economica:</label>
-						<input type="radio" id="categoria" name="categoria" value="Economy" class="hide" data-interactive="economy"/>
-					</div>
-					<div class="columna columna--doble">
-						<button class="boton" data-interactive='reservar'>Reservar</button>
-					</div>
-				</fieldset>
-			</form>
 		</div>
 	</section>
-	<section class="pago hide">	
+	<section data-interactive="pago" class="pago hide">	
 		<h2>Pagos</h2>
 		<form>
 		

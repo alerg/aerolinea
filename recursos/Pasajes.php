@@ -28,8 +28,8 @@
 			$this->entidadPasaje->dni = $this->dni;
 			$this->entidadPasaje->categoria = $this->categoria;
 
-			$this->id_pasaje = (string)$this->entidadPasaje->crear();
-			if($this->id_pasaje <> null){
+			$this->id = (string)$this->entidadPasaje->crear();
+			if($this->id <> null){
 				$entidadVuelo = new Entidad_Vuelo();
 				$entidadVuelo->id_vuelo = $this->entidadPasaje->id_vuelo;
 				$entidadVuelo->descontarAsiento($this->entidadPasaje->categoria);
