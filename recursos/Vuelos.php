@@ -40,10 +40,10 @@
 
 		public function obtenerTodos(){
 			$recorrido = $this->entidadRecorrido->obtener();
+			$recursos = array();
 			if(count($recorrido) > 0){
 				$this->entidadVuelo->id_recorrido = $recorrido[0]['id_recorrido'];
-				$vuelos = $this->entidadVuelo->obtenerTodos('id_recorrido');
-				$recursos = array();
+				$vuelos = $this->entidadVuelo->obtenerTodosPor('id_recorrido');
 				foreach ($vuelos as $key => $value) {
 					//TODO: null en constructor
 					$recurso = $this->entidadARecurso($value);

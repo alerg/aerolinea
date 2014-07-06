@@ -14,8 +14,6 @@ include "/core/ConexionMySQL.php";
 		public $conexion;
 
 		public function setFiltrarPor($valor){
-			foreach ($valor as $key => $value) {
-			}
 			$this->filtrarPor = $valor;
 		} 
 
@@ -40,6 +38,10 @@ include "/core/ConexionMySQL.php";
 
 		protected function crear(){
 			return $this->conexion->crear($this->nombreTabla, $this->obtenerCampos());	
+		}
+
+		protected function modificar(){
+			return $this->conexion->modificar($this->nombreTabla, $this->obtenerCampos(), $this->filtrarPor);	
 		}
 
 		private function obtenerCampos(){

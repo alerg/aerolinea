@@ -17,10 +17,10 @@
 			//Se marca cual es el id de la tabla
 		}
 
-		public function obtener($nombreCampo){
+		public function obtenerPor($nombreCampo){
 			if($nombreCampo != null)
-				parent::setFiltrarPor(array($nombreCampo => $this->$nombreCampo));
-			$registros = parent::obtener();
+				$this->setFiltrarPor(array($nombreCampo => $this->$nombreCampo));
+			$registros = $this->obtener();
 			$retorno = null;
 			if(count($registros) > 0){
 				$retorno = $this->registroAEntidad($registros[0]);
@@ -28,10 +28,10 @@
 			return $retorno;
 		}
 
-		public function obtenerTodos($nombreCampo){
+		public function obtenerTodosPor($nombreCampo){
 			if($nombreCampo != null)
-				parent::setFiltrarPor(array($nombreCampo => $this->$nombreCampo));
-			$registros = parent::obtener();
+				$this->setFiltrarPor(array($nombreCampo => $this->$nombreCampo));
+			$registros = $this->obtener();
 			$retorno = array();
 			foreach ($registros as $key => $value){
 				$vuelo = $this->registroAEntidad($value);
@@ -41,16 +41,26 @@
 		}
 	
 		public function descontarAsiento($categoria){
-			/*$vuelo = $this->obtener('id_vuelo');
+			$campo = 'id_vuelo';
+			$vuelo = $this->obtenerPor($campo);
 			switch($categoria){
-				case 'primera':
-					if($vuelo->asientos_disponibles_primera)
+				case 'Primera':
+					if($vuelo->asientos_disponibles_primera > 0){
+						$vuelo->asientos_disponibles_primera = $vuelo->asientos_disponibles_primera - 1;
+					}else{
+						return false;
+					}
 				break;
-				case 'economy':
-
+				case 'Economy':
+					if($vuelo->asientos_disponibles_economy > 0){
+						$vuelo->asientos_disponibles_economy = $vuelo->asientos_disponibles_economy - 1;
+					}else{
+						return false;
+					}
 				break;
 			}
-			$vuelo->*/
+			$vuelo->setFiltrarPor(array($campo => $this->$campo));
+			$vuelo->modificar();
 		}
 
 		private function registroAEntidad($registro){

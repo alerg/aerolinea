@@ -33,12 +33,28 @@
 		}
 
 		public function modificar($tabla, $campos, $condicion){
-			$campos = $this->obtenerCampos();
-			$query = 'UPDATE '. $tabla .' SET ';
+			$primero = true;
+			$query = 'UPDATE `'. $tabla .'` SET ';
 			foreach ($campos as $key => $value) {
-				$query .= '`'.$key . '`=`' . $value .'`';
+				if($primero){
+					$primero = false;
+				}else{
+					$query .= ',';	
+				}
+				$query .= '`'.$key . '`=\'' . $value .'\'';
 			}
-			$query .= ' WHERE '. key($condicion[0]) .'='. $condicion[0];
+			$primero = true;
+			if(count($condicion)>0){
+				$query .= ' WHERE ';
+				foreach ($condicion as $key => $value) {
+					if($primero){
+						$primero = false;
+					}else{
+						$query .= ' AND ';	
+					}
+					$query .= '`'.$key . '`=\'' . $value .'\'';
+				}
+			}
 			$registro = $this->ejecutarQuery($query);
 			return $registro;
 		}
