@@ -20,6 +20,9 @@
 	});
 	
 jQuery(document).ready(function(){
+	$( "#datepicker" ).datepicker();
+	$( "#datepicker" ).datepicker('option', 'dateFormat', 'dd/mm/yy');
+
 	jQuery('[data-interactive="origen"]').change(function(e){
 		var select = document.querySelector('[data-interactive="destino"]');
 		var longitud = select.options.length;
@@ -37,7 +40,7 @@ jQuery(document).ready(function(){
 			}
 		}
 	});
-	jQuery('[data-interactive="destino"]').change(function(e){
+	jQuery('[data-interactive="buscar"]').click(function(e){
 		var select = jQuery('[data-interactive="vuelos"]');
 		jQuery.each( select.children(), function( key, option ) {
 			if(option.value!='')
@@ -46,7 +49,9 @@ jQuery(document).ready(function(){
 		var vuelo = new Vuelo();
 		var origen = document.querySelector('[data-interactive="origen"]').options[document.querySelector('[data-interactive="origen"]').selectedIndex].value;
 		var destino = document.querySelector('[data-interactive="destino"]').options[document.querySelector('[data-interactive="destino"]').selectedIndex].value;
-		vuelo.obtenerTodos(origen, destino, function(vuelos){
+		var fecha = jQuery('[data-interactive="fecha"]').val();
+
+		vuelo.obtenerTodos(origen, destino, fecha, function(vuelos){
 			jQuery.each( vuelos, function( key, vuelo ) {
 				var option = document.createElement('option');
 				option.textContent = 'Numero: '+ vuelo.id +' / Fecha: '+ vuelo.fecha +' / Asientos disponibles primera: '+ vuelo.asientosDisponiblesPrimera+' / Asientos disponibles Economy: '+ vuelo.asientosDisponiblesEconomica;
@@ -63,11 +68,13 @@ jQuery(document).ready(function(){
 			});
 
 			jQuery('[data-interactive="fieldVuelos"]').removeClass('hide');
+			jQuery('[data-interactive="recorrido"]').addClass('hide');
 		});
 	});
 
 	jQuery('[data-interactive="reservar"]').click(function(e){
 		jQuery('[data-interactive="fieldDatosPersonales"]').removeClass('hide');
+		jQuery('[data-interactive="fieldVuelos"]').addClass('hide');
 	});
 
 	jQuery('[data-interactive="confirmar"]').click(function(e){
@@ -84,10 +91,37 @@ jQuery(document).ready(function(){
 		reserva.crear(function(){
 			console.log('Reserva numero: ' + reserva.id);
 			if(reserva.id =! null){
-				jQuery('[data-interactive="reserva"]').addClass('hide');
-				jQuery('[data-interactive="pago"]').removeClass('hide');
+				//jQuery('[data-interactive="reserva"]').addClass('hide');
+				jQuery('[data-interactive="fieldDatosPersonales"]').addClass('hide');
+				//jQuery('[data-interactive="pago"]').removeClass('hide');
+
+				jQuery('[data-interactive="datosReserva"]').val(reserva.id);
+				jQuery('[data-interactive="datosEmail"]').val(reserva.email);
+				jQuery('[data-interactive="datosNombre"]').val(reserva.nombre);
+				jQuery('[data-interactive="datosCategoria"]').val(reserva.categoria);
+				jQuery('[data-interactive="datosVuelo"]').val(reserva.vuelo);
+				jQuery('[data-interactive="datosDni"]').val(reserva.dni);
+				jQuery('[data-interactive="datosFecha"]').val(reserva.fecha);
 			}
 		});
+ 	});
+
+ 	jQuery('[data-interactive="formas_pago"]').change(function(e){
+ 		if(jQuery(e.target).val() == 'tarjeta'){
+ 			jQuery('[data-interactive="datosTarjeta"]').removeClass('hide');
+ 		}
+ 	});
+ 	
+ 	jQuery('[data-interactive="formPago"]').submit(function(e){
+ 		e.preventDefault();
+ 		if(jQuery(e.target.nro_tarjeta).val() == '1111111111111111'){
+
+ 			alert('pago exitoso');
+ 			jQuery('[data-interactive="datosTarjeta"]').addClass('hide');
+ 			jQuery('[data-interactive="asiento"]').removeClass('hide');
+ 		}else{
+ 			alert('pago denegado');
+ 		}
  	});
 
 	jQuery('[data-interactive="contenedor"]').attr('data-mode', 'step1');
@@ -98,7 +132,7 @@ jQuery(document).ready(function(){
 	<section data-interactive="reserva" class="reserva">
 		<h2>Reservas</h2>
 		<h3>Paso1:</h3>
-		<fieldset>
+		<fieldset data-interactive="recorrido">
 			<div class="columna columna--doble">
 				<label for="origen">Origen:</label>
 				<select id="origen" name="origen" data-interactive="origen">
@@ -112,26 +146,32 @@ jQuery(document).ready(function(){
 					<option value="" selected disabled>Seleccione destino</option>
 				</select>
 			</div>
+			<div class="columna columna--doble">
+				<label for="datepicker">Fecha partida:</label>
+				<input type="text" id="datepicker" data-interactive="fecha"/>
+			</div>
+			<div class="columna columna--doble">
+				<button class="boton" data-interactive='buscar'>Buscar</button>
+			</div>
 		</fieldset>
-		<div class="hide" data-interactive="fieldVuelos">
-			<h3>Paso 2:</h3>
-			<fieldset>
-				<div class="columna columna--doble">
-					<label for="vuelos">Vuelos:</label>
-					<select id="vuelos" name="vuelos" data-interactive="vuelos">
-						<option value='' selected disabled>Seleccione uno</option>
-					</select>
-					<label for="primera">Primera:</label>
-					<input type="radio" id="categoria" name="categoria" value="Primera" class="hide" data-interactive="primera"/>
-					<label for="economy">Economica:</label>
-					<input type="radio" id="categoria" name="categoria" value="Economy" class="hide" data-interactive="economy"/>
-				</div>
-				<div class="columna columna--doble">
-					<button class="boton" data-interactive='reservar'>Reservar</button>
-				</div>
-			</fieldset>
-		</div>
-		<div class="hide" data-interactive="fieldDatosPersonales">
+		<fieldset class="hide" data-interactive="fieldVuelos">
+			<div class="columna columna">
+				<label for="vuelos">Vuelos:</label>
+				<select id="vuelos" name="vuelos" data-interactive="vuelos">
+					<option value='' selected disabled>Seleccione uno</option>
+				</select>
+			</div>
+			<div class="columna columna--doble">
+				<label for="primera">Primera:</label>
+				<input type="radio" id="categoria" name="categoria" value="Primera" class="hide" data-interactive="primera"/>
+				<label for="economy">Economica:</label>
+				<input type="radio" id="categoria" name="categoria" value="Economy" class="hide" data-interactive="economy"/>
+			</div>
+			<div class="columna columna--doble">
+				<button class="boton" data-interactive='reservar'>Reservar</button>
+			</div>
+		</fieldset>
+		<fieldset class="hide" data-interactive="fieldDatosPersonales">
 			<h3>Para poder realizar la reserva necesitamos los siguientes datos:</h3>		
 			<fieldset>
 				<div class="columna columna--doble">
@@ -152,13 +192,32 @@ jQuery(document).ready(function(){
 					<button class="boton" data-interactive='confirmar'>Confirmar reserva</button>
 				</div>
 			</fieldset>
-		</div>
+		</fieldset>
+		<fieldset class="hide" data-interactive="datosReserva">
+			<h2>Datos de reserva</h2>
+			<div class="columna columna--doble">
+				<label for="reserva">Reserva nro:</label>
+				<input name="reserva" data-interactive="datosReserva" type="text" disabled />
+				<label for="nombre">Nombre y Apellido:</label>
+				<input name="nombre" data-interactive="datosNombre" type="text" disabled />
+				<label for="email">Email:</label>
+				<input name="email" data-interactive="datosEmail" type="text" disabled />
+				<label for="fecha">Fecha:</label>
+				<input name="fecha" data-interactive="datosFecha" type="text" disabled />
+				<label for="dni">Dni:</label>
+				<input name="dni" data-interactive="datosDni" type="text" disabled />
+				<label for="categoria">Categoria:</label>
+				<input name="categoria" data-interactive="datosCategoria" type="text" disabled />
+				<label for="categoria">Vuelo:</label>
+				<input name="vuelo" data-interactive="datosVuelo" type="text" disabled />
+			</div>
+		</fieldset>
 	</section>
 	<section data-interactive="pago" class="pago hide">	
 		<h2>Pagos</h2>
+		<h3>Paso2:</h3>
 		<form>
-		
-			<fieldset>
+			<fieldset data-interactive="buscarReserva" class="hide">
 				<div class="columna">
 					<label for="codigo_reserva">Código de reserva:</label>
 					<input name="codigo_reserva" type="text">
@@ -166,8 +225,7 @@ jQuery(document).ready(function(){
 				<button class="boton" data-interactive='buscar_pago'>Buscar</button>
 				<!-- Nuevo data-interactive -->
 			</fieldset>
-			
-			<fieldset class="hide">	
+			<fieldset class="hide" >	
 				<div class="columna columna--doble">
 					<label for="formas_pago">Formas de pago:</label>
 					<select id="formas_pago" name="formas_pago" data-interactive="formas_pago">
@@ -176,9 +234,10 @@ jQuery(document).ready(function(){
 					</select>
 					<!-- Nuevo data-interactive -->
 				</div>
-				<div class="columna hide">
+				<form data-interactive="formPago" novalidate>
+				<div class="columna hide" data-interactive="datosTarjeta">
 					<label for="nro_tarjeta">Número:</label>
-					<input id="nro_tarjeta" name="nro_tarjeta" type="text"/>
+					<input id="nro_tarjeta" name="nro_tarjeta" data-interactive="nro_tarjeta" type="text"/>
 					
 					<label for="cod_tarjeta">Código:</label>
 					<input id="cod_tarjeta" name="cod_tarjeta" type="text"/>
@@ -190,14 +249,14 @@ jQuery(document).ready(function(){
 					<input id="nom_tarjeta" name="nom_tarjeta" type="text"/>
 				</div>
 				<div class="columna columna--doble">
-					<button class="boton" data-interactive='pagar'>Pagar</button>
+					<button class="boton" type="submit" data-interactive='pagar'>Pagar</button>
 					<!-- Nuevo data-interactive -->
 				</div>
 			</fieldset>
 		</form>
 	</section>
 	
-	<section class="asiento hide">	
+	<section class="asiento hide" data-interactive="asiento">	
 		<h2>Asiento</h2>
 		<form>
 			<fieldset class="asientos">

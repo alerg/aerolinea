@@ -34,9 +34,9 @@ Aeropuerto.obtenerTodos = function(cb){
 var Vuelo = function (){}
 
 Vuelo.prototype = {
-	obtenerTodos : function(origen, destino, cb){
+	obtenerTodos : function(origen, destino, fecha, cb){
 		var that = this;
-		jQuery.get('/api/vuelos/obtenerTodos', {'origen':origen, 'destino':destino}, function(data){
+		jQuery.get('/api/vuelos/obtenerTodos', {'origen':origen, 'destino':destino, 'fecha': fecha}, function(data){
 			that = data;
 			if(cb)
 				cb(that);

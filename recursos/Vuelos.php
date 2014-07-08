@@ -43,7 +43,8 @@
 			$recursos = array();
 			if(count($recorrido) > 0){
 				$this->entidadVuelo->id_recorrido = $recorrido[0]['id_recorrido'];
-				$vuelos = $this->entidadVuelo->obtenerTodosPor('id_recorrido');
+				$this->entidadVuelo->fecha = $this->fecha;
+				$vuelos = $this->entidadVuelo->obtenerTodosPor(array('id_recorrido', 'fecha'));
 				foreach ($vuelos as $key => $value) {
 					//TODO: null en constructor
 					$recurso = $this->entidadARecurso($value);

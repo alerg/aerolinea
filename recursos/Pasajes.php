@@ -34,7 +34,6 @@
 				$entidadVuelo->id_vuelo = $this->entidadPasaje->id_vuelo;
 				$entidadVuelo->descontarAsiento($this->entidadPasaje->categoria);
 			}
-
 			return $this;
 		}
 

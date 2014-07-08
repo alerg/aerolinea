@@ -28,9 +28,12 @@
 			return $retorno;
 		}
 
-		public function obtenerTodosPor($nombreCampo){
-			if($nombreCampo != null)
-				$this->setFiltrarPor(array($nombreCampo => $this->$nombreCampo));
+		public function obtenerTodosPor($filtros){
+			$filtroArray = array();
+			foreach ($filtros as $key => $value){
+				$filtroArray[$value] = $this->$value;
+			}
+			$this->setFiltrarPor($filtroArray);
 			$registros = $this->obtener();
 			$retorno = array();
 			foreach ($registros as $key => $value){

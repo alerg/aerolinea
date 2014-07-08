@@ -43,7 +43,8 @@
                 $recurso->dni = $_POST['dni'];
                 $recurso->categoria = $_POST['categoria'];
                 if($_POST['id'] == null){
-                    $recurso->crear();
+                    $retorno = $recurso->crear();
+                    return json_encode($recurso); 
                 }else{
                     $recurso->id = $_POST['id'];
                     //Modificar
@@ -70,7 +71,12 @@
             case 'vuelos':
                 $origen = $_GET['origen'];
                 $destino = $_GET['destino'];
+                $fecha = $_GET['fecha'];
                 $recurso = new Recurso_Vuelos($origen, $destino);
+                if($fecha <> null){
+                    $parsedDate = date_parse_from_format('d/m/Y', $fecha);
+                    $recurso->fecha = $parsedDate['year'] .'-'. $parsedDate['month'] .'-'. $parsedDate['day'];
+                }
                 switch($param){
                     case 'obtenerTodos':
                         $retorno = $recurso->obtenerTodos();
