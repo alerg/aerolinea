@@ -16,11 +16,11 @@
 
 		public function crear($id_pasaje, $forma_pago, $precio, $fecha){
 			$entidad = new Entidad_Pago();
-			$this->id_pasaje = $id_pasaje;
-			$this->forma_pago = $forma_pago;
-			$this->precio = $precio;
-			$this->fecha = $fecha;	
-			$this->entidadPasaje->crear();
+			$entidad->id_pasaje = $id_pasaje;
+			$entidad->forma_pago = $forma_pago;
+			$entidad->precio = $precio;
+			$entidad->fecha = $fecha;	
+			$entidad->crear();
 		}
 	}
 ?>
