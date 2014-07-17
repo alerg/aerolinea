@@ -1,4 +1,36 @@
-<?php include('includes/header.php'); ?>
+<!doctype html>
+<html lang="es-ar">
+<head>
+	<title>Aerolineas</title>
+	<meta name="description" content="" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="/js/jquery/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/js/api.js"></script>
+	<link rel="icon" href="img/favicon.png" type="image/png" />
+	<link rel="stylesheet" type="text/css" href="css/estilos.css" />
+	<link rel="stylesheet" type="text/css" href="/js/jquery/jquery-ui.theme.min.css" />
+	<link rel="stylesheet" type="text/css" href="/js/jquery/jquery-ui.structure.min.css" />
+</head>
+
+<body>
+	<header class="cabecera">
+		<div class="contenedor">
+			<h1><a href="index.php"><span>Aerolineas</span></a></h1>
+		</div>
+		<nav class="nav-principal">
+			<div class="contenedor">
+				<ul>
+					<li><a href="">Reservas</a></li>
+					<li><a href="">Pagos</a></li>
+					<li><a href="">Check-In</a></li>
+					<li class="login"><a href="">Log-In</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	
 <script src="js/index.js">
 	//var aeropuerto = new Aeropuerto();
 	/*
@@ -34,6 +66,7 @@
 				<button class="boton" data-interactive='buscar'>Buscar</button>
 			</div>
 		</fieldset>
+		
 		<fieldset class="hide" data-interactive="fieldVuelos">
 			<div class="columna columna">
 				<label for="vuelos">Vuelos:</label>
@@ -51,6 +84,7 @@
 				<button class="boton" data-interactive='reservar'>Reservar</button>
 			</div>
 		</fieldset>
+		
 		<fieldset class="hide" data-interactive="fieldDatosPersonales">
 			<h3>Para poder realizar la reserva necesitamos los siguientes datos:</h3>		
 			<fieldset>
@@ -73,6 +107,8 @@
 				</div>
 			</fieldset>
 		</fieldset>
+		
+		<!-- ¿Y todo... -->
 		<fieldset class="hide" data-interactive="datosReserva">
 			<h2>Datos de reserva</h2>
 			<div class="columna columna--doble">
@@ -93,9 +129,11 @@
 			</div>
 		</fieldset>
 	</section>
+	<!-- ...esto? ¿Para qué es? ¿Para mostrar datos?-->
+	
 	<section class="pago">
 		<h2>Pagos</h2>
-		<h3>Paso2:</h3>
+		<h3>Paso 2:</h3>
 		<form data-interactive="formPagar">
 			<fieldset data-interactive="buscarReserva" class="hide">
 				<div class="columna">
@@ -105,6 +143,7 @@
 				<button class="boton" data-interactive='buscar_pago'>Buscar</button>
 				<!-- Nuevo data-interactive -->
 			</fieldset>
+			
 			<fieldset class="hide" data-interactive="pago">	
 				<div class="columna columna--doble">
 					<label for="formas_pago">Formas de pago:</label>
@@ -115,6 +154,21 @@
 					</select>
 					<!-- Nuevo data-interactive -->
 				</div>
+				<!-- ¿Esto ya no va a ir?
+				<div class="columna hide" data-interactive="datosTarjeta">
+						<label for="nro_tarjeta">Número:</label>
+						<input id="nro_tarjeta" name="nro_tarjeta" data-interactive="nro_tarjeta" type="text"/>
+						
+						<label for="cod_tarjeta">Código:</label>
+						<input id="cod_tarjeta" name="cod_tarjeta" type="text"/>
+						
+						<label for="vto_tarjeta">Vencimiento:</label>
+						<input id="vto_tarjeta" name="vto_tarjeta" type="date"/>
+						
+						<label for="nom_tarjeta">Nombre y apellido:</label>
+						<input id="nom_tarjeta" name="nom_tarjeta" type="text"/>
+					</div>-->
+				
 				<div class="columna columna--doble">
 					<button class="boton" type="submit" data-interactive='pagar'>Pagar</button>
 					<!-- Nuevo data-interactive -->
@@ -122,9 +176,11 @@
 			</fieldset>
 		</form>
 	</section>
+	
 	<section class="asiento hide" data-interactive="asiento">	
-		<h2>Asiento</h2>
-		<form>
+			<h2>Check-in</h2>
+			<h3>Paso2:</h3>
+			<form>
 			<fieldset class="asientos">
 				<div class="columna ejecutiva">
 					<input id="A1" type="radio" name="asiento" value="A1" />
@@ -245,12 +301,19 @@
 			<input class="boton" type="submit" name="enviar" value="Enviar">
 		</form>
 	</section>
-	<section class="hide">	
-		<div class="progreso">
-			<span class="paso">1</span><span class="separador"></span>
-			<span class="paso">2</span><span class="separador"></span>
-			<span class="paso">3</span>
-		</div>
+		<!-- Si no lo usamos se puede borrar
+		<section class="hide">	
+			<div class="progreso">
+				<span class="paso">1</span><span class="separador"></span>
+				<span class="paso">2</span><span class="separador"></span>
+				<span class="paso">3</span>
+			</div>
+		</section>-->
 	</section>
-</section>
-<?php include('includes/footer.php'); ?>
+
+	<footer class="pie">
+			<p>&copy;Programación Web II - 2014</p>
+	</footer>
+</body>
+
+</html>
