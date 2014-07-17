@@ -48,6 +48,7 @@ body{
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 16px;
 	color:black;
+	background-color:#004388;
 }
 
 a{
@@ -56,12 +57,12 @@ a{
 }
 
 .contenedor{
-	width:1002px;
-	margin:0 auto;
+	background-color:white;
 }
 
 .columna{
 	float:left;
+	padding:15px 0;
 }
 
 .columna--doble{
@@ -89,6 +90,8 @@ a{
 
 /*Cabecera*/
 
+header{background-color:white;}
+
 h1{
 	width:160px;
 	height:58px;
@@ -112,6 +115,10 @@ h1 a{
 	line-height:38px;
 }
 
+.nav-principal .contenedor{
+	background:transparent;
+}
+
 .nav-principal li{
 	display:inline;
 	padding:10px 30px;
@@ -132,6 +139,16 @@ h1 a{
 }
 
 /*Contenido*/
+
+section, footer, .contenedor{
+	width:1002px; 
+	margin-left:auto;
+	margin-right:auto;
+}
+
+section{background-color:white;}
+
+.contenedor.contenido{overflow:hidden; width:100%;}
 
 h2{
 	margin:25px 0 15px 0;
@@ -171,6 +188,15 @@ input,textarea{
 	border-radius: 2px;
 	border:1px solid #E1E1E1;
 }
+
+input[type="radio"]{
+	display:inline;
+	width:15px;
+	height:15px;
+	margin:5px 5px 0 15px;
+}
+
+select{min-width:360px;}
 
 .boton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #dcecfb;
