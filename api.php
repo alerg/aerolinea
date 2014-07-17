@@ -1,7 +1,10 @@
 <?php
+    include "/core/Entidad.php";
     include "/recursos/Aeropuertos.php";
     include "/recursos/Vuelos.php";
     include "/recursos/Pasajes.php";
+    include "/recursos/Pagos.php";
+
 
     header('Content-Type: application/json');
 
@@ -50,6 +53,12 @@
                     //Modificar
                 }
             break;
+            case 'pagos':
+                $recurso = new Recurso_Pagos();
+                $recurso->idPasaje = $_POST['pasaje'];
+                $recurso->formaPago = $_POST['formaPago'];
+                $retorno = $recurso->crear();
+                return json_encode($recurso);
         }
         return json_encode($recurso);
     }
@@ -58,28 +67,28 @@
         $retorno = null;
         switch ($entidadParam) {
             case 'aeropuertos':
-                $entidad = new Recurso_Aeropuertos();
+                $recurso = new Recurso_Aeropuertos();
                 switch($param){
                     case 'obtenerTodos':
-                        $retorno = $entidad->obtenerTodos();
+                        $retorno = $recurso->obtenerTodos();
                     break;
                     default:
-                        $entidad->setCodigo($param);
-                        $retorno = $entidad->obtener();
+                        $recurso->setCodigo($param);
+                        $retorno = $recurso->obtener();
                 }
             break;
             case 'vuelos':
                 $origen = $_GET['origen'];
                 $destino = $_GET['destino'];
                 $fecha = $_GET['fecha'];
-                $recurso = new Recurso_Vuelos($origen, $destino);
+                $recurso = new Recurso_Vuelos();
                 if($fecha <> null){
                     $parsedDate = date_parse_from_format('d/m/Y', $fecha);
                     $recurso->fecha = $parsedDate['year'] .'-'. $parsedDate['month'] .'-'. $parsedDate['day'];
                 }
                 switch($param){
                     case 'obtenerTodos':
-                        $retorno = $recurso->obtenerTodos();
+                        $retorno = $recurso->obtenerPorRecorrido($origen, $destino);
                     break;
                     default:
                         $retorno = $recurso->obtener();

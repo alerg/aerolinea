@@ -74,3 +74,22 @@ Reserva.prototype = {
 		    });
 	}
 }
+var Pago = function (idPasaje, formaPago){
+	this.idPasaje = idPasaje;
+	this.formaPago = formaPago;
+}
+
+Pago.prototype = {
+	crear : function(cb){
+		var that = this;
+
+		jQuery.post('/api/pagos/', {
+			pasaje: that.idPasaje,
+			formaPago: that.formaPago
+		}).done( function(data) {
+		    jQuery.extend(that, data);
+				if(cb)
+					cb(that);
+	    });
+	}
+}

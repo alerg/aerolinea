@@ -44,16 +44,16 @@
 		}
 
 		public function obtenerTodos(){
-			$registros = $this->entidad->obtener();
+			$entidades = $this->entidad->obtener();
 			$recursos = array();
-			foreach ($registros as $key => $value) {
+			foreach ($entidades as $key => $value) {
 				//$recurso = array();
 				//$recurso[$key] = $value;
 				$recurso = new Recurso_Aeropuertos();
-				$recurso->codigo = utf8_encode($value['codigo']);
-				$recurso->ciudad = utf8_encode($value['ciudad']);
-				$recurso->provincia = utf8_encode($value['provincia']);
-				$recurso->nombre = utf8_encode($value['nombre']);
+				$recurso->codigo = utf8_encode($value->codigo);
+				$recurso->ciudad = utf8_encode($value->ciudad);
+				$recurso->provincia = utf8_encode($value->provincia);
+				$recurso->nombre = utf8_encode($value->nombre);
 				array_push($recursos, $recurso);
 			}
 			return $recursos;

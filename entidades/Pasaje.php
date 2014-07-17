@@ -2,6 +2,7 @@
 	//Representa la tabla recorridos de SQL.
 	class Entidad_Pasaje extends Entidad{
 
+		public $id_pasaje;
 		public $dni;
 		public $nombre;
 		public $fecha_nacimiento;
@@ -19,8 +20,19 @@
 		}
 
 		public function crear(){
-			$id = parent::crear();
-			return $id;
+			$this->id_pasaje = parent::crear();
+			return $this->id_pasaje;
+		}
+
+		public function obtenerPor($nombreCampo){
+			if($nombreCampo != null)
+				$this->setFiltrarPor(array($nombreCampo => $this->$nombreCampo));
+			$entidades = $this->obtener();
+			return $entidades;
+		}
+
+		public function modificar(){
+			parent::modificar();
 		}
 	}
 ?>

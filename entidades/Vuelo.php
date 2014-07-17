@@ -20,12 +20,7 @@
 		public function obtenerPor($nombreCampo){
 			if($nombreCampo != null)
 				$this->setFiltrarPor(array($nombreCampo => $this->$nombreCampo));
-			$registros = $this->obtener();
-			$retorno = null;
-			if(count($registros) > 0){
-				$retorno = $this->registroAEntidad($registros[0]);
-			}
-			return $retorno;
+			$this->obtener();
 		}
 
 		public function obtenerTodosPor($filtros){
@@ -34,50 +29,31 @@
 				$filtroArray[$value] = $this->$value;
 			}
 			$this->setFiltrarPor($filtroArray);
-			$registros = $this->obtener();
-			$retorno = array();
-			foreach ($registros as $key => $value){
-				$vuelo = $this->registroAEntidad($value);
-				array_push($retorno, $vuelo);
-			}
-			return $retorno;
+			$entidades = $this->obtener();
+			return $entidades;
 		}
 	
 		public function descontarAsiento($categoria){
 			$campo = 'id_vuelo';
-			$vuelo = $this->obtenerPor($campo);
+			$this->obtenerPor($campo);
 			switch($categoria){
 				case 'Primera':
-					if($vuelo->asientos_disponibles_primera > 0){
-						$vuelo->asientos_disponibles_primera = $vuelo->asientos_disponibles_primera - 1;
+					if($this->asientos_disponibles_primera > 0){
+						$this->asientos_disponibles_primera = $this->asientos_disponibles_primera - 1;
 					}else{
 						return false;
 					}
 				break;
 				case 'Economy':
-					if($vuelo->asientos_disponibles_economy > 0){
-						$vuelo->asientos_disponibles_economy = $vuelo->asientos_disponibles_economy - 1;
+					if($this->asientos_disponibles_economy > 0){
+						$this->asientos_disponibles_economy = $this->asientos_disponibles_economy - 1;
 					}else{
 						return false;
 					}
 				break;
 			}
-			$vuelo->setFiltrarPor(array($campo => $this->$campo));
-			$vuelo->modificar();
+			$this->setFiltrarPor(array($campo => $this->$campo));
+			$this->modificar();
 		}
-
-		private function registroAEntidad($registro){
-			$vuelo = new Entidad_Vuelo();
-			$vuelo->id_vuelo = $registro['id_vuelo']; 
-			$vuelo->fecha = $registro['fecha'];
-			$vuelo->asientos_disponibles_primera = $registro['asientos_disponibles_primera'];
-			$vuelo->asientos_disponibles_economy = $registro['asientos_disponibles_economy'];
-			$vuelo->asientos_exedidos = $registro['asientos_exedidos'];
-			$vuelo->id_avion = $registro['id_avion'];
-			$vuelo->id_recorrido = $registro['id_recorrido'];
-
-			return $vuelo;
-		}
-
 	}
 ?>

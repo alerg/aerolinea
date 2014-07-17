@@ -5,11 +5,11 @@
 		public $id_pasaje;
 		public $forma_pago;
 		public $precio;
-		public $fecha
+		public $fecha;
 
 		public function __construct() {
 			//Llama al constructor de Entidad
-			parent::__construct('papagosaje');
+			parent::__construct('pago');
 			//Se asigna a la variable heredada $nombreTabla el nombre de la tabla SQL
 			//Se marca cual es el id de la tabla
 		}
