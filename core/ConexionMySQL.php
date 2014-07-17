@@ -11,10 +11,6 @@
 				echo 'Error al conectar con la base de datos. Nro: ' . $this->conexion->errno .' / '. $this->conexion->error;
 		}
 
-		public function __destruct(){
-	        $this->cerrarConexion();
-	    }
-
 		public function obtener($nombreTabla, $condicion){
 			$query = 'SELECT * FROM `' .$nombreTabla .'`';
 			if(count($condicion)>0){
@@ -87,13 +83,6 @@
 		}
 
 	//Metodos privados
-
-	    private function cerrarConexion(){
-			if ($this->conexion) {
-				//$this->conexion->close();
-			}
-		}
-
 		private function ejecutarQuery($query){
 			if (count($query) > 0) {
 				$this->conexion->real_query($query);
@@ -110,9 +99,7 @@
 					
 					return $matriz;
 				}
-				$this->cerrarConexion();
 			}
-
 			return false;
 		}
 	}

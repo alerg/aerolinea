@@ -17,10 +17,6 @@
 		}
 
 		public function crear(){
-			$entidadVuelo = new Entidad_Vuelo();
-			$entidadVuelo->id_vuelo = $this->entidadPasaje->id_vuelo;
-			$entidadVuelo->obtenerPor('id_vuelo');
-
 			$this->entidadPasaje->id_vuelo = $this->vuelo;
 			$this->entidadPasaje->email = $this->email;
 			$this->entidadPasaje->nombre = $this->nombre;

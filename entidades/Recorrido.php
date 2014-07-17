@@ -2,11 +2,11 @@
 	//Representa la tabla recorridos de SQL.
 	class Entidad_Recorrido extends Entidad{
 
-		private $id_recorrido;
-		private $precio_primera;
-		private $precio_economy;
-		private $id_ciudad_origen;
-		private $id_ciudad_destino;
+		public $id_recorrido;
+		public $precio_primera;
+		public $precio_economy;
+		public $id_ciudad_origen;
+		public $id_ciudad_destino;
 
 		public function __construct() {
 			//Llama al constructor de Entidad
@@ -23,12 +23,10 @@
 			return $registros;
 		}
 
-		public function setOrigen($valor){
-			$this->id_ciudad_origen = $valor;
-		}
-
-		public function setDestino($valor){
-			$this->id_ciudad_destino = $valor;
+		public function obtenerPor($filtro){
+			parent::setFiltrarPor(array($filtro => $this->$filtro));
+			$entidades = parent::obtener();
+			return $entidades;
 		}
 	}
 ?>

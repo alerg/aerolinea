@@ -1,132 +1,12 @@
 ﻿<?php include('includes/header.php'); ?>
-<script>
+<script src="js/index.js">
 	//var aeropuerto = new Aeropuerto();
 	/*
 	aeropuerto.obtener(function(aeropuerto){
 		console.log(aeropuerto.codigo);
 	});
 	*/
-	var aeropuertos =[]; 
-	Aeropuerto.obtenerTodos(function(data){
-		aeropuertos = data;
-		jQuery(document).ready(function(){
-			for(var index in aeropuertos){
-				var option = document.createElement("option");
-				option.value = aeropuertos[index].codigo;
-				option.textContent = aeropuertos[index].nombre;
-				jQuery('[data-interactive="origen"]').append(option);
-			}
-		});
-	});
-	
-jQuery(document).ready(function(){
-	$( "#datepicker" ).datepicker();
-	$( "#datepicker" ).datepicker('option', 'dateFormat', 'dd/mm/yy');
 
-	jQuery('[data-interactive="origen"]').change(function(e){
-		var select = document.querySelector('[data-interactive="destino"]');
-		var longitud = select.options.length;
-		if(longitud > 1 ){
-			for(var index = 1 ; index < longitud ; index++){
-				select.removeChild(select.options[1]);
-			}
-		}
-		for(var index in aeropuertos){
-			if(aeropuertos[index].codigo != e.target.value){
-				var option = document.createElement("option");
-				option.value = aeropuertos[index].codigo;
-				option.textContent = aeropuertos[index].nombre;
-				select.appendChild(option);
-			}
-		}
-	});
-	jQuery('[data-interactive="buscar"]').click(function(e){
-		var select = jQuery('[data-interactive="vuelos"]');
-		jQuery.each( select.children(), function( key, option ) {
-			if(option.value!='')
-				option.remove();
-		});
-		var vuelo = new Vuelo();
-		var origen = document.querySelector('[data-interactive="origen"]').options[document.querySelector('[data-interactive="origen"]').selectedIndex].value;
-		var destino = document.querySelector('[data-interactive="destino"]').options[document.querySelector('[data-interactive="destino"]').selectedIndex].value;
-		var fecha = jQuery('[data-interactive="fecha"]').val();
-
-		vuelo.obtenerTodos(origen, destino, fecha, function(vuelos){
-			jQuery.each( vuelos, function( key, vuelo ) {
-				var option = document.createElement('option');
-				option.textContent = 'Numero: '+ vuelo.id +' / Fecha: '+ vuelo.fecha +' / Asientos disponibles primera: '+ vuelo.asientosDisponiblesPrimera+' / Asientos disponibles Economy: '+ vuelo.asientosDisponiblesEconomica;
-				option.setAttribute('value', vuelo.id);
-				select.append(option);
-				if(vuelo.asientosDisponiblesPrimera > 0 ){
-					jQuery('[data-interactive="primera"]').removeClass('hide');
-				}
-				if(vuelo.asientosDisponiblesEconomica > 0 ){
-					jQuery('[data-interactive="economy"]').removeClass('hide');
-				}
-				jQuery('[data-interactive="primera"]').removeClass('hide');
-				jQuery('[data-interactive="economy"]').removeClass('hide');
-			});
-
-			jQuery('[data-interactive="fieldVuelos"]').removeClass('hide');
-			jQuery('[data-interactive="recorrido"]').addClass('hide');
-		});
-	});
-
-	jQuery('[data-interactive="reservar"]').click(function(e){
-		jQuery('[data-interactive="fieldDatosPersonales"]').removeClass('hide');
-		jQuery('[data-interactive="fieldVuelos"]').addClass('hide');
-	});
-
-	jQuery('[data-interactive="confirmar"]').click(function(e){
-		e.preventDefault();
-		var vuelo = jQuery('[data-interactive="vuelos"] option:selected').val();
-		var nombre = jQuery('[data-interactive="nombre"]').val();
-		var email = jQuery('[data-interactive="email"]').val();
-		var fecha = jQuery('[data-interactive="fecha"]').val();
-		var dni = jQuery('[data-interactive="dni"]').val();
-		var categoria = jQuery('[name="categoria"]:checked').val()
-
-		var reserva = new Reserva(vuelo, nombre, email, fecha, dni, categoria);
-
-		reserva.crear(function(){
-			console.log('Reserva numero: ' + reserva.id);
-			if(reserva.id =! null){
-				//jQuery('[data-interactive="reserva"]').addClass('hide');
-				jQuery('[data-interactive="fieldDatosPersonales"]').addClass('hide');
-				//jQuery('[data-interactive="pago"]').removeClass('hide');
-
-				jQuery('[data-interactive="datosReserva"]').val(reserva.id);
-				jQuery('[data-interactive="datosEmail"]').val(reserva.email);
-				jQuery('[data-interactive="datosNombre"]').val(reserva.nombre);
-				jQuery('[data-interactive="datosCategoria"]').val(reserva.categoria);
-				jQuery('[data-interactive="datosVuelo"]').val(reserva.vuelo);
-				jQuery('[data-interactive="datosDni"]').val(reserva.dni);
-				jQuery('[data-interactive="datosFecha"]').val(reserva.fecha);
-			}
-		});
- 	});
-
- 	jQuery('[data-interactive="formas_pago"]').change(function(e){
- 		if(jQuery(e.target).val() == 'tarjeta'){
- 			jQuery('[data-interactive="datosTarjeta"]').removeClass('hide');
- 		}
- 	});
- 	
- 	jQuery('[data-interactive="formPago"]').submit(function(e){
- 		e.preventDefault();
- 		if(jQuery(e.target.nro_tarjeta).val() == '1111111111111111'){
-
- 			alert('pago exitoso');
- 			jQuery('[data-interactive="datosTarjeta"]').addClass('hide');
- 			jQuery('[data-interactive="asiento"]').removeClass('hide');
- 		}else{
- 			alert('pago denegado');
- 		}
- 	});
-
-	jQuery('[data-interactive="contenedor"]').attr('data-mode', 'step1');
-	//document.querySelector('[data-interactive="contenedor"]').setAttribute('data-mode', 'step1');
-});
 </script>
 <section data-interactive="contenedor" class="contenedor contenido">
 	<section data-interactive="reserva" class="reserva">
@@ -147,8 +27,8 @@ jQuery(document).ready(function(){
 				</select>
 			</div>
 			<div class="columna columna--doble">
-				<label for="datepicker">Fecha partida:</label>
-				<input type="text" id="datepicker" data-interactive="fecha"/>
+				<label for="departureDate">Fecha partida:</label>
+				<input type="text" id="departureDate" data-interactive="departureDate"/>
 			</div>
 			<div class="columna columna--doble">
 				<button class="boton" data-interactive='buscar'>Buscar</button>
@@ -186,7 +66,7 @@ jQuery(document).ready(function(){
 					<input name="email" data-interactive="email" type="email" >
 
 					<label for="fecha">Fecha de nacimiento:</label>
-					<input name="fecha" data-interactive="fecha" type="fecha" >
+					<input name="fecha" data-interactive="birthDate" type="fecha" >
 				</div>
 				<div class="columna columna--doble">
 					<button class="boton" data-interactive='confirmar'>Confirmar reserva</button>
@@ -213,10 +93,10 @@ jQuery(document).ready(function(){
 			</div>
 		</fieldset>
 	</section>
-	<section data-interactive="pago" class="pago hide">	
+	<section class="pago">
 		<h2>Pagos</h2>
 		<h3>Paso2:</h3>
-		<form>
+		<form data-interactive="formPagar">
 			<fieldset data-interactive="buscarReserva" class="hide">
 				<div class="columna">
 					<label for="codigo_reserva">Código de reserva:</label>
@@ -225,28 +105,15 @@ jQuery(document).ready(function(){
 				<button class="boton" data-interactive='buscar_pago'>Buscar</button>
 				<!-- Nuevo data-interactive -->
 			</fieldset>
-			<fieldset class="hide" >	
+			<fieldset class="hide" data-interactive="pago">	
 				<div class="columna columna--doble">
 					<label for="formas_pago">Formas de pago:</label>
 					<select id="formas_pago" name="formas_pago" data-interactive="formas_pago">
 						<option value='' selected disabled>Seleccione uno</option>
-						<option value="tarjeta">Tarjeta</option>
+						<option value="1">Tarjeta</option>
+						<option value="2">Pago Fácil</option>
 					</select>
 					<!-- Nuevo data-interactive -->
-				</div>
-				<form data-interactive="formPago" novalidate>
-				<div class="columna hide" data-interactive="datosTarjeta">
-					<label for="nro_tarjeta">Número:</label>
-					<input id="nro_tarjeta" name="nro_tarjeta" data-interactive="nro_tarjeta" type="text"/>
-					
-					<label for="cod_tarjeta">Código:</label>
-					<input id="cod_tarjeta" name="cod_tarjeta" type="text"/>
-					
-					<label for="vto_tarjeta">Vencimiento:</label>
-					<input id="vto_tarjeta" name="vto_tarjeta" type="date"/>
-					
-					<label for="nom_tarjeta">Nombre y apellido:</label>
-					<input id="nom_tarjeta" name="nom_tarjeta" type="text"/>
 				</div>
 				<div class="columna columna--doble">
 					<button class="boton" type="submit" data-interactive='pagar'>Pagar</button>
@@ -255,7 +122,6 @@ jQuery(document).ready(function(){
 			</fieldset>
 		</form>
 	</section>
-	
 	<section class="asiento hide" data-interactive="asiento">	
 		<h2>Asiento</h2>
 		<form>

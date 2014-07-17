@@ -19,28 +19,38 @@ include "/core/ConexionMySQL.php";
 
 		public function __construct($tabla) {
 			//creacion de conexion SQL
-			$this->conexion = new ConexionMySQL();
 			$this->nombreTabla = $tabla;
+		}
+
+		private function init_conexion(){
+			$this->conexion = new ConexionMySQL();
 		}
 
 		protected function obtener(){
 			//Condicion es un array que espera como key el nombre del campo por el cual
 			//se va a obtener la entidad.
+			$this->init_conexion();
 			$registros = $this->conexion->obtener($this->nombreTabla, $this->filtrarPor);
-			return $registros;
+			$entidades = $this->registroAEntidad($registros);
+			return $entidades;
 		}
 
 		protected function obtenerTodos(){
 			//Condicion es un array que espera como key el nombre del campo por el cual
 			//se va a obtener la entidad.
-			return $this->conexion->obtener($this->nombreTabla);
+			$this->init_conexion();
+			$registros = $this->conexion->obtener($this->nombreTabla, $this->filtrarPor);
+			$entidades = $this->registroAEntidad($registros);
+			return $entidades;
 		}
 
 		protected function crear(){
+			$this->init_conexion();
 			return $this->conexion->crear($this->nombreTabla, $this->obtenerCampos());	
 		}
 
 		protected function modificar(){
+			$this->init_conexion();
 			return $this->conexion->modificar($this->nombreTabla, $this->obtenerCampos(), $this->filtrarPor);	
 		}
 
@@ -66,12 +76,27 @@ include "/core/ConexionMySQL.php";
 	    	}
 		}
 
-		//protected function setNombreTabla($nombreTabla){
-		//	$this->nombreTabla = $nombreTabla;
-		//}
+		protected function registroAEntidad($registros){
+			$campos = $this->obtenerCampos();
 
-		//public function filtrarPor($key, $value){
-		//	$this->filtrarPor[$key] = $value;
-		//}
+			$entidades = array();
+			if(count($registros) > 1){
+				for ($i=0; $i < count($registros); $i++) {
+					$registro =  $registros[$i];
+					$clase = get_class($this);
+					$entidad = new $clase();
+				 	foreach ($campos as $key => $value) {
+						$entidad->$key = $registro[$key];
+					}
+					array_push($entidades, $entidad);
+				}
+			}else{
+				foreach ($campos as $key => $value) {
+					$this->$key = $registros[0][$key];
+				}
+				array_push($entidades, $this);
+			}
+			return $entidades;
+		}
 	}
 ?>

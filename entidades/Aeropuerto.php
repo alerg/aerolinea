@@ -1,12 +1,11 @@
 <?php
-	include "/core/Entidad.php";
 	//Representa la tabla recorridos de SQL.
 	class Entidad_Aeropuerto extends Entidad{
 
-		private $codigo;
-		private $ciudad;
-		private $provincia;
-		private $nombre;
+		public $codigo;
+		public $ciudad;
+		public $provincia;
+		public $nombre;
 
 		public function __construct() {
 			//Llama al constructor de Entidad
@@ -19,8 +18,8 @@
 			if($this->codigo != null){
 				parent::setFiltrarPor(array('codigo' => $this->codigo));
 			}
-			$registros = parent::obtener();
-			return $registros;
+			$entidades = parent::obtenerTodos();
+			return $entidades;
 		}
 
 		public function setCodigo($valor){
