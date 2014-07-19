@@ -5,19 +5,53 @@ jQuery(document).ready(function(){
 	$('[data-interactive="birthDate"]').datepicker();
 	$('[data-interactive="birthDate"]').datepicker('option', 'dateFormat', 'dd/mm/yy');
 
-	var aeropuertos =[]; 
-	Aeropuerto.obtenerTodos(function(data){
-		aeropuertos = data;
-		jQuery(document).ready(function(){
-			for(var index in aeropuertos){
-				var option = document.createElement("option");
-				option.value = aeropuertos[index].codigo;
-				option.textContent = aeropuertos[index].nombre;
-				jQuery('[data-interactive="origen"]').append(option);
+	function step1(){
+		jQuery('[data-interactive="contenedor"]').attr('data-mode', 'step1');
+
+		var aeropuertos =[];
+		Aeropuerto.obtenerTodos(function(data){
+			aeropuertos = data;
+			jQuery(document).ready(function(){
+				for(var index in aeropuertos){
+					var option = document.createElement("option");
+					option.value = aeropuertos[index].codigo;
+					option.textContent = aeropuertos[index].nombre;
+					jQuery('[data-interactive="origen"]').append(option);
+				}
+			});
+		});
+	}
+
+	function step2(reserva){
+		jQuery('[data-interactive="contenedor"]').attr('data-mode', 'step2');
+
+		jQuery('[data-interactive="datosReserva"]').val(reserva.id);
+		jQuery('[data-interactive="datosNombre"]').val(reserva.nombre);
+		jQuery('[data-interactive="datosCategoria"]').val(reserva.categoria);
+		jQuery('[data-interactive="datosOrigen"]').val(reserva.aeropuertoOrigen.ciudad +' - '+ reserva.aeropuertoOrigen.provincia);
+		jQuery('[data-interactive="datosDestino"]').val(reserva.aeropuertoDestino.ciudad +' - '+ reserva.aeropuertoDestino.provincia);
+		jQuery('[data-interactive="datosFecha"]').val(reserva.fecha);
+	}
+
+	jQuery('[data-interactive="comenzar"]').click(function(e){
+		e.preventDefault();
+		step1();
+	});
+
+	jQuery('[data-interactive="buscarReserva"]').click(function(e){
+		var reserva = new Reserva();
+		reserva.id = jQuery('[data-interactive="codigoReserva"]').val();
+		reserva.obtener(function(){
+			switch(reserva.estado){
+				case '0':
+					step2(reserva);
+				break;
+				case '1':
+					step3()
+				break;
 			}
 		});
 	});
-
 
 	jQuery('[data-interactive="origen"]').change(function(e){
 		var select = document.querySelector('[data-interactive="destino"]');
@@ -88,21 +122,11 @@ jQuery(document).ready(function(){
 			sessionStorage.setItem("reserva",reserva.id);
 			console.log('Reserva numero: ' + reserva.id);
 			if(reserva.id =! null){
-				//jQuery('[data-interactive="reserva"]').addClass('hide');
 				jQuery('[data-interactive="fieldDatosPersonales"]').addClass('hide');
-				jQuery('[data-interactive="contenedor"]').attr('data-mode', 'step2');
-				jQuery('[data-interactive="pago"]').removeClass('hide');
+				step2(reserva);
 
+				//jQuery('[data-interactive="reserva"]').addClass('hide');
 				//jQuery('[data-interactive="pago"]').removeClass('hide');
-
-				jQuery('[data-interactive="datosReserva"]').val(reserva.id);
-				jQuery('[data-interactive="datosEmail"]').val(reserva.email);
-				jQuery('[data-interactive="datosNombre"]').val(reserva.nombre);
-				jQuery('[data-interactive="datosCategoria"]').val(reserva.categoria);
-				jQuery('[data-interactive="datosVuelo"]').val(reserva.vuelo);
-				jQuery('[data-interactive="datosDni"]').val(reserva.dni);
-				jQuery('[data-interactive="datosFecha"]').val(reserva.fecha);
-
 			}
 		});
  	});
@@ -116,8 +140,7 @@ jQuery(document).ready(function(){
 
 			pago.crear(function(pago){
 				if(pago){
-					jQuery('[data-interactive="asiento"]').removeClass('hide');
-					jQuery('[data-interactive="pago"]').addClass('hide');
+					jQuery('[data-interactive="contenedor"]').attr('data-mode', 'step3');
 				}else{
 					console.log('Error al pagar');
 				}
@@ -125,6 +148,10 @@ jQuery(document).ready(function(){
  		}
  	});
 
-	jQuery('[data-interactive="contenedor"]').attr('data-mode', 'step1');
+ 	function step3(){
+
+ 	}
+
+	jQuery('[data-interactive="contenedor"]').attr('data-mode', 'inicial');
 	//document.querySelector('[data-interactive="contenedor"]').setAttribute('data-mode', 'step1');
 });

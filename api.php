@@ -57,7 +57,7 @@
                 $recurso = new Recurso_Pagos();
                 $recurso->idPasaje = $_POST['pasaje'];
                 $recurso->formaPago = $_POST['formaPago'];
-                $retorno = $recurso->crear();
+                $recurso->crear();
                 return json_encode($recurso);
         }
         return json_encode($recurso);
@@ -94,6 +94,19 @@
                         $retorno = $recurso->obtener();
                 }
             break;
+            case 'aviones':
+                if($param == 'obtenerPorReserva'){
+                    $recurso = new Recurso_Aviones();
+                    $recurso->idPasaje = $_POST['pasaje'];
+                    $recurso->obtenerPorReserva();
+                    $retorno = $recurso;
+                }
+            break;
+            case 'reservas':
+                $recurso = new Recurso_Pasajes();
+                $recurso->obtenerPorId($_GET['id']);
+                $retorno = $recurso;
+            break;   
         }
         return json_encode($retorno);
     }

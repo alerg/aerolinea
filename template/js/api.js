@@ -69,9 +69,21 @@ Reserva.prototype = {
 				categoria: that.categoria})
 			.done( function(data) {
 			    jQuery.extend(that, data);
-					if(cb)
-						cb(that);
+				if(cb)
+					cb(that);
 		    });
+	},
+	obtener: function(cb){
+		var that = this;
+		jQuery.get('/api/reservas/obtener', 
+			{
+				id: that.id
+			})
+		.done( function(data) {
+	        jQuery.extend(that, data);
+			if(cb)
+				cb(that);
+	    });	
 	}
 }
 var Pago = function (idPasaje, formaPago){
@@ -88,8 +100,8 @@ Pago.prototype = {
 			formaPago: that.formaPago
 		}).done( function(data) {
 		    jQuery.extend(that, data);
-				if(cb)
-					cb(that);
+			if(cb)
+				cb(that);
 	    });
 	}
 }

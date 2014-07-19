@@ -10,22 +10,6 @@
 		public $asientosDisponiblesPrimera;
 		public $asientosDisponiblesEconomica;
 
-		#public function obtener(){
-		#	$recorrido = $this->entidadRecorrido->obtener();
-		#	if(count($recorrido) > 0){
-		#		$this->entidadVuelo->id_recorrido = $recorrido[0]['id_recorrido'];
-		#		$vuelo = $this->entidadVuelo->obtener('id_recorrido');
-		#		if($vuelo =! null){
-		#			//TODO: null en constructor
-		#			$recurso = $this->entidadARecurso($vuelo);
-		#			$recurso->precioPrimera = $recorrido[0]['precio_primera'];
-		#			$recurso->precioEconomy = $recorrido[0]['precio_economy'];
-		#		}
-		#		return $vuelo;
-		#	}
-		#	return null;
-		#}
-
 		public function obtenerPorRecorrido($origen, $destino){
 			$entidadRecorrido = new Entidad_Recorrido();
 			$entidadRecorrido->id_ciudad_origen = $origen;

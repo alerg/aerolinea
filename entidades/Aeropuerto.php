@@ -14,28 +14,20 @@
 			//Se marca cual es el id de la tabla
 		}
 
-		public function obtener(){
+		public function obtenerPorCodigo(){
 			if($this->codigo != null){
 				parent::setFiltrarPor(array('codigo' => $this->codigo));
 			}
+			$entidad = parent::obtener();
+			if(count($entidad) == 1)
+				return $entidad[0];
+			else
+				return null;
+		}
+
+		public function obtenerTodos(){
 			$entidades = parent::obtenerTodos();
 			return $entidades;
-		}
-
-		public function setCodigo($valor){
-			$this->codigo = $valor;
-		}
-
-		public function setCiudad($valor){
-			$this->ciudad = $valor;
-		}
-
-		public function setProvincia($valor){
-			$this->provincia = $valor;
-		}
-
-		public function setNombre($valor){
-			$this->nombre = $valor;
 		}
 	}
 ?>

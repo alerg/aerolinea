@@ -80,21 +80,23 @@ include "/core/ConexionMySQL.php";
 			$campos = $this->obtenerCampos();
 
 			$entidades = array();
-			if(count($registros) > 1){
-				for ($i=0; $i < count($registros); $i++) {
-					$registro =  $registros[$i];
-					$clase = get_class($this);
-					$entidad = new $clase();
-				 	foreach ($campos as $key => $value) {
-						$entidad->$key = $registro[$key];
+			if($registros){
+				if(count($registros) > 1){
+					for ($i=0; $i < count($registros); $i++) {
+						$registro =  $registros[$i];
+						$clase = get_class($this);
+						$entidad = new $clase();
+					 	foreach ($campos as $key => $value) {
+							$entidad->$key = utf8_encode($registro[$key]);
+						}
+						array_push($entidades, $entidad);
 					}
-					array_push($entidades, $entidad);
+				}else{
+					foreach ($campos as $key => $value) {
+						$this->$key = utf8_encode($registros[0][$key]);
+					}
+					array_push($entidades, $this);
 				}
-			}else{
-				foreach ($campos as $key => $value) {
-					$this->$key = $registros[0][$key];
-				}
-				array_push($entidades, $this);
 			}
 			return $entidades;
 		}

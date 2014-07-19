@@ -23,9 +23,8 @@
 			<div class="contenedor">
 				<ul>
 					<li><a href="">Reservas</a></li>
-					<li><a href="">Pagos</a></li>
-					<li><a href="">Check-In</a></li>
-					<li class="login"><a href="">Log-In</a></li>
+					<li><a href="">Vuelos</a></li>
+					<li class="login"><a href="">Administradores</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -41,6 +40,41 @@
 
 </script>
 <section data-interactive="contenedor" class="contenedor contenido">
+	<section class="datos">
+		<fieldset>
+			<h2>Datos de reserva</h2>
+			<div class="columna columna--doble">
+				<label for="reserva">Reserva nro:</label>
+				<input name="reserva" class="datos" data-interactive="datosReserva" type="text" disabled />
+				<label for="nombre">Nombre y Apellido:</label>
+				<input name="nombre" class="datos" data-interactive="datosNombre" type="text" disabled />
+				<label for="destino">Destino:</label>
+				<input name="destino" data-interactive="datosDestino" type="text" disabled />
+			</div>
+			<div class="columna columna--doble">
+				<label for="fecha">Fecha:</label>
+				<input name="fecha" class="datos" data-interactive="datosFecha" type="text" disabled />
+				<label for="categoria">Categoria:</label>
+				<input name="categoria" class="datos" data-interactive="datosCategoria" type="text" disabled />
+				<label for="origen">Origen:</label>
+				<input name="origen" data-interactive="datosOrigen" type="text" disabled />
+			</div>
+		</fieldset>
+	</section>
+	<section class="buscar">		
+		<fieldset>
+			<div class="columna columna--doble">
+				<label for="codigo_reserva">Código de reserva:</label>
+				<input name="codigo_reserva" data-interactive='codigoReserva' type="text">
+				<button class="boton" data-interactive='buscarReserva'>Buscar</button>
+			</div>
+			<div class="columna columna--doble">
+			<div class="columna columna--doble">
+				<button class="boton grande" data-interactive="comenzar">Consulta de vuelos</button>
+			</div>
+			<!-- Nuevo data-interactive -->
+		</fieldset>
+	</section>	
 	<section data-interactive="reserva" class="reserva">
 		<h2>Reservas</h2>
 		<h3>Paso1:</h3>
@@ -109,25 +143,7 @@
 		</fieldset>
 		
 		<!-- ¿Y todo... -->
-		<fieldset class="hide" data-interactive="datosReserva">
-			<h2>Datos de reserva</h2>
-			<div class="columna columna--doble">
-				<label for="reserva">Reserva nro:</label>
-				<input name="reserva" data-interactive="datosReserva" type="text" disabled />
-				<label for="nombre">Nombre y Apellido:</label>
-				<input name="nombre" data-interactive="datosNombre" type="text" disabled />
-				<label for="email">Email:</label>
-				<input name="email" data-interactive="datosEmail" type="text" disabled />
-				<label for="fecha">Fecha:</label>
-				<input name="fecha" data-interactive="datosFecha" type="text" disabled />
-				<label for="dni">Dni:</label>
-				<input name="dni" data-interactive="datosDni" type="text" disabled />
-				<label for="categoria">Categoria:</label>
-				<input name="categoria" data-interactive="datosCategoria" type="text" disabled />
-				<label for="categoria">Vuelo:</label>
-				<input name="vuelo" data-interactive="datosVuelo" type="text" disabled />
-			</div>
-		</fieldset>
+		
 	</section>
 	<!-- ...esto? ¿Para qué es? ¿Para mostrar datos?-->
 	
@@ -135,16 +151,7 @@
 		<h2>Pagos</h2>
 		<h3>Paso 2:</h3>
 		<form data-interactive="formPagar">
-			<fieldset data-interactive="buscarReserva" class="hide">
-				<div class="columna">
-					<label for="codigo_reserva">Código de reserva:</label>
-					<input name="codigo_reserva" type="text">
-				</div>
-				<button class="boton" data-interactive='buscar_pago'>Buscar</button>
-				<!-- Nuevo data-interactive -->
-			</fieldset>
-			
-			<fieldset class="hide" data-interactive="pago">	
+			<fieldset data-interactive="pago">	
 				<div class="columna columna--doble">
 					<label for="formas_pago">Formas de pago:</label>
 					<select id="formas_pago" name="formas_pago" data-interactive="formas_pago">
@@ -179,7 +186,7 @@
 	
 	<section class="asiento hide" data-interactive="asiento">	
 			<h2>Check-in</h2>
-			<h3>Paso2:</h3>
+			<h3>Paso3:</h3>
 			<form>
 			<fieldset class="asientos">
 				<div class="columna ejecutiva">

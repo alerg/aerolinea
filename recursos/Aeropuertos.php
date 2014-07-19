@@ -17,46 +17,30 @@
 			$this->entidad = new Entidad_Aeropuerto();
 		}
 
-		public function setCodigo($valor){
-			$this->codigo = $valor;
-		}
-
-		public function setCiudad($valor, $descripcion){
-			$this->ciudad = array($valor => $descripcion);
-		}
-
-		public function setProvincia($valor, $descripcion){
-			$this->provincia = array($valor => $descripcion);
-		}
-
-		public function setNombre($valor, $descripcion){
-			$this->nombre = array($valor => $descripcion);
-		}
-
-		public function obtener(){
-			$this->entidad->setCodigo($this->codigo);
-			$registro = $this->entidad->obtener();
-			$this->codigo = $registro[0]['codigo'];
-			$this->ciudad = $registro[0]['ciudad'];
-			$this->provincia = $registro[0]['provincia'];
-			$this->nombre = $registro[0]['nombre'];
+		public function obtenerPorCodigo(){
+			$this->entidad->codigo = $this->codigo;
+			$entidad = $this->entidad->obtenerPorCodigo();
+			$this->codigo = $entidad->codigo;
+			$this->ciudad = $entidad->ciudad;
+			$this->provincia = $entidad->provincia;
+			$this->nombre = $entidad->nombre;
 			return $this;
 		}
 
 		public function obtenerTodos(){
-			$entidades = $this->entidad->obtener();
+			$entidades = $this->entidad->obtenerTodos();
 			$recursos = array();
 			foreach ($entidades as $key => $value) {
-				//$recurso = array();
-				//$recurso[$key] = $value;
 				$recurso = new Recurso_Aeropuertos();
-				$recurso->codigo = utf8_encode($value->codigo);
-				$recurso->ciudad = utf8_encode($value->ciudad);
-				$recurso->provincia = utf8_encode($value->provincia);
-				$recurso->nombre = utf8_encode($value->nombre);
+				$recurso->codigo = $value->codigo;
+				$recurso->ciudad = $value->ciudad;
+				$recurso->provincia = $value->provincia;
+				$recurso->nombre = $value->nombre;
 				array_push($recursos, $recurso);
 			}
 			return $recursos;
 		}
+
+
 	}
 ?>
