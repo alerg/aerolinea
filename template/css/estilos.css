@@ -334,6 +334,13 @@ fieldset.asientos input:checked + label.ocupado{
 	background-color:#004388;
 }
 
+/*Datepicker*/
+
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year{
+	min-width:49%;
+}
+
 /*Pie*/
 
 footer{

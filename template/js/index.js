@@ -1,9 +1,23 @@
 jQuery(document).ready(function(){
-	$('[data-interactive="departureDate"]' ).datepicker();
-	$('[data-interactive="departureDate"]').datepicker('option', 'dateFormat', 'dd/mm/yy');
+	$('[data-interactive="departureDate"]').datepicker({ 
+		dateFormat: "dd-mm-yy",
+		dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
+		monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ],
+		monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec" ],
+		minDate: 0,
+		maxDate: "+1m"
+		
+	});
 
-	$('[data-interactive="birthDate"]').datepicker();
-	$('[data-interactive="birthDate"]').datepicker('option', 'dateFormat', 'dd/mm/yy');
+	$('[data-interactive="birthDate"]').datepicker({ 
+		dateFormat: "dd-mm-yy",
+		dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
+		monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ],
+		monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec" ],
+		changeYear: true,
+		changeMonth: true,
+		yearRange: "-110:-18"
+	});
 
 	var aeropuertos =[]; 
 	Aeropuerto.obtenerTodos(function(data){

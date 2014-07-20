@@ -157,8 +157,8 @@
 		<!-- PAGOS Paso 1: Seleccionamos forma de pago -->
 		<!-- Nota: si se ingresa directamente a PAGOS se pide código de reserva -->
 		<form data-interactive="formPagar">
-			<h3>Paso 1:</h3>
 			<fieldset data-interactive="buscarReserva" class="hide">
+				<h3>Paso 1:</h3>
 				<div class="columna columna--doble">
 					<label for="codigo_reserva">Código de reserva:</label>
 					<input name="codigo_reserva" type="text">
@@ -169,6 +169,7 @@
 			</fieldset>
 			
 			<fieldset class="hide" data-interactive="pago">	
+				<h3>Paso 2:</h3>
 				<div class="columna columna--doble">
 					<label for="formas_pago">Formas de pago:</label>
 					<select id="formas_pago" name="formas_pago" data-interactive="formas_pago">
