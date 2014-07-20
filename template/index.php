@@ -40,11 +40,14 @@
 	*/
 
 </script>
+
 <section data-interactive="contenedor" class="contenedor contenido">
 	<section data-interactive="reserva" class="reserva">
 		<h2>Reservas</h2>
-		<h3>Paso1:</h3>
+		
+		<!-- RESERVAS Paso 1: Seleccionamos recorrido y fecha de vuelo -->
 		<fieldset data-interactive="recorrido">
+			<h3>Paso1:</h3>
 			<div class="columna columna--doble">
 				<label for="origen">Origen:</label>
 				<select id="origen" name="origen" data-interactive="origen">
@@ -64,84 +67,105 @@
 			</div>
 			<div class="columna columna--doble">
 				<button class="boton" data-interactive='buscar'>Buscar</button>
+				<!-- Falta acción cuando no hay vuelos -->
 			</div>
 		</fieldset>
 		
+		<!-- RESERVAS Paso 2: Seleccionamos vuelo y categoría de asíento-->
 		<fieldset class="hide" data-interactive="fieldVuelos">
-			<div class="columna columna">
-				<label for="vuelos">Vuelos:</label>
-				<select id="vuelos" name="vuelos" data-interactive="vuelos">
-					<option value='' selected disabled>Seleccione uno</option>
-				</select>
+			<h3>Paso 2:</h3>
+			<div class="columna columna--simple">
+				<div class="columna columna--doble">
+					<label for="vuelos">Vuelos:</label>
+					<select id="vuelos" name="vuelos" data-interactive="vuelos">
+						<option value='' selected disabled>Seleccione uno</option>
+					</select>
+				</div>
+				<div class="columna columna--doble">
+					<label for="primera">Primera:</label>
+					<input type="radio" id="categoria" name="categoria" value="Primera" class="hide" data-interactive="primera"/>
+					<label for="economy">Economica:</label>
+					<input type="radio" id="categoria" name="categoria" value="Economy" class="hide" data-interactive="economy"/>
+				</div>
 			</div>
-			<div class="columna columna--doble">
-				<label for="primera">Primera:</label>
-				<input type="radio" id="categoria" name="categoria" value="Primera" class="hide" data-interactive="primera"/>
-				<label for="economy">Economica:</label>
-				<input type="radio" id="categoria" name="categoria" value="Economy" class="hide" data-interactive="economy"/>
-			</div>
-			<div class="columna columna--doble">
+			<div class="columna columna--simple">
 				<button class="boton" data-interactive='reservar'>Reservar</button>
 			</div>
 		</fieldset>
 		
+		<!-- RESERVAS Paso 3a: Cargamos datos del cliente -->
 		<fieldset class="hide" data-interactive="fieldDatosPersonales">
-			<h3>Para poder realizar la reserva necesitamos los siguientes datos:</h3>		
-			<fieldset>
-				<div class="columna columna--doble">
-					<label for="nombre">Nombre y Apellido:</label>
-					<input name="nombre" data-interactive="nombre" type="text">
-					
-					<label for="apellido">DNI:</label>
-					<input name="apellido" data-interactive="dni" type="text">
-				</div>
-				<div class="columna columna--doble">
-					<label for="email">E-mail:</label>
-					<input name="email" data-interactive="email" type="email" >
+			<h3>Paso 3:</h3>
+			<p>Para poder realizar la reserva necesitamos los siguientes datos:</p>
+			<div class="columna columna--doble">
+				<label for="nombre">Nombre y Apellido:</label>
+				<input name="nombre" data-interactive="nombre" type="text">
+				
+				<label for="apellido">DNI:</label>
+				<input name="apellido" data-interactive="dni" type="text">
+			</div>
+			<div class="columna columna--doble">
+				<label for="email">E-mail:</label>
+				<input name="email" data-interactive="email" type="email" >
 
-					<label for="fecha">Fecha de nacimiento:</label>
-					<input name="fecha" data-interactive="birthDate" type="fecha" >
-				</div>
-				<div class="columna columna--doble">
-					<button class="boton" data-interactive='confirmar'>Confirmar reserva</button>
-				</div>
-			</fieldset>
+				<label for="fecha">Fecha de nacimiento:</label>
+				<input name="fecha" data-interactive="birthDate" type="fecha" >
+			</div>
+			<div class="columna columna--doble">
+				<button class="boton" data-interactive='confirmar'>Confirmar reserva</button>
+			</div>
 		</fieldset>
 		
-		<!-- ¿Y todo... -->
+		<!-- RESERVAS Paso 3b: Mostramos datos del cliente -->
 		<fieldset class="hide" data-interactive="datosReserva">
-			<h2>Datos de reserva</h2>
+			<h3>Datos de reserva</h3>
 			<div class="columna columna--doble">
-				<label for="reserva">Reserva nro:</label>
-				<input name="reserva" data-interactive="datosReserva" type="text" disabled />
-				<label for="nombre">Nombre y Apellido:</label>
-				<input name="nombre" data-interactive="datosNombre" type="text" disabled />
-				<label for="email">Email:</label>
-				<input name="email" data-interactive="datosEmail" type="text" disabled />
-				<label for="fecha">Fecha:</label>
-				<input name="fecha" data-interactive="datosFecha" type="text" disabled />
-				<label for="dni">Dni:</label>
-				<input name="dni" data-interactive="datosDni" type="text" disabled />
-				<label for="categoria">Categoria:</label>
-				<input name="categoria" data-interactive="datosCategoria" type="text" disabled />
-				<label for="categoria">Vuelo:</label>
-				<input name="vuelo" data-interactive="datosVuelo" type="text" disabled />
+				<p>
+					<strong>Reserva nro:</strong>
+					<span data-interactive="datosReserva"></span>
+				</p>
+				<p>
+					<strong>Nombre y Apellido:</strong>
+					<span data-interactive="datosNombre"></span>
+				</p>
+				<p>
+					<strong>Email:</strong>
+					<span data-interactive="datosEmail"></span>
+				</p>
+				<p>
+					<strong>Fecha:</strong>
+					<span data-interactive="datosFecha"></span>
+				</p>
+				<p>
+					<strong>Dni:</strong>
+					<span data-interactive="datosDni"></span>
+				</p>
+				<p>
+					<strong>Categoria:</strong>
+					<span data-interactive="datosCategoria"></span>
+				</p>
+				<p>
+					<strong>Vuelo:</strong>
+					<span data-interactive="datosVuelo"></span>
+				</p>
 			</div>
 		</fieldset>
 	</section>
-	<!-- ...esto? ¿Para qué es? ¿Para mostrar datos?-->
 	
 	<section class="pago">
 		<h2>Pagos</h2>
-		<h3>Paso 2:</h3>
+		<!-- PAGOS Paso 1: Seleccionamos forma de pago -->
+		<!-- Nota: si se ingresa directamente a PAGOS se pide código de reserva -->
 		<form data-interactive="formPagar">
+			<h3>Paso 1:</h3>
 			<fieldset data-interactive="buscarReserva" class="hide">
-				<div class="columna">
+				<div class="columna columna--doble">
 					<label for="codigo_reserva">Código de reserva:</label>
 					<input name="codigo_reserva" type="text">
 				</div>
-				<button class="boton" data-interactive='buscar_pago'>Buscar</button>
-				<!-- Nuevo data-interactive -->
+				<div class="columna columna--doble">
+					<button class="boton" data-interactive='buscar_pago'>Buscar</button>
+				</div>
 			</fieldset>
 			
 			<fieldset class="hide" data-interactive="pago">	
@@ -152,34 +176,40 @@
 						<option value="1">Tarjeta</option>
 						<option value="2">Pago Fácil</option>
 					</select>
-					<!-- Nuevo data-interactive -->
 				</div>
-				<!-- ¿Esto ya no va a ir?
-				<div class="columna hide" data-interactive="datosTarjeta">
+				
+				<div class="columna columna--doble">
+					<button class="boton" type="submit" data-interactive='pagar'>Pagar</button>
+				</div>
+				
+				<!-- ¿Esto... -->
+				<div class="columna columna--simple hide" data-interactive="datosTarjeta">
+					<div class="columna columna--doble">
 						<label for="nro_tarjeta">Número:</label>
 						<input id="nro_tarjeta" name="nro_tarjeta" data-interactive="nro_tarjeta" type="text"/>
-						
+					
 						<label for="cod_tarjeta">Código:</label>
 						<input id="cod_tarjeta" name="cod_tarjeta" type="text"/>
-						
+					</div>
+					<div class="columna columna--doble">
 						<label for="vto_tarjeta">Vencimiento:</label>
 						<input id="vto_tarjeta" name="vto_tarjeta" type="date"/>
 						
 						<label for="nom_tarjeta">Nombre y apellido:</label>
 						<input id="nom_tarjeta" name="nom_tarjeta" type="text"/>
-					</div>-->
+					</div>
+				</div><!-- ...ya no va a ir? -->
 				
-				<div class="columna columna--doble">
-					<button class="boton" type="submit" data-interactive='pagar'>Pagar</button>
-					<!-- Nuevo data-interactive -->
-				</div>
+				
 			</fieldset>
 		</form>
 	</section>
 	
+	<!-- CHECKIN Paso 1: Seleccionamos asiento -->
+	<!-- Nota: Habría que coloarle el atributo disabled="disabled" a todos los asientos de la categoría que no son la elegida (si se eligió "Economy" se tienen que desactivar todos los asientos de "Primary")-->
 	<section class="asiento hide" data-interactive="asiento">	
 			<h2>Check-in</h2>
-			<h3>Paso2:</h3>
+			<h3>Paso 1:</h3>
 			<form>
 			<fieldset class="asientos">
 				<div class="columna ejecutiva">

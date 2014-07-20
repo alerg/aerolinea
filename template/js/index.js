@@ -94,14 +94,15 @@ jQuery(document).ready(function(){
 				jQuery('[data-interactive="pago"]').removeClass('hide');
 
 				//jQuery('[data-interactive="pago"]').removeClass('hide');
-
-				jQuery('[data-interactive="datosReserva"]').val(reserva.id);
-				jQuery('[data-interactive="datosEmail"]').val(reserva.email);
-				jQuery('[data-interactive="datosNombre"]').val(reserva.nombre);
-				jQuery('[data-interactive="datosCategoria"]').val(reserva.categoria);
-				jQuery('[data-interactive="datosVuelo"]').val(reserva.vuelo);
-				jQuery('[data-interactive="datosDni"]').val(reserva.dni);
-				jQuery('[data-interactive="datosFecha"]').val(reserva.fecha);
+				
+				//Cambié ".value" por ".innerText" porque cambié los <input/> por <span>
+				jQuery('[data-interactive="datosReserva"]').innerText(reserva.id);
+				jQuery('[data-interactive="datosEmail"]').innerText(reserva.email);
+				jQuery('[data-interactive="datosNombre"]').innerText(reserva.nombre);
+				jQuery('[data-interactive="datosCategoria"]').innerText(reserva.categoria);
+				jQuery('[data-interactive="datosVuelo"]').innerText(reserva.vuelo);
+				jQuery('[data-interactive="datosDni"]').innerText(reserva.dni);
+				jQuery('[data-interactive="datosFecha"]').innerText(reserva.fecha);
 
 			}
 		});
