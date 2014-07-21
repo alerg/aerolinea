@@ -37,16 +37,16 @@
 		<fieldset>
 			<h2>Login</h2>
 			<div class="columna columna--doble">
-				<a href="1" data-interactive="consulta">1- Consulta datos 1</a>
+				<a href="" consulta="1" data-interactive="consulta">1- Cantidad de pasajes vendidos</a>
 			</div>
 			<div class="columna columna--doble">
-				<a href="2" data-interactive="consulta">2- Consulta datos 2</a>
+				<a href="" consulta="2" data-interactive="consulta">2- Cantidad de pasajes vendidos por categoría</a>
 			</div>
 			<div class="columna columna--doble">
-				<a href="3" data-interactive="consulta">3- Consulta datos 3</a>
+				<a href="" consulta="3" data-interactive="consulta">3- Cantidad de pasajes vendidos  por destino</a>
 			</div>
 			<div class="columna columna--doble">
-				<a href="4" data-interactive="consulta">4- Consulta datos 4</a>
+				<a href="" consulta="4" data-interactive="consulta">4- Cantidad de reservas caídas</a>
 			</div>
 		</fieldset>
 	</section>

@@ -96,7 +96,7 @@
 		}
 
 	//Metodos privados
-		private function ejecutarQuery($query){
+		public function ejecutarQuery($query){
 			//echo $query;
 			if (count($query) > 0) {
 				$this->conexion->real_query($query);
@@ -116,5 +116,9 @@
 			}
 			return false;
 		}
+
+		public function field_count(){
+			$this->conexion->field_count;
+		}		
 	}
 ?>
