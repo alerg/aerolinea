@@ -24,10 +24,20 @@
 			return $this->id_pasaje;
 		}
 
-		public function obtenerPor($nombreCampo){
+		public function obtenerPor($filtros){
+			$filtroArray = array();
+			foreach ($filtros as $key => $value){
+				$filtroArray[$value] = $this->$value;
+			}
+			$this->setFiltrarPor($filtroArray);
+			$entidades = $this->obtener();
+			return $entidades;
+		}
+
+		public function obtenerTodosPor($nombreCampo){
 			if($nombreCampo != null)
 				$this->setFiltrarPor(array($nombreCampo => $this->$nombreCampo));
-			$entidades = $this->obtener();
+			$entidades = $this->obtenerTodos();
 			return $entidades;
 		}
 

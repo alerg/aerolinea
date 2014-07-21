@@ -1,8 +1,10 @@
 <?php
 	include "/entidades/Recorrido.php";
 	include "/entidades/Vuelo.php";
-	
-	class Recurso_Vuelos{
+	include "/entidades/Avion.php";
+	include "/entidades/Checkin.php";
+
+	class Recurso_Vuelos extends Recurso{
 		public $precioPrimera;
 		public $precioEconomy;
 		public $id;
@@ -30,21 +32,36 @@
 			return $recursos;
 		}
 
-		private function entidadesARecursos($entidades){
-			$recursos = array();
-			if(count($entidades) > 1){
-				for ($i=0; $i < count($entidades); $i++) {
-					$recurso = $this->entidadARecurso($entidades[$i]);
-					array_push($recursos, $recurso);
-				}
-			}else{
-				$recurso = $this->entidadARecurso($entidades[0]);
-				array_push($recursos, $recurso);
+		public function obtenerPorId(){
+			$entidadVuelo = new Entidad_Vuelo();
+			$entidadVuelo->id_vuelo = $this->id;
+			$entidadVuelo->obtenerPor('id_vuelo');
+			$recurso = $this->entidadARecurso($entidadVuelo);
+
+			$entidadAvion = new Entidad_Avion();
+			$entidadAvion->id_avion = $entidadVuelo->id_avion;
+			$entidadAvion->obtenerPor('id_avion');
+			$recursoTipoAvion = new Recurso_Tipo_Avion();
+			$recursoTipoAvion->obtenerPorId($entidadAvion->tipo_avion);
+			$recurso->asientos = $recursoTipoAvion;
+
+			$recursoPasaje = new Recurso_Pasajes();
+			$pasajes = $recursoPasaje->obtenerTodosPorVueloConEstadoCheckin($this->id);
+
+			$recurso->asientosOcupados = array();
+			foreach ($pasajes as $index => $value) {
+				$checkin = new Entidad_Checkin();
+				$checkin->pasaje = $value->id;
+				$checkin->obtenerPor('pasaje');
+				$asiento = new Asiento($checkin->columna, $checkin->fila);
+				array_push($recurso->asientosOcupados, $asiento);
 			}
-			return $recursos;
+			return $recurso;
 		}
 
-		private function entidadARecurso($entidad){
+		/**************METODOS PRIVADOS******************/
+
+		protected function entidadARecurso($entidad){
 			$recurso = new Recurso_Vuelos();
 			$recurso->id = $entidad->id_vuelo;
 			$recurso->fecha = $entidad->fecha;
@@ -53,7 +70,5 @@
 			$recurso->asientosExcedidos = $entidad->asientos_exedidos;
 			return $recurso;
 		}
-
-
 	}
 ?>

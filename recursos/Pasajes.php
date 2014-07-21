@@ -1,7 +1,7 @@
 <?php
 	include "/entidades/Pasaje.php";
 	
-	class Recurso_Pasajes{
+	class Recurso_Pasajes extends Recurso{
 		public $vuelo;
 		public $nombre;
 		public $email;
@@ -36,7 +36,7 @@
 		public function obtenerPorId($id){
 			$entidad = new Entidad_Pasaje();
 			$entidad->id_pasaje = $id;
-			$entidad->obtenerPor("id_pasaje");
+			$entidad->obtenerPor(array("id_pasaje"));
 
 			$entidadVuelo = new Entidad_Vuelo();
 			$entidadVuelo->id_vuelo = $entidad->id_vuelo;
@@ -63,6 +63,26 @@
 			$this->estado = $entidad->id_estado;
 
 			return $this;
+		}
+
+		public function obtenerTodosPorVueloConEstadoCheckin($id){
+			$entidad = new Entidad_Pasaje();
+			$entidad->id_vuelo = $id;
+			$entidad->id_estado = 2;
+			$recursos = $entidad->obtenerPor(array("id_vuelo","id_estado"));
+			return $recursos;
+		}
+
+		protected function entidadARecurso($entidad){
+			$recurso = new Recurso_Pasajes();
+			$recurso->id = $entidad->id_pasaje;
+			$recurso->vuelo = $entidad->id_vuelo;
+			$recurso->email = $entidad->email;
+			$recurso->nombre = $entidad->nombre;
+			$recurso->fecha = $entidad->fecha_nacimiento;
+			$recurso->dni = $entidad->dni;
+			$recurso->categoria = $entidad->categoria;
+			return $recurso;
 		}
 	}
 ?>

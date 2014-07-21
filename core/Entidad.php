@@ -92,13 +92,16 @@ include "/core/ConexionMySQL.php";
 						array_push($entidades, $entidad);
 					}
 				}else{
+					if(is_array($registros)){
+						$registros = $registros[0];
+					}
 					foreach ($campos as $key => $value) {
-						$this->$key = utf8_encode($registros[0][$key]);
+						$this->$key = utf8_encode($registros[$key]);
 					}
 					array_push($entidades, $this);
 				}
 			}
-			return $entidades;
+			return $entidades;	
 		}
 	}
 ?>

@@ -41,6 +41,15 @@ Vuelo.prototype = {
 			if(cb)
 				cb(that);
 		});
+	},
+	obtener: function(cb){
+		var that = this;
+		jQuery.get('/api/vuelos/obtener', {'id':this.id}, function(data){
+			console.log(data);
+			that = data;
+			if(cb)
+				cb(that);
+		});	
 	}
 }
 

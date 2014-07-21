@@ -243,24 +243,23 @@ select{min-width:360px;}
 /*Asientos*/
 
 .columna.ejecutiva{
-	width:23%;
+	width:19%;
 	margin:1%;
 }
 
 .columna.economica{
-	width:14%;
+	width:11%;
 	margin:1%;
 }
 
 fieldset.asientos input{
     display:none; 
 }
- 
 
 fieldset.asientos input + label {
     display:block;
 	height:100px;
-	width:100%;
+	width:80%;
 	background-color:#004388;
     border:none;
 	text-align:center;

@@ -1,10 +1,12 @@
 <?php
     include "/core/Entidad.php";
+    include "/core/Recurso.php";
     include "/recursos/Aeropuertos.php";
     include "/recursos/Vuelos.php";
     include "/recursos/Pasajes.php";
     include "/recursos/Pagos.php";
-
+    include "/recursos/Tipo_Avion.php";
+    include "/asiento.php";
 
     header('Content-Type: application/json');
 
@@ -78,22 +80,25 @@
                 }
             break;
             case 'vuelos':
-                $origen = $_GET['origen'];
-                $destino = $_GET['destino'];
-                $fecha = $_GET['fecha'];
                 $recurso = new Recurso_Vuelos();
-                if($fecha <> null){
-                    $parsedDate = date_parse_from_format('d/m/Y', $fecha);
-                    $recurso->fecha = $parsedDate['year'] .'-'. $parsedDate['month'] .'-'. $parsedDate['day'];
-                }
                 switch($param){
                     case 'obtenerTodos':
+                    $origen = $_GET['origen'];
+                        $destino = $_GET['destino'];
+                        $fecha = $_GET['fecha'];
+                        if($fecha <> null){
+                            $parsedDate = date_parse_from_format('d/m/Y', $fecha);
+                            $recurso->fecha = $parsedDate['year'] .'-'. $parsedDate['month'] .'-'. $parsedDate['day'];
+                        }
                         $retorno = $recurso->obtenerPorRecorrido($origen, $destino);
                     break;
+                    case 'obtener';
+                        $recurso->id = $_GET['id'];
+                        $retorno = $recurso->obtenerPorId();
+                    break;
                     default:
-                        $retorno = $recurso->obtener();
                 }
-            break;
+            break;/*
             case 'aviones':
                 if($param == 'obtenerPorReserva'){
                     $recurso = new Recurso_Aviones();
@@ -101,7 +106,7 @@
                     $recurso->obtenerPorReserva();
                     $retorno = $recurso;
                 }
-            break;
+            break;*/
             case 'reservas':
                 $recurso = new Recurso_Pasajes();
                 $recurso->obtenerPorId($_GET['id']);
