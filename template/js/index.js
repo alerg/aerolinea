@@ -299,7 +299,7 @@ jQuery(document).ready(function(){
 
 			pago.crear(function(pago){
 				if(pago){
-					var reserva = new reserva();
+					var reserva = new Reserva();
 					reserva.id = reservaId;
 					reserva.obtener(step3);
 				}else{
