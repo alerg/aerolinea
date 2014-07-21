@@ -65,6 +65,11 @@ a{
 	padding:15px 0;
 }
 
+.columna--simple{
+	clear:both;
+	width:100%;
+}
+
 .columna--doble{
 	width:46%;
 	margin:0 1%;
@@ -85,7 +90,7 @@ a{
 }
 
 .hide{
-	display:none;
+	/*display:none;*/
 }
 
 /*Cabecera*/
@@ -161,6 +166,7 @@ h2{
 h3{
 	font-weight:bold;
 	color:#656565;
+	text-align:left;
 }
 
 form{
@@ -200,7 +206,7 @@ input[type="radio"]{
 	margin:5px 5px 0 15px;
 }
 
-select{min-width:360px;}
+select{min-width:360px; margin:5px 0;}
 
 .boton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #dcecfb;
@@ -212,7 +218,7 @@ select{min-width:360px;}
 	border-radius: 2px;
 	text-indent:0;
 	border:1px solid #84bbf3;
-	display:inline-block;
+	display:block;
 	color:#ffffff;
 	font-family:Arial;
 	font-size:13px;
@@ -224,6 +230,7 @@ select{min-width:360px;}
 	text-decoration:none;
 	text-align:center;
 	text-shadow:1px 1px 0px #528ecc;
+	margin-top:17px;
 }
 
 .boton:hover {
@@ -238,6 +245,10 @@ select{min-width:360px;}
 
 .boton.grande {
 	width:200px;
+}
+
+p{
+	margin:12px 0;
 }
 
 /*Asientos*/
@@ -328,6 +339,13 @@ fieldset.asientos input:checked + label.ocupado{
 	height:6px;
 	margin:22px 0;
 	background-color:#004388;
+}
+
+/*Datepicker*/
+
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year{
+	min-width:49%;
 }
 
 /*Pie*/
