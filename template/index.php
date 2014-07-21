@@ -72,10 +72,8 @@
 				<button class="boton" data-interactive='buscarReserva'>Buscar</button>
 			</div>
 			<div class="columna columna--doble">
-			<div class="columna columna--doble">
 				<button class="boton grande" data-interactive="comenzar">Consulta de vuelos</button>
 			</div>
-			<!-- Nuevo data-interactive -->
 		</fieldset>
 	</section>	
 	<section data-interactive="reserva" class="reserva">
@@ -120,7 +118,7 @@
 				<div class="columna columna--doble">
 					<label for="primera">Primera:</label>
 					<input type="radio" id="categoria" name="categoria" value="Primera" class="hide" data-interactive="primera"/>
-					<label for="economy">Economica:</label>
+					<label for="economy">Económica:</label>
 					<input type="radio" id="categoria" name="categoria" value="Economy" class="hide" data-interactive="economy"/>
 				</div>
 			</div>
