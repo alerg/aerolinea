@@ -1,7 +1,5 @@
 <?php
 	
-    include "/entidades/TipoAvion.php"; 
-
 class Recurso_Tipo_Avion extends Recurso{
 	public $primera;
 	public $economy;

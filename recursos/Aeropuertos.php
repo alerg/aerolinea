@@ -1,6 +1,4 @@
 <?php
-	include "/entidades/Aeropuerto.php";
-	
 	class Recurso_Aeropuertos{
 		public $codigo = null;
 		public $ciudad;

@@ -1,4 +1,5 @@
 <?php
+    include "/core/ConexionMySQL.php";
     include "/core/Entidad.php";
     include "/core/Recurso.php";
     include "/recursos/Aeropuertos.php";
@@ -7,6 +8,14 @@
     include "/recursos/Pagos.php";
     include "/recursos/Tipo_Avion.php";
     include "/recursos/Checkin.php";
+    include "/entidades/Aeropuerto.php";
+    include "/entidades/Recorrido.php";
+    include "/entidades/Vuelo.php";
+    include "/entidades/Avion.php";
+    include "/entidades/Checkin.php";
+    include "/entidades/Pasaje.php";
+    include "/entidades/Pago.php";
+    include "/entidades/TipoAvion.php"; 
     include "/asiento.php";
 
     header('Content-Type: application/json');

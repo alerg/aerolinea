@@ -1,7 +1,4 @@
 <?php
-	include "/entidades/Pago.php";
-
-
 	class Recurso_Pagos{
 		public $idPasaje;
 		public $formaPago;

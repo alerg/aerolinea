@@ -1,8 +1,4 @@
 <?php
-	include "/entidades/Recorrido.php";
-	include "/entidades/Vuelo.php";
-	include "/entidades/Avion.php";
-	include "/entidades/Checkin.php";
 
 	class Recurso_Vuelos extends Recurso{
 		public $precioPrimera;
@@ -61,9 +57,9 @@
 			$recurso->asientosOcupados = array();
 			foreach ($pasajes as $index => $value) {
 				$checkin = new Entidad_Checkin();
-				$checkin->pasaje = $value->id;
-				$checkin->obtenerPor('pasaje');
-				$asiento = new Asiento($checkin->columna, $checkin->fila, $recursoPasaje->categoria);
+				$checkin->id_pasaje = $value->id;
+				$checkin->obtenerPor('id_pasaje');
+				$asiento = new Asiento($checkin->columna, $checkin->fila, $value->categoria);
 				array_push($recurso->asientosOcupados, $asiento);
 			}
 			return $recurso;

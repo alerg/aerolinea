@@ -414,6 +414,17 @@ section[data-mode="checkin"] section.datos{
 	display:block;
 }
 
+section[data-mode="qr"] section.datos{
+	display:block;
+}
+
+div.qr{
+	display:none;
+}
+
+section[data-mode="qr"] div.qr{
+	display:block;
+}
 
 section[data-mode="data"] section.datos{
 	display:block;

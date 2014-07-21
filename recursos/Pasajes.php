@@ -1,5 +1,4 @@
 <?php
-	include "/entidades/Pasaje.php";
 	
 	class Recurso_Pasajes extends Recurso{
 		public $vuelo;
@@ -84,8 +83,8 @@
 			$entidad = new Entidad_Pasaje();
 			$entidad->id_vuelo = $id;
 			$entidad->id_estado = 2;
-			$recursos = $entidad->obtenerPor(array("id_vuelo","id_estado"));
-			return $recursos;
+			$entidades = $entidad->obtenerPor(array("id_vuelo","id_estado"));
+			return $this->entidadesARecursos($entidades);
 		}
 
 		protected function entidadARecurso($entidad){

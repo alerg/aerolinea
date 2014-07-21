@@ -42,7 +42,7 @@ jQuery(document).ready(function(){
 	function asientoOcupado(asientosOcupados, columna, fila, categoria){
 		for (var i = 0; i < asientosOcupados.length; i++) {
 			var asientoO = asientosOcupados[i];
-			if(asientoO.asiento.columan == columna && asientoO.asiento.fila == fila && asientoO.asiente.categoria == categoria){
+			if(asientoO.columna == columna && asientoO.fila == fila && asientoO.categoria == categoria){
 				return true;
 			}
 		};
@@ -135,8 +135,10 @@ jQuery(document).ready(function(){
 	 					checkin.columna = asiento.attr('columna');
 	 					checkin.fila = asiento.attr('fila');
 						checkin.crear(function(data){
-							if(data)
+							if(data){
 								alert("El checkin fue realizado con éxito");
+								jQuery('[data-interactive="contenedor"]').attr('data-mode', 'qr');
+							}
 							else
 								alert("Ah ocurrido un error. Intente realizar el checkin mas tarde.");
 						});
@@ -163,6 +165,23 @@ jQuery(document).ready(function(){
  		}
  	}
 
+	function qr(reserva){
+		cargarDatosPersonales(reserva);
+		jQuery('[data-interactive="qr"]').click(function(){
+			var posicion_x; 
+			var posicion_y; 
+			var ancho = 400;
+			var alto = 300;
+			posicion_x=(screen.width/2)-(ancho/2); 
+			posicion_y=(screen.height/2)-(alto/2); 
+			window.open("/template/impresionpdf_qr.php?id=" + reserva.id, "leonpurpura.com", "width="+ancho+",height="+alto+",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left="+posicion_x+",top="+posicion_y+"");
+		});
+
+		jQuery('[data-interactive="contenedor"]').attr('data-mode', 'qr');
+	}
+
+	
+
 	jQuery('[data-interactive="comenzar"]').click(function(e){
 		e.preventDefault();
 		step1();
@@ -185,6 +204,9 @@ jQuery(document).ready(function(){
 						case '1':
 							step3(reserva);
 						break;
+						case '2':
+							qr(reserva);
+						break;
 					}
 				}
 			}
@@ -203,7 +225,7 @@ jQuery(document).ready(function(){
 			if(aeropuertos[index].codigo != e.target.value){
 				var option = document.createElement("option");
 				option.value = aeropuertos[index].codigo;
-				option.textContent = aeropuertos[index].nombre;
+				option.textContent = aeropuertos[index].ciudad + ' - ' + aeropuertos[index].provincia;
 				select.appendChild(option);
 			}
 		}
@@ -261,7 +283,7 @@ jQuery(document).ready(function(){
 		reserva.crear(function(){
 			sessionStorage.setItem("reserva",reserva.id);
 			console.log('Reserva numero: ' + reserva.id);
-			if(reserva.id =! null){
+			if(reserva.id != null){
 				jQuery('[data-interactive="fieldDatosPersonales"]').addClass('hide');
 				step2(reserva);
 			}
@@ -277,7 +299,9 @@ jQuery(document).ready(function(){
 
 			pago.crear(function(pago){
 				if(pago){
-					step3();
+					var reserva = new reserva();
+					reserva.id = reservaId;
+					reserva.obtener(step3);
 				}else{
 					console.log('Error al pagar');
 				}

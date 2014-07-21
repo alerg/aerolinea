@@ -17,14 +17,13 @@
 <body>
 	<header class="cabecera">
 		<div class="contenedor">
-			<h1><a href="index.php"><span>Aerolineas</span></a></h1>
+			<h1><a href="index"><span>Aerolineas</span></a></h1>
 		</div>
 		<nav class="nav-principal">
 			<div class="contenedor">
 				<ul>
-					<li><a href="">Reservas</a></li>
-					<li><a href="">Vuelos</a></li>
-					<li class="login"><a href="">Administradores</a></li>
+					<li><a href="/index">Home</a></li>
+					<li class="login"><a href="/admin">Administradores</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -59,6 +58,9 @@
 				<input name="categoria" class="datos" data-interactive="datosCategoria" type="text" disabled />
 				<label for="origen">Origen:</label>
 				<input name="origen" data-interactive="datosOrigen" type="text" disabled />
+			</div>
+			<div class="qr columna columna--doble">
+				<button class="boton" data-interactive="qr">Generar QR</button>
 			</div>
 		</fieldset>
 	</section>
@@ -171,7 +173,7 @@
 					<button class="boton" type="submit" data-interactive='pagar'>Pagar</button>
 				</div>
 				
-				<!-- ¿Esto... -->
+				<!-- ¿Esto...
 				<div class="columna columna--simple hide" data-interactive="datosTarjeta">
 					<div class="columna columna--doble">
 						<label for="nro_tarjeta">Número:</label>
@@ -187,7 +189,9 @@
 						<label for="nom_tarjeta">Nombre y apellido:</label>
 						<input id="nom_tarjeta" name="nom_tarjeta" type="text"/>
 					</div>
-				</div><!-- ...ya no va a ir? -->
+				</div>
+
+				ya no va a ir? -->
 				
 				
 			</fieldset>
@@ -261,14 +265,7 @@
 				</fieldset>
 		</form>
 	</section>
-		<!-- Si no lo usamos se puede borrar
-		<section class="hide">	
-			<div class="progreso">
-				<span class="paso">1</span><span class="separador"></span>
-				<span class="paso">2</span><span class="separador"></span>
-				<span class="paso">3</span>
-			</div>
-		</section>-->
+		
 	</section>
 
 	<footer class="pie">

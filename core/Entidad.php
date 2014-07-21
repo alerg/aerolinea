@@ -1,5 +1,4 @@
 <?php
-include "/core/ConexionMySQL.php";
 
 	class Entidad{
 		//filtrarPor: contiene el nombre del identificador. Se usara en la condiciones
