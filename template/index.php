@@ -195,14 +195,70 @@
 	</section>
 	
 	<!-- CHECKIN Paso 1: Seleccionamos asiento -->
-	<!-- Nota: Habría que coloarle el atributo disabled="disabled" a todos los asientos de la categoría que no son la elegida (si se eligió "Economy" se tienen que desactivar todos los asientos de "Primary")-->
 	<section class="asiento hide" data-interactive="asiento">	
 			<h2>Check-in</h2>
 			<form data-interactive="checkinForm">
+				<!-- Agregar "disabled" a los asientos que no están disponibles -->
 				<fieldset class="asientos" data-interactive="asientosMapa">
+					<?php
+
+					//Falta conectar con base de datos
+					$categorias = array( 'economy' => FALSE, 'primary' => TRUE); //Categorías seleccionadas
+					$primary = array( "nro_filas" => 10, "nro_columnas" => 4 );
+					$economy = array( "nro_filas" => 50, "nro_columnas" => 2 );
+
+					$letra_columna = array( "A","B","C","D","E","F");
+					
+					
+					//Imprime avión
+					$i=0;
+					for( $i=0; $i<$primary["nro_columnas"]; $i++ ){//Columnas primary
+						echo'<div class="columna ejecutiva">
+								';
+						$j=0;
+						for( $j=0; $j<$primary["nro_filas"]; $j++ ){
+						
+							$cod_asiento = $letra_columna[$i] .((string) $j+1);
+							
+							echo'	<input id="'.$cod_asiento.'" type="radio" name="asiento" value="'.$cod_asiento.'"';
+							
+							if($categorias['primary']==FALSE){ 
+								echo ' disabled="disabled" '; 
+							}
+							
+							echo '/>
+									<label for="'.$cod_asiento.'">'.$cod_asiento.'</label>
+									';
+						}
+						echo'</div>';
+					}
+					$i=0;
+					for( $i=0; $i<$economy["nro_columnas"]; $i++){ //Columnas economy
+						echo'<div class="columna economica">
+								';
+						$j=0;
+						for( $j=0; $j<$economy["nro_filas"]; $j++ ){
+						
+							$cod_asiento = $letra_columna[$i+$primary["nro_columnas"]] .((string) $j+1);
+							
+							echo'	<input id="'.$cod_asiento.'" type="radio" name="asiento" value="'.$cod_asiento.'"';
+							
+							if($categorias['economy']==FALSE){ 
+								echo ' disabled="disabled" '; 
+							}
+							
+							echo '/>
+									<label for="'.$cod_asiento.'">'.$cod_asiento.'</label>
+									';
+						}
+						echo'</div>';
+					}
+					
+				?>
+				<div class="columna columna--simple">
+					<input class="boton" type="submit" name="enviar" value="Enviar">
+				</div>
 				</fieldset>
-			
-			<input class="boton" type="submit" name="enviar" value="Enviar">
 		</form>
 	</section>
 		<!-- Si no lo usamos se puede borrar

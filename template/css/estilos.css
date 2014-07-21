@@ -89,10 +89,6 @@ a{
 	color:#004388;
 }
 
-.hide{
-	/*display:none;*/
-}
-
 /*Cabecera*/
 
 header{background-color:white;}
@@ -254,7 +250,7 @@ p{
 /*Asientos*/
 
 .columna.ejecutiva{
-	width:19%;
+	width:16%;
 	margin:1%;
 }
 
@@ -267,16 +263,21 @@ fieldset.asientos input{
     display:none; 
 }
 
+
+fieldset.asientos input.boton{
+    display:block;
+}
+
 fieldset.asientos input + label {
     display:block;
-	height:100px;
+	height:50px;
 	width:80%;
 	background-color:#004388;
     border:none;
 	text-align:center;
-	line-height:100px;
+	line-height:50px;
 	color:white;
-	font-size:50px;
+	font-size:30px;
 	float:left;
 	overflow:hidden;
 	margin-top:20px;
@@ -367,36 +368,17 @@ footer p{
 	padding:30px 0 0 0;
 }
 
-section.buscar{
-	display:none;
-}
+section.buscar,
+section.datos,
+section.reserva,
+fieldset.reserva,
+fieldset.vuelo,
+fieldset.datosPersonales,
+section.pago,
+section.asiento,
+.hide
+{ display:none; }
 
-section.datos{
-	display:none;
-}
-
-section.reserva{
-	display:none;
-}
-
-fieldset.reserva{
-	display:none;	
-}
-
-fieldset.vuelo{
-	display:none;
-}
-
-fieldset.datosPersonales{
-	display:none;
-}
-
-section.pago{
-	display:none;
-}
-section.asiento{
-	display:none;
-}
 
 section[data-mode="inicial"] section.buscar{
 	display:block;
