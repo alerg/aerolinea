@@ -133,7 +133,7 @@ Checkin.prototype = {
 
 		jQuery.post('/api/checkin/', 
 			{
-				reserva: that.reserva,
+				pasaje: that.reserva,
 				columna: that.columna,
 				fila: that.fila
 			}).done( function(data) {

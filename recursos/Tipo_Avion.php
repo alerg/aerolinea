@@ -16,8 +16,8 @@ class Recurso_Tipo_Avion extends Recurso{
 		$entidadTipoAvion->id_tipo = $id;
 		$entidadTipoAvion->obtenerPor('id_tipo');
 
-		$this->primera = new Asiento($entidadTipoAvion->columnas_primera, $entidadTipoAvion->fila_primera);
-		$this->economy = new Asiento($entidadTipoAvion->columnas_economic, $entidadTipoAvion->fila_economy);
+		$this->primera = new Asiento($entidadTipoAvion->columnas_primera, $entidadTipoAvion->fila_primera, 'Primera');
+		$this->economy = new Asiento($entidadTipoAvion->columnas_economic, $entidadTipoAvion->fila_economy, 'Economy');
 	}
 }
 ?>

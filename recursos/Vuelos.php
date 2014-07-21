@@ -63,7 +63,7 @@
 				$checkin = new Entidad_Checkin();
 				$checkin->pasaje = $value->id;
 				$checkin->obtenerPor('pasaje');
-				$asiento = new Asiento($checkin->columna, $checkin->fila);
+				$asiento = new Asiento($checkin->columna, $checkin->fila, $recursoPasaje->categoria);
 				array_push($recurso->asientosOcupados, $asiento);
 			}
 			return $recurso;

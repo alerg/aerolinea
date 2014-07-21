@@ -198,9 +198,9 @@
 	<!-- Nota: Habría que coloarle el atributo disabled="disabled" a todos los asientos de la categoría que no son la elegida (si se eligió "Economy" se tienen que desactivar todos los asientos de "Primary")-->
 	<section class="asiento hide" data-interactive="asiento">	
 			<h2>Check-in</h2>
-			<form>
-			<fieldset class="asientos" data-interactive="asientosMapa">
-			</fieldset>
+			<form data-interactive="checkinForm">
+				<fieldset class="asientos" data-interactive="asientosMapa">
+				</fieldset>
 			
 			<input class="boton" type="submit" name="enviar" value="Enviar">
 		</form>

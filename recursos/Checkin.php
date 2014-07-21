@@ -14,6 +14,26 @@
 			$this->fecha = null;
 		}
 
+		public function crear(){
+   			$this->fecha = date("Y-m-d", time());
+
+			$entidad = new Entidad_Checkin();
+			$entidad->id_pasaje = $this->pasaje;
+			$entidad->columna = $this->columna;
+			$entidad->fila = $this->fila;
+			$entidad->fecha = $this->fecha;
+			$entidad->crear();
+
+			$entidadPasaje = new Entidad_Pasaje();
+			$entidadPasaje->id_pasaje = $this->pasaje;
+			$entidadPasaje->obtenerPor(array("id_pasaje"));
+
+			$entidadPasaje->id_estado = 2;
+			$entidadPasaje->modificar();
+
+			return $this;
+		}
+
 		public function habilitadoCheckin($pasaje){
 			$recursoPasaje = new Recurso_Pasajes();
 			$recursoPasaje->obtenerPorId($pasaje);

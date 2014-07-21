@@ -291,6 +291,12 @@ fieldset.asientos input:checked + label {
    background-color:#006EB4;
 }
 
+
+
+fieldset.asientos input:disabled + label { 
+   background-color:grey;
+}
+
 .asientos .ocupado{
 	background-color:#E1E1E1;
 	cursor:default;

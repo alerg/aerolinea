@@ -14,6 +14,10 @@
 			//Se marca cual es el id de la tabla
 		}
 
+		public function crear(){
+			parent::crear();
+		}
+
 		public function obtenerPor($nombreCampo){
 			if($nombreCampo != null)
 				$this->setFiltrarPor(array(array($nombreCampo, $this->$nombreCampo)));

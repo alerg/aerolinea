@@ -62,6 +62,15 @@
                 $recurso->formaPago = $_POST['formaPago'];
                 $recurso->crear();
                 return json_encode($recurso);
+            break;
+            case 'checkin':
+                $recurso = new Recurso_Checkin();
+                $recurso->pasaje = $_POST['pasaje'];
+                $recurso->columna = $_POST['columna'];
+                $recurso->fila = $_POST['fila'];
+                $recurso->crear();
+                return json_encode($recurso);
+            break;
         }
         return json_encode($recurso);
     }

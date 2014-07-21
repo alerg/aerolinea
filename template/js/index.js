@@ -39,6 +39,16 @@ jQuery(document).ready(function(){
 		jQuery('[data-interactive="contenedor"]').attr('data-mode', 'pago');
 	}
 
+	function asientoOcupado(asientosOcupados, columna, fila, categoria){
+		for (var i = 0; i < asientosOcupados.length; i++) {
+			var asientoO = asientosOcupados[i];
+			if(asientoO.asiento.columan == columna && asientoO.asiento.fila == fila && asientoO.asiente.categoria == categoria){
+				return true;
+			}
+		};
+		return false;
+	}
+
  	function step3(reserva){
  		var primeraSerie = ['A', 'B', 'C', 'D'];
  		var economySerie = ['V', 'W', 'X', 'Y', 'Z'];
@@ -68,7 +78,14 @@ jQuery(document).ready(function(){
 		 					input.setAttribute('type', 'radio');
 		 					input.setAttribute('name', 'asiento');
 		 					input.setAttribute('value', id);
-							
+							input.setAttribute('columna', i+1);
+							input.setAttribute('fila', e);
+							input.setAttribute('tipoAsiento', "Primera");
+
+							if(reserva.categoria != 'Primera' || asientoOcupado(vuelo.asientosOcupados, i+1, e, 'Primera')){
+								input.setAttribute('disabled', "disabled");								
+							}
+
 							var label = document.createElement('label');
 		 					label.setAttribute('for', id);
 		 					label.textContent = id;
@@ -91,7 +108,14 @@ jQuery(document).ready(function(){
 									input.setAttribute('type', 'radio');
 									input.setAttribute('name', 'asiento');
 									input.setAttribute('value', id);
-								
+									input.setAttribute('columna', x+1);
+									input.setAttribute('fila', y);
+									input.setAttribute('tipoAsiento', "Economy");
+
+									if(reserva.categoria != 'Economy' || asientoOcupado(vuelo.asientosOcupados, x+1, y, 'Economy')){
+										input.setAttribute('disabled', "disabled");								
+									}
+
 									var label = document.createElement('label');
 									label.setAttribute('for', id);
 									label.textContent = id;
@@ -103,7 +127,23 @@ jQuery(document).ready(function(){
 							}
 		 				}
 					};		
- 				});	
+ 				});
+ 				jQuery('[data-interactive="checkinForm"]').submit(function(e){
+					e.preventDefault();
+					var asiento = jQuery('input:checked', e.target);
+					if(asiento[0]){
+	 					checkin.columna = asiento.attr('columna');
+	 					checkin.fila = asiento.attr('fila');
+						checkin.crear(function(data){
+							if(data)
+								alert("El checkin fue realizado con éxito");
+							else
+								alert("Ah ocurrido un error. Intente realizar el checkin mas tarde.");
+						});
+					}else{
+						alert("Seleccione un asiento disponible");
+					}			
+				});	
 				jQuery('[data-interactive="contenedor"]').attr('data-mode', 'checkin');
 	 		}else{
 	 			alert("El check-in puede realizarse a partir de las 48hs. anteriores a la partida del vuelo");
