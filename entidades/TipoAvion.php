@@ -17,7 +17,7 @@
 
 		public function obtenerPor($nombreCampo){
 			if($nombreCampo != null)
-				$this->setFiltrarPor(array($nombreCampo => $this->$nombreCampo));
+				$this->setFiltrarPor(array(array($nombreCampo, $this->$nombreCampo)));
 			$this->obtener();
 		}
 	}

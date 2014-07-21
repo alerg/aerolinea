@@ -11,24 +11,31 @@
 				echo 'Error al conectar con la base de datos. Nro: ' . $this->conexion->errno .' / '. $this->conexion->error;
 		}
 
-		public function obtener($nombreTabla, $condicion){
+		public function obtener($nombreTabla, $condiciones){
 			$query = 'SELECT * FROM `' .$nombreTabla .'`';
-			if(count($condicion)>0){
+			if(count($condiciones)>0){
 				$query .= ' WHERE ';
 				$and = false;
-				foreach ($condicion as $key => $value) {
+				for ($index=0; $index < count($condiciones); $index++) { 
 					if($and)
 						$query .= ' AND ';
 					else
 						$and = true;
 
-					$query .= '`'. $key .'`=\''. $value .'\'';
+					//$query .= '`'. $condicion[$key][0] .'`=\''. $condicion[$key][1] .'\'';
+
+					$condicion = $condiciones[$index];
+					$campo = $condicion[0];
+					$valor = $condicion[1];
+					$operador = isset($condicion[2]) ? $condicion[2] : '='; 
+					
+					$query .= '`'. $campo .'`'. $operador.'\''. $valor .'\'';					
 				}
 			}
 			return $this->ejecutarQuery($query);
 		}
 
-		public function modificar($tabla, $campos, $condicion){
+		public function modificar($tabla, $campos, $condiciones){
 			$primero = true;
 			$query = 'UPDATE `'. $tabla .'` SET ';
 			foreach ($campos as $key => $value) {
@@ -40,15 +47,21 @@
 				$query .= '`'.$key . '`=\'' . $value .'\'';
 			}
 			$primero = true;
-			if(count($condicion)>0){
+			if(count($condiciones)>0){
 				$query .= ' WHERE ';
-				foreach ($condicion as $key => $value) {
+				for ($index=0; $index < count($condiciones); $index++) { 
 					if($primero){
 						$primero = false;
 					}else{
 						$query .= ' AND ';	
 					}
-					$query .= '`'.$key . '`=\'' . $value .'\'';
+					//$query .= '`'.$key . '`=\'' . $value .'\'';
+					$condicion = $condiciones[$index];
+					$campo = $condicion[0];
+					$valor = $condicion[1];
+					$operador = isset($condicion[2]) ? $condicion[2] : '='; 
+
+					$query .= '`'. $campo .'`'. $operador.'\''. $valor .'\'';
 				}
 			}
 			$registro = $this->ejecutarQuery($query);
@@ -84,6 +97,7 @@
 
 	//Metodos privados
 		private function ejecutarQuery($query){
+			//echo $query;
 			if (count($query) > 0) {
 				$this->conexion->real_query($query);
 				$matriz = array(); 

@@ -30,39 +30,54 @@
 				$entidadVuelo->id_vuelo = $this->entidadPasaje->id_vuelo;
 				$entidadVuelo->descontarAsiento($this->entidadPasaje->categoria);
 			}
-			return $this;
+
+			return $this->obtenerPorId($this->id);
 		}
 
 		public function obtenerPorId($id){
 			$entidad = new Entidad_Pasaje();
 			$entidad->id_pasaje = $id;
-			$entidad->obtenerPor(array("id_pasaje"));
+			$retorno = $entidad->obtenerPor(array("id_pasaje"));
 
-			$entidadVuelo = new Entidad_Vuelo();
-			$entidadVuelo->id_vuelo = $entidad->id_vuelo;
-			$entidadVuelo->obtenerPor("id_vuelo");
-			
-			$entidadRecorrido = new Entidad_Recorrido();
-			$entidadRecorrido->id_recorrido = $entidadVuelo->id_recorrido;
-			$entidadRecorrido->obtenerPor("id_recorrido");
+			if($retorno <> false){
 
-			$recursoAeropuertoOrigen = new Recurso_Aeropuertos();
-			$recursoAeropuertoOrigen->codigo = $entidadRecorrido->id_ciudad_origen;
-			$this->aeropuertoOrigen = $recursoAeropuertoOrigen->obtenerPorCodigo();
-			$recursoAeropuertoDestino = new Recurso_Aeropuertos();
-			$recursoAeropuertoDestino->codigo = $entidadRecorrido->id_ciudad_destino;
-			$this->aeropuertoDestino = $recursoAeropuertoDestino->obtenerPorCodigo();
+				$entidadVuelo = new Entidad_Vuelo();
+				$entidadVuelo->id_vuelo = $entidad->id_vuelo;
+				$entidadVuelo->obtenerPor("id_vuelo");
+				$fechaVuelo = new DateTime($entidadVuelo->fecha);
+				$this->fechaPartida = $fechaVuelo->format('d/m/Y');
 
-			$this->id = $entidad->id_pasaje;
-			$this->vuelo = $entidad->id_vuelo;
-			$this->email = $entidad->email;
-			$this->nombre = $entidad->nombre;
-			$this->fecha = $entidad->fecha_nacimiento;
-			$this->dni = $entidad->dni;
-			$this->categoria = $entidad->categoria;
-			$this->estado = $entidad->id_estado;
+				date_default_timezone_set('UTC');
+				//Imprimimos la fecha actual dandole un formato
+				$fechaActual = new DateTime("now");
+				$interval = date_diff($fechaActual, $fechaVuelo);
+				$horas = $interval->format('%r%h');
+				$this->vencido = $horas < 0;
+				
+				$entidadRecorrido = new Entidad_Recorrido();
+				$entidadRecorrido->id_recorrido = $entidadVuelo->id_recorrido;
+				$entidadRecorrido->obtenerPor("id_recorrido");
 
-			return $this;
+				$recursoAeropuertoOrigen = new Recurso_Aeropuertos();
+				$recursoAeropuertoOrigen->codigo = $entidadRecorrido->id_ciudad_origen;
+				$this->aeropuertoOrigen = $recursoAeropuertoOrigen->obtenerPorCodigo();
+				$recursoAeropuertoDestino = new Recurso_Aeropuertos();
+				$recursoAeropuertoDestino->codigo = $entidadRecorrido->id_ciudad_destino;
+				$this->aeropuertoDestino = $recursoAeropuertoDestino->obtenerPorCodigo();
+
+				$this->id = $entidad->id_pasaje;
+				$this->vuelo = $entidad->id_vuelo;
+				$this->email = $entidad->email;
+				$this->nombre = $entidad->nombre;
+				$this->fecha = $entidad->fecha_nacimiento;
+				$this->dni = $entidad->dni;
+				$this->categoria = $entidad->categoria;
+				$this->estado = $entidad->id_estado;
+
+				return $this;
+			}else{
+				return false;
+			}
 		}
 
 		public function obtenerTodosPorVueloConEstadoCheckin($id){

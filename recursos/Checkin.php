@@ -8,16 +8,27 @@
 		public $fecha;
 
 		public function __construct() {
-			//Llama al constructor de Entidad
-			parent::__construct('check_in');
-			//Se asigna a la variable heredada $nombreTabla el nombre de la tabla SQL
-			//Se marca cual es el id de la tabla
+			$this->pasaje = null;
+			$this->columna = null;
+			$this->fila = null;
+			$this->fecha = null;
 		}
 
-		public function obtenerPorId(){
-			if($nombreCampo != null)
-				$this->setFiltrarPor(array('pasaje' => $this->pasaje));
-			$this->obtener();
+		public function habilitadoCheckin($pasaje){
+			$recursoPasaje = new Recurso_Pasajes();
+			$recursoPasaje->obtenerPorId($pasaje);
+
+			$recursoVuelo = new Recurso_Vuelos();
+			$recursoVuelo = $recursoVuelo->obtenerPorId($recursoPasaje->vuelo);
+
+			date_default_timezone_set('UTC');
+			//Imprimimos la fecha actual dandole un formato
+			$fechaActual = new DateTime("now");
+			$fechaVuelo = date_create($recursoVuelo->fecha);
+			$interval = date_diff($fechaActual, $fechaVuelo);
+			$horas = $interval->format('%r%h');
+
+			return ($horas <= 48 && $horas >0);
 		}
 	}
 ?>

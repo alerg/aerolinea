@@ -21,8 +21,18 @@
 			if($entidadRecorrido->id_recorrido != null){
 				$entidadVuelo = new Entidad_Vuelo();
 				$entidadVuelo->id_recorrido = $entidadRecorrido->id_recorrido;
-				$entidadVuelo->fecha = $this->fecha;
-				$vuelos = $entidadVuelo->obtenerTodosPor(array('id_recorrido', 'fecha'));
+
+				$filtroFecha = array('fecha');
+				if($this->fecha == null){
+					$fechaActual = new DateTime("now");
+					$entidadVuelo->fecha = $fechaActual->format('Y-m-d');
+					array_push($filtroFecha, '>=');
+				}else{
+					$entidadVuelo->fecha = $this->fecha;
+					array_push($filtroFecha);
+				}
+
+				$vuelos = $entidadVuelo->obtenerTodosPor(array(array('id_recorrido'), $filtroFecha));
 				$recursos = $this->entidadesARecursos($vuelos);
 				for ($i=0; $i < count($recursos); $i++) { 
 					$recursos[$i]->precioPrimera = $entidadRecorrido->precio_primera;
@@ -32,9 +42,9 @@
 			return $recursos;
 		}
 
-		public function obtenerPorId(){
+		public function obtenerPorId($id){
 			$entidadVuelo = new Entidad_Vuelo();
-			$entidadVuelo->id_vuelo = $this->id;
+			$entidadVuelo->id_vuelo = $id;
 			$entidadVuelo->obtenerPor('id_vuelo');
 			$recurso = $this->entidadARecurso($entidadVuelo);
 
@@ -46,7 +56,7 @@
 			$recurso->asientos = $recursoTipoAvion;
 
 			$recursoPasaje = new Recurso_Pasajes();
-			$pasajes = $recursoPasaje->obtenerTodosPorVueloConEstadoCheckin($this->id);
+			$pasajes = $recursoPasaje->obtenerTodosPorVueloConEstadoCheckin($id);
 
 			$recurso->asientosOcupados = array();
 			foreach ($pasajes as $index => $value) {

@@ -16,7 +16,7 @@
 
 		public function obtenerPorCodigo(){
 			if($this->codigo != null){
-				parent::setFiltrarPor(array('codigo' => $this->codigo));
+				parent::setFiltrarPor(array(array('codigo', $this->codigo)));
 			}
 			$entidad = parent::obtener();
 			if(count($entidad) == 1)

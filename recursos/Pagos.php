@@ -27,7 +27,7 @@
 
    			$pasaje = new Entidad_Pasaje();
    			$pasaje->id_pasaje = $this->idPasaje;
-   			$pasaje->obtenerPor("id_pasaje");
+   			$pasaje->obtenerPor(array("id_pasaje"));
    			$categoria = $pasaje->categoria;
 
    			$vuelo = new Entidad_Vuelo();

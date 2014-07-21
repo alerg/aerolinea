@@ -6,6 +6,7 @@
     include "/recursos/Pasajes.php";
     include "/recursos/Pagos.php";
     include "/recursos/Tipo_Avion.php";
+    include "/recursos/Checkin.php";
     include "/asiento.php";
 
     header('Content-Type: application/json');
@@ -93,8 +94,7 @@
                         $retorno = $recurso->obtenerPorRecorrido($origen, $destino);
                     break;
                     case 'obtener';
-                        $recurso->id = $_GET['id'];
-                        $retorno = $recurso->obtenerPorId();
+                        $retorno = $recurso->obtenerPorId($_GET['id']);
                     break;
                     default:
                 }
@@ -109,9 +109,19 @@
             break;*/
             case 'reservas':
                 $recurso = new Recurso_Pasajes();
-                $recurso->obtenerPorId($_GET['id']);
-                $retorno = $recurso;
-            break;   
+                $retorno = $recurso->obtenerPorId($_GET['id']);
+                if($retorno <> false)
+                    $retorno = $recurso;
+            break;
+            case 'checkin':
+                switch($param){
+                    case 'habilitadoCheckin';
+                        $recurso = new Recurso_Checkin();
+                        $retorno = $recurso->habilitadoCheckin($_GET['reserva']);
+                    break;
+                    default:
+                }
+            break;
         }
         return json_encode($retorno);
     }

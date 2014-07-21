@@ -89,9 +89,14 @@ Reserva.prototype = {
 				id: that.id
 			})
 		.done( function(data) {
-	        jQuery.extend(that, data);
-			if(cb)
-				cb(that);
+			if(data == false){
+				if(cb)
+					cb(data);
+			}else{
+		        jQuery.extend(that, data);
+				if(cb)
+					cb(that);
+			}
 	    });	
 	}
 }
@@ -112,5 +117,40 @@ Pago.prototype = {
 			if(cb)
 				cb(that);
 	    });
+	}
+}
+
+//Necesita CORE
+var Checkin = function (reserva, columna, fila){
+	this.reserva = reserva;
+	this.columna = columna;
+	this.fila = fila;
+}
+
+Checkin.prototype = {
+	crear : function(cb){
+		var that = this;
+
+		jQuery.post('/api/checkin/', 
+			{
+				reserva: that.reserva,
+				columna: that.columna,
+				fila: that.fila
+			}).done( function(data) {
+			    jQuery.extend(that, data);
+				if(cb)
+					cb(that);
+		    });
+	},
+	habilitadoCheckin: function(cb){
+		var that = this;
+		jQuery.get('/api/checkin/habilitadoCheckin', 
+			{
+				reserva: that.reserva
+			})
+		.done( function(habilitado) {
+			if(cb)
+				cb(habilitado)
+	    });	
 	}
 }

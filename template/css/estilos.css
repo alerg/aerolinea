@@ -372,6 +372,19 @@ section.datos{
 section.reserva{
 	display:none;
 }
+
+fieldset.reserva{
+	display:none;	
+}
+
+fieldset.vuelo{
+	display:none;
+}
+
+fieldset.datosPersonales{
+	display:none;
+}
+
 section.pago{
 	display:none;
 }
@@ -383,19 +396,37 @@ section[data-mode="inicial"] section.buscar{
 	display:block;
 }
 
-section[data-mode="step1"] section.reserva{
-	display:block;
-}
-section[data-mode="step2"] section.pago{
-	display:block;
-}
-section[data-mode="step3"] section.asiento{
+section[data-mode="step1"] section.reserva,section[data-mode="step2"] section.reserva,section[data-mode="step3"] section.reserva{
 	display:block;
 }
 
-section[data-mode="step2"] section.datos{
+section[data-mode="step1"] fieldset.reserva{
 	display:block;
 }
-section[data-mode="step3"] section.datos{
+
+section[data-mode="step2"] fieldset.vuelo{
+	display:block;
+}
+
+section[data-mode="step3"] fieldset.datosPersonales{
+	display:block;
+}
+
+section[data-mode="pago"] section.pago{
+	display:block;
+}
+section[data-mode="checkin"] section.asiento{
+	display:block;
+}
+
+section[data-mode="pago"] section.datos{
+	display:block;
+}
+section[data-mode="checkin"] section.datos{
+	display:block;
+}
+
+
+section[data-mode="data"] section.datos{
 	display:block;
 }

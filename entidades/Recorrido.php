@@ -17,14 +17,14 @@
 
 		public function obtener(){
 			if($this->id_ciudad_origen != null && $this->id_ciudad_destino != null){
-				parent::setFiltrarPor(array('id_ciudad_origen' => $this->id_ciudad_origen,'id_ciudad_destino' => $this->id_ciudad_destino));
+				parent::setFiltrarPor(array(array('id_ciudad_origen', $this->id_ciudad_origen),array('id_ciudad_destino', $this->id_ciudad_destino)));
 			}
 			$registros = parent::obtener();
 			return $registros;
 		}
 
 		public function obtenerPor($filtro){
-			parent::setFiltrarPor(array($filtro => $this->$filtro));
+			parent::setFiltrarPor(array(array($filtro, $this->$filtro)));
 			$entidades = parent::obtener();
 			return $entidades;
 		}

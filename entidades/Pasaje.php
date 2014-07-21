@@ -27,7 +27,7 @@
 		public function obtenerPor($filtros){
 			$filtroArray = array();
 			foreach ($filtros as $key => $value){
-				$filtroArray[$value] = $this->$value;
+				array_push($filtroArray, array($filtros[$key], $this->$value));
 			}
 			$this->setFiltrarPor($filtroArray);
 			$entidades = $this->obtener();
@@ -36,7 +36,7 @@
 
 		public function obtenerTodosPor($nombreCampo){
 			if($nombreCampo != null)
-				$this->setFiltrarPor(array($nombreCampo => $this->$nombreCampo));
+				$this->setFiltrarPor(array(array($nombreCampo, $this->$nombreCampo)));
 			$entidades = $this->obtenerTodos();
 			return $entidades;
 		}

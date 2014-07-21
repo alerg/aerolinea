@@ -53,7 +53,7 @@
 				<input name="destino" data-interactive="datosDestino" type="text" disabled />
 			</div>
 			<div class="columna columna--doble">
-				<label for="fecha">Fecha:</label>
+				<label for="fecha">Fecha de partida:</label>
 				<input name="fecha" class="datos" data-interactive="datosFecha" type="text" disabled />
 				<label for="categoria">Categoria:</label>
 				<input name="categoria" class="datos" data-interactive="datosCategoria" type="text" disabled />
@@ -80,7 +80,7 @@
 		<h2>Reservas</h2>
 		
 		<!-- RESERVAS Paso 1: Seleccionamos recorrido y fecha de vuelo -->
-		<fieldset data-interactive="recorrido">
+		<fieldset class="reserva" data-interactive="recorrido">
 			<h3>Paso1:</h3>
 			<div class="columna columna--doble">
 				<label for="origen">Origen:</label>
@@ -106,7 +106,7 @@
 		</fieldset>
 		
 		<!-- RESERVAS Paso 2: Seleccionamos vuelo y categoría de asíento-->
-		<fieldset class="hide" data-interactive="fieldVuelos">
+		<fieldset class="vuelo" data-interactive="fieldVuelos">
 			<h3>Paso 2:</h3>
 			<div class="columna columna--simple">
 				<div class="columna columna--doble">
@@ -128,7 +128,7 @@
 		</fieldset>
 		
 		<!-- RESERVAS Paso 3a: Cargamos datos del cliente -->
-		<fieldset class="hide" data-interactive="fieldDatosPersonales">
+		<fieldset class="datosPersonales" data-interactive="fieldDatosPersonales">
 			<h3>Paso 3:</h3>
 			<p>Para poder realizar la reserva necesitamos los siguientes datos:</p>
 			<div class="columna columna--doble">
@@ -157,19 +157,7 @@
 		<!-- PAGOS Paso 1: Seleccionamos forma de pago -->
 		<!-- Nota: si se ingresa directamente a PAGOS se pide código de reserva -->
 		<form data-interactive="formPagar">
-			<fieldset data-interactive="buscarReserva" class="hide">
-				<h3>Paso 1:</h3>
-				<div class="columna columna--doble">
-					<label for="codigo_reserva">Código de reserva:</label>
-					<input name="codigo_reserva" type="text">
-				</div>
-				<div class="columna columna--doble">
-					<button class="boton" data-interactive='buscar_pago'>Buscar</button>
-				</div>
-			</fieldset>
-			
 			<fieldset class="hide" data-interactive="pago">	
-				<h3>Paso 2:</h3>
 				<div class="columna columna--doble">
 					<label for="formas_pago">Formas de pago:</label>
 					<select id="formas_pago" name="formas_pago" data-interactive="formas_pago">
@@ -210,7 +198,6 @@
 	<!-- Nota: Habría que coloarle el atributo disabled="disabled" a todos los asientos de la categoría que no son la elegida (si se eligió "Economy" se tienen que desactivar todos los asientos de "Primary")-->
 	<section class="asiento hide" data-interactive="asiento">	
 			<h2>Check-in</h2>
-			<h3>Paso3:</h3>
 			<form>
 			<fieldset class="asientos" data-interactive="asientosMapa">
 			</fieldset>

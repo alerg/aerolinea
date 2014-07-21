@@ -19,16 +19,21 @@
 
 		public function obtenerPor($nombreCampo){
 			if($nombreCampo != null)
-				$this->setFiltrarPor(array($nombreCampo => $this->$nombreCampo));
+				$this->setFiltrarPor(array(array($nombreCampo, $this->$nombreCampo)));
 			$this->obtener();
 		}
 
 		public function obtenerTodosPor($filtros){
-			$filtroArray = array();
-			foreach ($filtros as $key => $value){
-				$filtroArray[$value] = $this->$value;
+			$filtrosArray = array();
+			for ($index = 0 ; $index < count($filtros) ; $index++){
+				$filtro = $filtros[$index];
+				$filtroArray = array($filtro[0], $this->$filtro[0]);
+				if(isset($filtro[1])){
+					array_push($filtroArray, $filtro[1]); 	
+				}
+				array_push($filtrosArray, $filtroArray);
 			}
-			$this->setFiltrarPor($filtroArray);
+			$this->setFiltrarPor($filtrosArray);
 			$entidades = $this->obtener();
 			return $entidades;
 		}
@@ -52,7 +57,7 @@
 					}
 				break;
 			}
-			$this->setFiltrarPor(array($campo => $this->$campo));
+			$this->setFiltrarPor(array(array($campo, $this->$campo)));
 			$this->modificar();
 		}
 	}
