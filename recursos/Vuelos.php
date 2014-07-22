@@ -25,7 +25,7 @@
 					array_push($filtroFecha, '>=');
 				}else{
 					$entidadVuelo->fecha = $this->fecha;
-					array_push($filtroFecha);
+					array_push($filtroFecha, '=');
 				}
 
 				$vuelos = $entidadVuelo->obtenerTodosPor(array(array('id_recorrido'), $filtroFecha));
