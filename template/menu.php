@@ -35,7 +35,7 @@
 <section data-interactive="contenedor" class="contenedor contenido">
 	<section>
 		<fieldset>
-			<h2>Login</h2>
+			<h2>Informes</h2>
 			<div class="columna columna--doble">
 				<a href="" consulta="1" data-interactive="consulta">1- Cantidad de pasajes vendidos</a>
 			</div>

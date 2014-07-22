@@ -5,6 +5,8 @@ jQuery(document).ready(function(){
 
 		if(user == 'admin' && password == 'admin'){
 			window.location = '/menu';
+		}else{
+			alert('El usuario o la contraseña son incorrectos.');
 		}
 	});
 });
