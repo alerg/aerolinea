@@ -49,7 +49,7 @@
 			</fieldset>
 		</section>
 		
-		<!-- PANEL DE ADMINISTRACIÓN -->
+		<!-- PANEL DE ADMINISTRACIÓN
 		<section>
 			<nav class="nav-secundaria">
 				<div class="contenedor">
@@ -59,7 +59,7 @@
 				</div>
 			</nav>
 			
-			<!-- INFORME -->
+			<!-- INFORME
 			<section>
 				<fieldset>
 					<h3>Informe</h3>
@@ -71,6 +71,7 @@
 			</section>
 		</section>
 	</section>
+	-->
 	
 	<footer class="pie">
 			<p>&copy;Programación Web II - 2014</p>
