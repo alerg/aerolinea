@@ -54,6 +54,7 @@ body{
 a{
 	text-decoration:none;
 	font-weight:bold;
+	color:#656565;
 }
 
 .contenedor{
@@ -351,6 +352,10 @@ fieldset.asientos input:checked + label.ocupado{
 .ui-datepicker select.ui-datepicker-month,
 .ui-datepicker select.ui-datepicker-year{
 	min-width:49%;
+}
+
+.exceso{
+	color:#E32C24;
 }
 
 /* --- Panel de administración --- */

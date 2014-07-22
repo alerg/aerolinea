@@ -247,14 +247,26 @@ jQuery(document).ready(function(){
 				option.textContent = 'Numero: '+ vuelo.id +' / Fecha partida: '+ vuelo.fecha;
 				option.setAttribute('value', vuelo.id);
 				select.append(option);
-				if(vuelo.asientosDisponiblesPrimera > 0 ){
+				
+				if(vuelo.asientosDisponiblesPrimera > -10 ){
+					//Cambio de cero a -10 para dar lugar a reservas en exceso
 					jQuery('[data-interactive="primera"]').removeClass('hide');
 				}
-				if(vuelo.asientosDisponiblesEconomica > 0 ){
+				if(vuelo.asientosDisponiblesEconomica > -10 ){
+					//Cambio de cero a -10 para dar lugar a reservas en exceso
 					jQuery('[data-interactive="economy"]').removeClass('hide');
 				}
-				jQuery('[data-interactive="primera"]').removeClass('hide');
-				jQuery('[data-interactive="economy"]').removeClass('hide');
+				
+				//Agrego una clase CSS para avisar que la reserva está en exceso
+				if(vuelo.asientosDisponiblesPrimera > 0 ){
+					jQuery('[for="primera"]').removeClass('exceso');
+				}
+				if(vuelo.asientosDisponiblesEconomica > 0 ){
+					jQuery('[for="economy"]').removeClass('exceso');
+				}
+				
+				//jQuery('[data-interactive="primera"]').removeClass('hide');
+				//jQuery('[data-interactive="economy"]').removeClass('hide');
 			});
 
 			if(vuelos.length == 0){
@@ -266,7 +278,26 @@ jQuery(document).ready(function(){
 	});
 
 	jQuery('[data-interactive="reservar"]').click(function(e){
-		jQuery('[data-interactive="contenedor"]').attr('data-mode', 'step3');
+	
+		var vuelo = jQuery('[data-interactive="vuelos"] option:selected').val();
+		var categoria = jQuery('[name="categoria"]:checked').val();
+		
+		var mensajeConfirmar = '';
+		
+		//Validamos que los campos hayan sido completados
+		if(vuelo==''){
+			mensajeConfirmar = 'Seleccioná un vuelo.';
+		}
+		
+		if(categoria==''){
+			mensajeConfirmar = 'Seleccioná una categoría.';
+		}
+		
+		if(mensajeConfirmar!=''){
+			alert(mensajeConfirmar);
+		}else{
+			jQuery('[data-interactive="contenedor"]').attr('data-mode', 'step3');
+		}
 	});
 
 	jQuery('[data-interactive="confirmar"]').click(function(e){
@@ -276,18 +307,50 @@ jQuery(document).ready(function(){
 		var email = jQuery('[data-interactive="email"]').val();
 		var fecha = jQuery('[data-interactive="birthDate"]').val();
 		var dni = jQuery('[data-interactive="dni"]').val();
-		var categoria = jQuery('[name="categoria"]:checked').val()
+		var categoria = jQuery('[name="categoria"]:checked').val();
 
-		var reserva = new Reserva(vuelo, nombre, email, fecha, dni, categoria);
+		var mensajeConfirmar = '';
+		
+		//Validamos que los campos hayan sido completados
+		if(vuelo==''){
+			mensajeConfirmar = 'Seleccioná un vuelo.';
+		}
+		
+		if(categoria==''){
+			mensajeConfirmar = 'Seleccioná una categoría.';
+		}
+		
+		if(fecha==''){
+			mensajeConfirmar = 'Ingresá tu fecha de nacimiento.';
+		}
+		
+		if(dni==''){
+			mensajeConfirmar = 'Ingresá tu DNI.';
+		}
+		
+		if(email==''){
+			mensajeConfirmar = 'Ingresá una dirección de correo electrónico.';
+		}
+		
+		if(nombre==''){
+			mensajeConfirmar = 'Ingresá tu nombre.';
+		}
+		
+		if(mensajeConfirmar!=''){
+			alert(mensajeConfirmar);
+		}else{
+		
+			var reserva = new Reserva(vuelo, nombre, email, fecha, dni, categoria);
 
-		reserva.crear(function(){
-			sessionStorage.setItem("reserva",reserva.id);
-			console.log('Reserva numero: ' + reserva.id);
-			if(reserva.id != null){
-				jQuery('[data-interactive="fieldDatosPersonales"]').addClass('hide');
-				step2(reserva);
-			}
-		});
+			reserva.crear(function(){
+				sessionStorage.setItem("reserva",reserva.id);
+				console.log('Reserva numero: ' + reserva.id);
+				if(reserva.id != null){
+					jQuery('[data-interactive="fieldDatosPersonales"]').addClass('hide');
+					step2(reserva);
+				}
+			});
+		}
  	});
 
  	jQuery('[data-interactive="pagar"]').click(function(e){
