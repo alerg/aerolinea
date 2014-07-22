@@ -401,7 +401,12 @@ fieldset.asientos input:checked + label.ocupado{
 .reservas-caidas       { background-color:#656565; }
 .reservas-no-vendidas  { background-color:#E21B1B; }
 
+.pasajes-primary       { background-color:#006EB4;}
+.pasajes-economy       { background-color:#5992CE;}
+
 /*Estadísticas: De Barras Horizontales en columnas*/
+.estadisticas_barras-horizontales-columnas{ clear:both; padding:15px 0;}
+
 .estadisticas_barras-horizontales-columnas ul{
 	width:30%;
 	margin-right:3%;
@@ -410,6 +415,8 @@ fieldset.asientos input:checked + label.ocupado{
 
 .estadisticas_barras-horizontales-columnas .estadisticas_grafico li{
 	height:40px;
+	clear:both;
+	margin:5px 0;
 }
 
 .estadisticas_barras-horizontales-columnas .estadisticas_grafico strong{
@@ -419,10 +426,20 @@ fieldset.asientos input:checked + label.ocupado{
 	line-height:40px;
 	font-size:12px;
 	color:black;
+	font-weight:bold;
+}
+
+.estadisticas_barras-horizontales-columnas .estadisticas_grafico li>p{
+	float:left;
+	width:70%;
+	margin:0;
 }
 
 .estadisticas_barras-horizontales-columnas .estadisticas_grafico span{
-	
+	display:block;
+	float:left;
+	clear:both;
+	height:20px;
 }
 
 /*Navegación secundaria*/

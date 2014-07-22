@@ -5,10 +5,13 @@
 	<meta name="description" content="Sistema de administración de la aerolínea" />
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script type="text/javascript" src="/js/api.js"></script>
 	<script type="text/javascript" src="/js/jquery/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/js/api.js"></script>
 	<link rel="icon" href="img/favicon.png" type="image/png" />
 	<link rel="stylesheet" type="text/css" href="css/estilos.css" />
+	<link rel="stylesheet" type="text/css" href="/js/jquery/jquery-ui.theme.min.css" />
+	<link rel="stylesheet" type="text/css" href="/js/jquery/jquery-ui.structure.min.css" />
 </head>
 
 <body>
@@ -58,7 +61,7 @@
 				</fieldset>
 			</section>
 					
-			<!-- INFORME -->
+			<!-- INFORME 
 			<section>
 				<h3>Informe</h3>
 				<fieldset>
@@ -97,16 +100,55 @@
 					</div>
 					
 					<div class="estadisticas_barras-horizontales-columnas">
-						<h4>Pasajes vendidos por destino y categoría</h4>
+						<?php
+						$destinos = array(  array("destino" => 'Destino "A"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "B"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "C"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "D"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "E"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "F"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "G"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "H"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "I"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "J"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "K"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "L"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "M"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "N"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "O"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "P"',"primary" =>2,"economy" => 3, "no-vendidos" => 1));
 						
+						
+						?>
+					
+						<h4>Pasajes vendidos por destino y categoría</h4>
 						<div class="estadisticas_grafico">
-							<ul>
+						<?php 
+						$destinos_por_columa = floor(count($destinos)/3);
+						
+						for($j=0; $j<3;$j++){
+							echo '<ul>';
+							for($i=0; $i<$destinos_por_columa;$i++){
+								
+								$total_pasajes = $destinos[$i]["economy"] + $destinos[$i]["primary"] + $destinos[$i]["no-vendidos"];
+								$primary_porcentaje = floor(($destinos[$i]["primary"]*100)/$total_pasajes);
+								$economy_porcentaje = floor(($destinos[$i]["economy"]*100)/$total_pasajes);
+								echo '
 								<li>
-									<strong>Destino 'A'</strong>
-									<span class="pasajes-vendidos">Vendidos</span>
-									<span class="pasajes-no-vendidos">No vendidos</span>
-								</li>
-							</ul>
+									<strong>'.$destinos[$i]["destino"].'</strong>
+									<p>
+										<span class="pasajes-primary" style="width:'. $primary_porcentaje.'%;">&nbsp;</span>
+										<span class="pasajes-economy" style="width:'. $economy_porcentaje.'%;">&nbsp;</span>
+									</p>
+								</li>';
+								
+								if($i==count($destinos)-1){
+									break;
+								}
+							}
+							echo '</ul>';
+						}
+						?>
 						</div>
 						
 						<div class="estadisticas_referencias">
@@ -116,16 +158,55 @@
 					</div>
 					
 					<div class="estadisticas_barras-horizontales-columnas">
+						<?php
+						$destinos = array(  array("destino" => 'Destino "A"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "B"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "C"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "D"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "E"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "F"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "G"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "H"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "I"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "J"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "K"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "L"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "M"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "N"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "O"',"primary" =>2,"economy" => 3, "no-vendidos" => 1),
+											array("destino" => 'Destino "P"',"primary" =>2,"economy" => 3, "no-vendidos" => 1));
+						
+						
+						?>
+					
 						<h4>Porcentaje de ocupación de los aviones</h4>
 						<div class="estadisticas_grafico">
-							<h5>Avión 'ABC'</h5>
-							<ul>
+						<?php 
+						$destinos_por_columa = floor(count($destinos)/3);
+						
+						for($j=0; $j<3;$j++){
+							echo '<ul>';
+							for($i=0; $i<$destinos_por_columa;$i++){
+								
+								$total_pasajes = $destinos[$i]["economy"] + $destinos[$i]["primary"] + $destinos[$i]["no-vendidos"];
+								$primary_porcentaje = floor(($destinos[$i]["primary"]*100)/$total_pasajes);
+								$economy_porcentaje = floor(($destinos[$i]["economy"]*100)/$total_pasajes);
+								echo '
 								<li>
-									<strong>Destino 'A'</strong>
-									<span class="pasajes-vendidos">Vendidos</span>
-									<span class="pasajes-no-vendidos">No vendidos</span>
-								</li>
-							</ul>
+									<strong>'.$destinos[$i]["destino"].'</strong>
+									<p>
+										<span class="pasajes-primary" style="width:'. $primary_porcentaje.'%;">&nbsp;</span>
+										<span class="pasajes-economy" style="width:'. $economy_porcentaje.'%;">&nbsp;</span>
+									</p>
+								</li>';
+								
+								if($i==count($destinos)-1){
+									break;
+								}
+							}
+							echo '</ul>';
+						}
+						?>
 						</div>
 						
 						<div class="estadisticas_referencias">
@@ -167,7 +248,7 @@
 						</div>
 					</div>
 				</section>
-			</section>
+			</section>-->
 		</div>
 	</section>
 	
