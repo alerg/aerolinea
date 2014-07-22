@@ -93,6 +93,8 @@ a{
 
 header{background-color:white; padding-top:10px;}
 
+header>.contenedor{ position:relative; }
+
 h1{
 	width:160px;
 	height:58px;
@@ -189,10 +191,6 @@ input,textarea{
 	-moz-border-radius: 2px;
 	border-radius: 2px;
 	border:1px solid #E1E1E1;
-}
-
-input.datos{
-	width: auto;
 }
 
 input[type="radio"]{
@@ -354,6 +352,25 @@ fieldset.asientos input:checked + label.ocupado{
 .ui-datepicker select.ui-datepicker-year{
 	min-width:49%;
 }
+
+/* --- Panel de administración --- */
+
+/*Navegación secundaria*/
+.nav-secundaria{
+	width:400px;
+	text-align:right;
+	position:absolute;
+	bottom:50px;
+	right:0px;
+}
+
+.nav-secundaria a{
+	font-size:12px;
+	color:#004388;
+	text-transform:uppercase;
+}
+
+.nav-secundaria a:hover{ color:#E32C24; }
 
 /*Pie*/
 

@@ -24,52 +24,114 @@
 				</ul>
 			</div>
 		</nav>
+		<div class="contenedor">
+			<nav class="nav-secundaria">
+				<ul>
+					<li><a href="">Cerrar sesión</a></li>
+				</ul>
+			</nav>
+		</div>
 	</header>
 	
 	<script src="js/admin.js">
 	</script>
 
 	<section data-interactive="contenedor" class="contenedor contenido">
-		<h2>Panel de administración</h2>
 		
-		<!-- LOGIN -->
-		<section>
-			<h3>Iniciar sesión</h3>
-			<fieldset>
-				<div class="columna columna--doble">
-					<label for="usuario">Usuario:</label>
-					<input class="datos" name="usuario" data-interactive="usuario" type="text" />
-					
-					<label for="clave">Contraseña:</label>
-					<input class="datos" name="clave" data-interactive="contrasena" type="password" />
-				</div>
-				<div class="columna columna--doble">
-					<button class="boton" data-interactive="login">Iniciar sesión</button>
-				</div>
-			</fieldset>
-		</section>
-		
-		<!-- PANEL DE ADMINISTRACIÓN -->
-		<section>
-			<nav class="nav-secundaria">
-				<div class="contenedor">
-					<ul>
-						<li><a href="">Cerrar sesión</a></li>
-					</ul>
-				</div>
-			</nav>
-			
-			<!-- INFORME -->
+		<div class="contenedor">
+			<h2>Panel de administración</h2>
+			<!-- LOGIN -->
 			<section>
+				<h3>Iniciar sesión</h3>
 				<fieldset>
-					<h3>Informe</h3>
-					
-					<div class="columna columna-simple">
-						<button class="boton" data-interactive=''>Imprimir informe</button>
+					<div class="columna columna--triple">
+						<label for="usuario">Usuario:</label>
+						<input name="usuario" data-interactive="usuario" type="text" />
+					</div>
+					<div class="columna columna--triple">
+						<label for="clave">Contraseña:</label>
+						<input name="clave" data-interactive="contrasena" type="password" />
+					</div>
+					<div class="columna columna--triple">
+						<button class="boton" data-interactive="login">Iniciar sesión</button>
 					</div>
 				</fieldset>
 			</section>
-		</section>
+					
+			<!-- INFORME -->
+			<section>
+				<h3>Informe</h3>
+				<fieldset>
+					<div class="columna columna-simple">
+						<button class="boton" data-interactive=''>Ver informe</button>
+					</div>
+				</fieldset>
+				
+				<div class="estadisticas">
+					<div class="estadisticas_barra-completa">
+						<h3>Pasajes vendidos y no vendidos
+						<div class="estadisticas_grafico">
+							<span class="pasajes-vendidos">%</span>
+							<span class="pasajes-no-vendidos">%</span>
+						</div>
+						<div class="estadisticas_referencias">
+							<span class="pasajes-vendidos">Vendidos</span>
+							<span class="pasajes-no-vendidos">No vendidos</span>
+						</div>
+					</div>
+					
+					<div class="estadisticas_barras-horizontales-columnas">
+						<h3>Pasajes vendidos y no vendidos
+						
+						<div class="estadisticas_grafico">
+							<ul>
+								<li>
+									<strong>Destino 'A'</strong>
+									<span class="pasajes-vendidos">Vendidos</span>
+									<span class="pasajes-no-vendidos">No vendidos</span>
+								</li>
+							</ul>
+						</div>
+						
+						<div class="estadisticas_referencias">
+							<span class="categoria-primary">Vendidos</span>
+							<span class="categoria-economy">No vendidos</span>
+						</div>
+					</div>
+					
+					<div class="estadisticas_barras-horizontales-columnas">
+						<h3>Porcentaje de ocupación de los aviones
+						<div class="estadisticas_grafico">
+							<h4>Avión 'ABC'</h4>
+							<ul>
+								<li>
+									<strong>Destino 'A'</strong>
+									<span class="pasajes-vendidos">Vendidos</span>
+									<span class="pasajes-no-vendidos">No vendidos</span>
+								</li>
+							</ul>
+						</div>
+						
+						<div class="estadisticas_referencias">
+							<span class="categoria-primary">Vendidos</span>
+							<span class="categoria-economy">No vendidos</span>
+						</div>
+					</div>
+					
+					<div class="estadisticas_barra-completa">
+						<h3>Reservas vendidas, caidas y no vendidas
+						<div class="estadisticas_grafico">
+							<span class="pasajes-vendidos">%</span>
+							<span class="pasajes-no-vendidos">%</span>
+						</div>
+						<div class="estadisticas_referencias">
+							<span class="pasajes-vendidos">Vendidos</span>
+							<span class="pasajes-no-vendidos">No vendidos</span>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
 	</section>
 	
 	<footer class="pie">
