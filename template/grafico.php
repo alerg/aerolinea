@@ -32,10 +32,10 @@ if($id == '1' || $id == '2' || $id == '3' || $id == '4'){
 		break;
 		case '4'://Cantidad de reservas caídas:
 			$titulo = 'Cantidad de reservas caídas';
-			$label = array('Reservas caídas');
+			$label = array();
 			$query = 'select count(*) as \'Reservas caídas\' '.
-					'from pasaje as p join vuelo as v on p.id_vuelo=v.id_vuelo '.
-					'where p.id_estado=0 and v.fecha<DATE(NOW()); ';
+					'from pasaje '.
+					'where id_estado=3';
 		break;
 	}
 
@@ -72,6 +72,8 @@ if($id == '1' || $id == '2' || $id == '3' || $id == '4'){
 		$graph->Add($curva);
 		// mostrar el grafico
 		$graph->Stroke();
+	}else{
+		echo '<img src="http://localhost/img/no_disponible.JPG"/>';
 	}
 }
 
