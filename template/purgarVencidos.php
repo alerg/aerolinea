@@ -9,7 +9,7 @@ include "../core/ConexionMySQL.php";
 	$matriz = $conexion->ejecutarQuery($sqlReservasCaidas);
 
 	$primera= true;
-	$query = 'UPDATE pasaje SET id_estado = 3 WHERE id_pasaje IN (' ;
+	$query = 'UPDATE pasaje SET id_estado = 4 WHERE id_pasaje IN (' ;
 	for ($i=0; $i < count($matriz); $i++) {
 		$registro = $matriz[$i];
 	 	foreach ($registro as $key => $value) {
