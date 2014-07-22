@@ -14,7 +14,7 @@ include "../entidades/Recorrido.php";
 
 
 
- $recurso = new Recurso_Pasajes();
+$recurso = new Recurso_Pasajes();
 $retorno = $recurso->obtenerPorId($_GET['id']);
 if($retorno <> false)
     $retorno = $recurso;

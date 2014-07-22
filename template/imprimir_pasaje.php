@@ -1,7 +1,22 @@
 <?php 
+require_once('../lib/html2pdf/html2pdf.class.php');
+
+include '../lib/phpqrcode/qrlib.php';
+include "../core/ConexionMySQL.php";
+include "../core/Entidad.php";
+include "../core/Recurso.php";
+include "../recursos/Aeropuertos.php";
+include "../recursos/Pasajes.php";
+include "../recursos/Vuelos.php";
+include "../entidades/Aeropuerto.php";
+include "../entidades/Pasaje.php";
+include "../entidades/Vuelo.php";
+include "../entidades/Recorrido.php";
+
+$recurso = new Recurso_Pasajes();
+$retorno = $recurso->obtenerPorId($_GET['id']);
 
 $html = '<html>
-  <body>
 	<head>
 		<style type="text/css">
 			.contenedor{ width:700px; margin:0 auto;}
@@ -21,11 +36,11 @@ $html = '<html>
 		<div class="contenedor">
 			<div class="pasaje">
 				
-				<img class="logo" src="img/logo.gif" width="160" height="58"/>
+				<img class="logo" src="http://localhost/template/img/logo.gif" width="160" height="58"/>
 				<div class="pasaje_datos">
 					<p><strong>Fecha: </strong>'.date("d/m/Y").' 
 					<strong style="padding-left:15px;"> Hora: </strong>'.date("H:i\h\s").' 
-					<strong style="padding-left:15px;"> Precio: </strong>$111</p>
+					<strong style="padding-left:15px;"> Precio: </strong>{{precio}}</p>
 				</div>
 				
 				<table class="pasaje_datos-vuelo" cellspacing="0" border="0">
@@ -33,29 +48,29 @@ $html = '<html>
 						<td>
 							<table cellpadding="0" cellspacing="0" border="0">
 								<tr>
-									<td><strong>Pasajero: </strong>ALEJANDRO GARCÍA</td>
+									<td><strong>Pasajero: </strong>{{nombre}}</td>
 								</tr>
 								<tr>
-									<td><strong>Reserva: </strong>0879879</td>
+									<td><strong>Reserva: </strong>{{reserva}}</td>
 								</tr>
 								<tr>
-									<td><strong>Vuelo: </strong>098372</td>
+									<td><strong>Vuelo: </strong>{{vuelo}}</td>
 								</tr>
 								<tr>
-									<td><strong>Categoria: </strong>Primary</td>
+									<td><strong>Categoria: </strong>{{categoria}}</td>
 								</tr>
 							</table>
 						</td>
 						<td>
 							<table cellpadding="0" cellspacing="0" border="0">
 								<tr>
-									<td><strong>Fecha de partida: </strong>21/7/2014</td>
+									<td><strong>Fecha de partida: </strong>{{fecha_partida}}</td>
 								</tr>
 								<tr>
-									<td><strong>Origen: </strong>Capital</td>
+									<td><strong>Origen: </strong>{{origen}}</td>
 								</tr>
 								<tr>
-									<td><strong>Destino: </strong>Pinamar</td>
+									<td><strong>Destino: </strong>{{destino}}</td>
 								</tr>
 								<tr>
 									<td>&nbsp;</td>
@@ -69,4 +84,19 @@ $html = '<html>
 		</div>
 	</body>
 </html>';
+
+$valoresPorReemplazar = array('{{precio}}','{{nombre}}','{{reserva}}','{{vuelo}}','{{categoria}}','{{fecha_partida}}','{{origen}}','{{destino}}');
+$valoresFinales =array($retorno->precio,$retorno->nombre,$retorno->id,$retorno->vuelo,$retorno->categoria,$retorno->fechaPartida, $retorno->aeropuertoOrigen->ciudad.' - '.$retorno->aeropuertoOrigen->provincia, $retorno->aeropuertoDestino->ciudad.' - '.$retorno->aeropuertoDestino->provincia);
+
+
+$html = str_replace($valoresPorReemplazar, $valoresFinales, $html);
+	#echo $html;
+
+	$html2pdf = new HTML2PDF('P','A4','fr');
+    $html2pdf->WriteHTML($html);
+    $html2pdf->Output("pasaje". date("dmyHihs") .".pdf");
+    //$html2pdf->Output("pasaje.pdf");
+
+
+
 ?>

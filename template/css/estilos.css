@@ -523,18 +523,26 @@ section[data-mode="checkin"] section.datos{
 	display:block;
 }
 
-section[data-mode="qr"] section.datos{
+section[data-mode="last"] section.datos{
 	display:block;
 }
 
-div.qr{
+button.qr{
 	display:none;
 }
 
-section[data-mode="qr"] div.qr{
+button.pasaje{
+	display:none;
+}
+
+section[data-mode="checkin"], [data-mode="data_imprimir"] button.pasaje{
 	display:block;
 }
 
-section[data-mode="data"] section.datos{
+section[data-mode="last"] section.qr{
+	display:block;
+}
+
+section[data-mode="data_imprimir"] section.datos{
 	display:block;
 }

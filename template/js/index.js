@@ -21,6 +21,15 @@ jQuery(document).ready(function(){
 		yearRange: "-110:-18"
 	});
 
+	$('[data-interactive="vto_tarjeta"]').datepicker( {
+        monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ],
+		monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec" ],
+		changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'mm/y'
+    });
+
 	function step1(){
 		Aeropuerto.obtenerTodos(function(data){
 			aeropuertos = data;
@@ -49,7 +58,22 @@ jQuery(document).ready(function(){
 		return false;
 	}
 
+	function generarPopup(url, titulo){
+		var posicion_x; 
+		var posicion_y; 
+		var ancho = 1000;
+		var alto = 500;
+		posicion_x=(screen.width/2)-(ancho/2); 
+		posicion_y=(screen.height/2)-(alto/2); 
+		window.open(url, titulo, "width="+ancho+",height="+alto+",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left="+posicion_x+",top="+posicion_y+"");		
+	}
+
  	function step3(reserva){
+
+		jQuery('[data-interactive="imprimir_pasaje"]').click(function(){
+			generarPopup("/template/imprimir_pasaje.php?id=" + reserva.id, "Pasaje");
+		});
+
  		var primeraSerie = ['A', 'B', 'C', 'D'];
  		var economySerie = ['V', 'W', 'X', 'Y', 'Z'];
 
@@ -58,6 +82,7 @@ jQuery(document).ready(function(){
 
  		cargarDatosPersonales(reserva);
  		checkin.habilitadoCheckin(function (habilitado){
+
 	 		if(habilitado){
 
 		 		var vuelo = new Vuelo();
@@ -137,7 +162,7 @@ jQuery(document).ready(function(){
 						checkin.crear(function(data){
 							if(data){
 								alert("El checkin fue realizado con éxito");
-								jQuery('[data-interactive="contenedor"]').attr('data-mode', 'qr');
+								jQuery('[data-interactive="contenedor"]').attr('data-mode', 'last');
 							}
 							else
 								alert("Ah ocurrido un error. Intente realizar el checkin mas tarde.");
@@ -149,7 +174,7 @@ jQuery(document).ready(function(){
 				jQuery('[data-interactive="contenedor"]').attr('data-mode', 'checkin');
 	 		}else{
 	 			alert("El check-in puede realizarse a partir de las 48hs. anteriores a la partida del vuelo");
-				jQuery('[data-interactive="contenedor"]').attr('data-mode', 'data');
+				jQuery('[data-interactive="contenedor"]').attr('data-mode', 'data_imprimir');
 	 		}
  		});
  	}
@@ -177,10 +202,8 @@ jQuery(document).ready(function(){
 			window.open("/template/impresionpdf_qr.php?id=" + reserva.id, "leonpurpura.com", "width="+ancho+",height="+alto+",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left="+posicion_x+",top="+posicion_y+"");
 		});
 
-		jQuery('[data-interactive="contenedor"]').attr('data-mode', 'qr');
+		jQuery('[data-interactive="contenedor"]').attr('data-mode', 'last');
 	}
-
-	
 
 	jQuery('[data-interactive="comenzar"]').click(function(e){
 		e.preventDefault();
@@ -353,7 +376,15 @@ jQuery(document).ready(function(){
 		}
  	});
 
- 	jQuery('[data-interactive="pagar"]').click(function(e){
+	jQuery('[data-interactive="formas_pago"]').change(function(e){
+		if(jQuery(e.target).val() == "1"){
+			jQuery('[data-interactive="datosTarjeta"]').removeClass('hide');
+		}else{
+			jQuery('[data-interactive="datosTarjeta"]').addClass('hide');
+		}
+	});
+
+ 	jQuery('[data-interactive="formPagar"]').submit(function(e){
  		e.preventDefault();
  		var reservaId = sessionStorage.getItem("reserva");
  		var formaPagoId = jQuery('[data-interactive="formas_pago"]').val();
@@ -364,7 +395,9 @@ jQuery(document).ready(function(){
 				if(pago){
 					var reserva = new Reserva();
 					reserva.id = reservaId;
-					reserva.obtener(step3);
+					reserva.obtener(function(){
+						step3(reserva);
+					});
 				}else{
 					console.log('Error al pagar');
 				}

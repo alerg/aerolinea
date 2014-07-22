@@ -57,6 +57,11 @@
 				$entidadRecorrido->id_recorrido = $entidadVuelo->id_recorrido;
 				$entidadRecorrido->obtenerPor("id_recorrido");
 
+				if($entidad->categoria == 'Primera')
+					$this->precio = $entidadRecorrido->precio_primera;
+				else
+					$this->precio = $entidadRecorrido->precio_economy;
+
 				$recursoAeropuertoOrigen = new Recurso_Aeropuertos();
 				$recursoAeropuertoOrigen->codigo = $entidadRecorrido->id_ciudad_origen;
 				$this->aeropuertoOrigen = $recursoAeropuertoOrigen->obtenerPorCodigo();
