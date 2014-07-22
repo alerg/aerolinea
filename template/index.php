@@ -116,9 +116,9 @@
 					</select>
 				</div>
 				<div class="columna columna--doble">
-					<label for="primera">Primera:</label>
+					<label class="exceso" for="primera">Primera:</label>
 					<input type="radio" id="categoria" name="categoria" value="Primera" class="hide" data-interactive="primera"/>
-					<label for="economy">Económica:</label>
+					<label class="exceso" for="economy">Económica:</label>
 					<input type="radio" id="categoria" name="categoria" value="Economy" class="hide" data-interactive="economy"/>
 				</div>
 			</div>

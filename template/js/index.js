@@ -247,14 +247,26 @@ jQuery(document).ready(function(){
 				option.textContent = 'Numero: '+ vuelo.id +' / Fecha partida: '+ vuelo.fecha;
 				option.setAttribute('value', vuelo.id);
 				select.append(option);
-				if(vuelo.asientosDisponiblesPrimera > 0 ){
+				
+				if(vuelo.asientosDisponiblesPrimera > -10 ){
+					//Cambio de cero a -10 para dar lugar a reservas en exceso
 					jQuery('[data-interactive="primera"]').removeClass('hide');
 				}
-				if(vuelo.asientosDisponiblesEconomica > 0 ){
+				if(vuelo.asientosDisponiblesEconomica > -10 ){
+					//Cambio de cero a -10 para dar lugar a reservas en exceso
 					jQuery('[data-interactive="economy"]').removeClass('hide');
 				}
-				jQuery('[data-interactive="primera"]').removeClass('hide');
-				jQuery('[data-interactive="economy"]').removeClass('hide');
+				
+				//Agrego una clase CSS para avisar que la reserva está en exceso
+				if(vuelo.asientosDisponiblesPrimera > 0 ){
+					jQuery('[for="primera"]').removeClass('exceso');
+				}
+				if(vuelo.asientosDisponiblesEconomica > 0 ){
+					jQuery('[for="economy"]').removeClass('exceso');
+				}
+				
+				//jQuery('[data-interactive="primera"]').removeClass('hide');
+				//jQuery('[data-interactive="economy"]').removeClass('hide');
 			});
 
 			if(vuelos.length == 0){

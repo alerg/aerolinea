@@ -43,14 +43,16 @@
 			$this->obtenerPor($campo);
 			switch($categoria){
 				case 'Primera':
-					if($this->asientos_disponibles_primera > 0){
+					if($this->asientos_disponibles_primera > -10){
+						//Cambio de cero a -10 para dar lugar a reservas en exceso
 						$this->asientos_disponibles_primera = $this->asientos_disponibles_primera - 1;
 					}else{
 						return false;
 					}
 				break;
 				case 'Economy':
-					if($this->asientos_disponibles_economy > 0){
+					if($this->asientos_disponibles_economy > -10){
+						//Cambio de cero a -10 para dar lugar a reservas en exceso
 						$this->asientos_disponibles_economy = $this->asientos_disponibles_economy - 1;
 					}else{
 						return false;

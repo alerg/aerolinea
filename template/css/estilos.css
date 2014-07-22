@@ -354,6 +354,10 @@ fieldset.asientos input:checked + label.ocupado{
 	min-width:49%;
 }
 
+.exceso{
+	color:#E32C24;
+}
+
 /* --- Panel de administración --- */
 
 /*Estadísticas: De Barra Completa*/

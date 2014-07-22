@@ -289,7 +289,8 @@ CREATE TABLE IF NOT EXISTS `estado` (
 INSERT INTO `estado` (`id`, `nombre`) VALUES
 (0, 'reserva'),
 (1, 'pago'),
-(2, 'check-in');
+(2, 'check-in'),
+(3, 'exceso');
 
 -- --------------------------------------------------------
 
