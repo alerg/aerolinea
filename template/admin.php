@@ -67,21 +67,37 @@
 					</div>
 				</fieldset>
 				
-				<div class="estadisticas">
+				<section class="estadisticas">
+					
 					<div class="estadisticas_barra-completa">
-						<h3>Pasajes vendidos y no vendidos
+						<?php
+						//Obtenemos los datos
+						$pasajes_vendidos = 200;
+						$pasajes_no_vendidos = 38;
+						$pasajes_total = $pasajes_vendidos + $pasajes_no_vendidos;
+						
+						//Calculamos el porcentaje
+						$pasajes_vendidos = floor(($pasajes_vendidos*100)/$pasajes_total);
+						$pasajes_no_vendidos = 100 - $pasajes_vendidos;	
+						?>
+					
+						<h4>Pasajes vendidos y no vendidos</h4>
 						<div class="estadisticas_grafico">
-							<span class="pasajes-vendidos">%</span>
-							<span class="pasajes-no-vendidos">%</span>
+							<span class="pasajes-vendidos" style="width:<?php echo $pasajes_vendidos ?>%;">
+								<?php echo $pasajes_vendidos ?>%
+							</span>
+							<span class="pasajes-no-vendidos"  style="width:<?php echo $pasajes_no_vendidos ?>%;">
+								<?php echo $pasajes_no_vendidos ?>%
+							</span>
 						</div>
 						<div class="estadisticas_referencias">
-							<span class="pasajes-vendidos">Vendidos</span>
-							<span class="pasajes-no-vendidos">No vendidos</span>
+							<span class="pasajes-vendidos"><span>Vendidos</span></span>
+							<span class="pasajes-no-vendidos"><span>No vendidos</span></span>
 						</div>
 					</div>
 					
 					<div class="estadisticas_barras-horizontales-columnas">
-						<h3>Pasajes vendidos y no vendidos
+						<h4>Pasajes vendidos por destino y categoría</h4>
 						
 						<div class="estadisticas_grafico">
 							<ul>
@@ -100,9 +116,9 @@
 					</div>
 					
 					<div class="estadisticas_barras-horizontales-columnas">
-						<h3>Porcentaje de ocupación de los aviones
+						<h4>Porcentaje de ocupación de los aviones</h4>
 						<div class="estadisticas_grafico">
-							<h4>Avión 'ABC'</h4>
+							<h5>Avión 'ABC'</h5>
 							<ul>
 								<li>
 									<strong>Destino 'A'</strong>
@@ -119,17 +135,38 @@
 					</div>
 					
 					<div class="estadisticas_barra-completa">
-						<h3>Reservas vendidas, caidas y no vendidas
+						<?php
+						//Obtenemos los datos
+						$reservas_vendidas = 100;
+						$reservas_caidas = 58;
+						$reservas_no_vendidas = 20;
+						$reservas_total = $reservas_vendidas + $reservas_caidas + $reservas_no_vendidas;
+						
+						//Calculamos el porcentaje
+						$reservas_vendidas = floor(($reservas_vendidas*100)/$reservas_total);
+						$reservas_caidas = floor(($reservas_caidas*100)/$reservas_total);
+						$reservas_no_vendidas = 100 - $reservas_vendidas - $reservas_caidas;	
+						?>
+					
+						<h4>Reservas vendidas, caídas y no vendidas</h4>
 						<div class="estadisticas_grafico">
-							<span class="pasajes-vendidos">%</span>
-							<span class="pasajes-no-vendidos">%</span>
+							<span class="reservas-vendidas" style="width:<?php echo $reservas_vendidas ?>%;">
+								<?php echo $reservas_vendidas ?>%
+							</span>
+							<span class="reservas-caidas" style="width:<?php echo $reservas_caidas ?>%;">
+								<?php echo $reservas_caidas ?>%
+							</span>
+							<span class="reservas-no-vendidas"  style="width:<?php echo $reservas_no_vendidas ?>%;">
+								<?php echo $reservas_no_vendidas ?>%
+							</span>
 						</div>
 						<div class="estadisticas_referencias">
-							<span class="pasajes-vendidos">Vendidos</span>
-							<span class="pasajes-no-vendidos">No vendidos</span>
+							<span class="reservas-vendidas"><span>Vendidas</span></span>
+							<span class="reservas-caidas"><span>Caidas</span></span>
+							<span class="reservas-no-vendidas"><span>No vendidas</span></span>
 						</div>
 					</div>
-				</div>
+				</section>
 			</section>
 		</div>
 	</section>

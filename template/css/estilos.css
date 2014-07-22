@@ -355,6 +355,76 @@ fieldset.asientos input:checked + label.ocupado{
 
 /* --- Panel de administración --- */
 
+/*Estadísticas: De Barra Completa*/
+.estadisticas_barra-completa{
+	width:100%;
+	padding:20px 0;
+}
+
+.estadisticas h4{ margin:15px 0; font-size:14px; text-transform:uppercase;}
+
+.estadisticas_barra-completa .estadisticas_grafico{
+	border-radius:4px;
+	height:80px;
+	overflow:hidden;
+	clear:both;
+}
+
+.estadisticas_barra-completa .estadisticas_grafico span{
+	display:block;
+	float:left;
+	height:80px;
+	line-height:80px;
+	text-align:center;
+	font-size:24px;
+	color:white;
+}
+
+.estadisticas_referencias{
+	margin:15px 10px;
+}
+
+.estadisticas_referencias>span{
+	padding-left:17px;
+}
+
+.estadisticas_referencias>span>span{
+	background-color:white;
+	padding-left:6px;
+	padding-right:20px;
+}
+
+.pasajes-vendidos      { background-color:#09B809;}
+.pasajes-no-vendidos   { background-color:#E21B1B;}
+
+.reservas-vendidas     { background-color:#09B809; }
+.reservas-caidas       { background-color:#656565; }
+.reservas-no-vendidas  { background-color:#E21B1B; }
+
+/*Estadísticas: De Barras Horizontales en columnas*/
+.estadisticas_barras-horizontales-columnas ul{
+	width:30%;
+	margin-right:3%;
+	float:left;
+}
+
+.estadisticas_barras-horizontales-columnas .estadisticas_grafico li{
+	height:40px;
+}
+
+.estadisticas_barras-horizontales-columnas .estadisticas_grafico strong{
+	width:30%;
+	float:left;
+	height:40px;
+	line-height:40px;
+	font-size:12px;
+	color:black;
+}
+
+.estadisticas_barras-horizontales-columnas .estadisticas_grafico span{
+	
+}
+
 /*Navegación secundaria*/
 .nav-secundaria{
 	width:400px;
