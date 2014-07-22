@@ -333,7 +333,7 @@ CREATE TABLE IF NOT EXISTS `pago` (
 CREATE TABLE IF NOT EXISTS `pasaje` (
   `id_pasaje` int(11) NOT NULL AUTO_INCREMENT,
   `dni` int(8) NOT NULL,
-  `nombre` int(11) NOT NULL,
+  `nombre` varchar(60) NOT NULL,
   `fecha_nacimiento` int(11) NOT NULL,
   `id_vuelo` int(11) NOT NULL,
   `id_estado` int(11) NOT NULL,
