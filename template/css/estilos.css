@@ -172,6 +172,10 @@ form{
 	text-align:center;
 }
 
+form.search{
+	text-align:left;
+}
+
 fieldset{
 	margin:15px 0;
 	padding:30px;

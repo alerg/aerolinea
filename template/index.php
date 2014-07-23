@@ -65,9 +65,11 @@
 		<section class="buscar">		
 			<fieldset>
 				<div class="columna columna--doble">
-					<label for="codigo_reserva">Código de reserva:</label>
-					<input name="codigo_reserva" data-interactive='codigoReserva' type="text">
-					<button class="boton" data-interactive='buscarReserva'>Buscar</button>
+					<form data-interactive="formBuscar" class="search">
+						<label for="codigo_reserva">Código de reserva:</label>
+						<input name="codigo_reserva" data-interactive='codigoReserva' type="text" required>
+						<button class="boton" data-interactive='buscarReserva'>Buscar</button>
+					</form>
 				</div>
 				<div class="columna columna--doble">
 					<button class="boton grande" data-interactive="comenzar">Consulta de vuelos</button>

@@ -16,10 +16,13 @@
 		}
 
 		public function crear(){
+			$formato = 'd/m/Y';
+			$fecha = DateTime::createFromFormat($formato, $this->fecha);
+
 			$this->entidadPasaje->id_vuelo = $this->vuelo;
 			$this->entidadPasaje->email = $this->email;
 			$this->entidadPasaje->nombre = $this->nombre;
-			$this->entidadPasaje->fecha_nacimiento = $this->fecha;
+			$this->entidadPasaje->fecha_nacimiento = $fecha->format('Y-m-d');
 			$this->entidadPasaje->dni = $this->dni;
 			$this->entidadPasaje->categoria = $this->categoria;
 

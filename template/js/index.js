@@ -12,7 +12,7 @@ jQuery(document).ready(function(){
 	});
 
 	$('[data-interactive="birthDate"]').datepicker({ 
-		dateFormat: "yy/mm/dd",
+		dateFormat: "dd/mm/yy",
 		dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
 		monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ],
 		monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec" ],
@@ -211,7 +211,8 @@ jQuery(document).ready(function(){
 		step1();
 	});
 
-	jQuery('[data-interactive="buscarReserva"]').click(function(e){
+	jQuery('[data-interactive="formBuscar"]').submit(function(e){
+		e.preventDefault();
 		var reserva = new Reserva();
 		reserva.id = jQuery('[data-interactive="codigoReserva"]').val();
 		reserva.obtener(function(data){
