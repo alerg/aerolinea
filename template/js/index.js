@@ -12,7 +12,7 @@ jQuery(document).ready(function(){
 	});
 
 	$('[data-interactive="birthDate"]').datepicker({ 
-		dateFormat: "dd/mm/yy",
+		dateFormat: "yy/mm/dd",
 		dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
 		monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" ],
 		monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec" ],
