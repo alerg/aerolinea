@@ -26,14 +26,14 @@ if($id == '1' || $id == '2' || $id == '3' || $id == '4'){
 		case '3'://Cantidad de pasajes vendidos  por destino:
 			$titulo = 'Cantidad de pasajes vendidos  por destino';
 			$label = array('Ciudad destino');
-			$query = 'select a.ciudad as \'Ciudad destino\', count(*) as Cantidad '.
-					'from pasaje as p join vuelo as v on p.id_vuelo=v.id_vuelo join recorrido as r on v.id_recorrido=r.id_recorrido join aeropuerto as a on a.ciudad=r.id_ciudad_destino '.
+			$query = 'select a.ciudad  as \'Ciudad destino\', count(*) as Cantidad '.
+					'from pasaje as p join vuelo as v on p.id_vuelo=v.id_vuelo join recorrido as r on v.id_recorrido=r.id_recorrido join aeropuerto as a on a.codigo=r.id_ciudad_destino '.
 					'group by a.ciudad; ';
 		break;
 		case '4'://Cantidad de reservas caídas:
-			$titulo = 'Cantidad de reservas caídas';
+			$titulo = 'Cantidad de reservas caidas';
 			$label = array();
-			$query = 'select count(*) as \'Reservas caídas\' '.
+			$query = 'select count(*) as \'Reservas caidas\' '.
 					'from pasaje '.
 					'where id_estado=3';
 		break;

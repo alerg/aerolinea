@@ -1,9 +1,9 @@
-﻿-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 4.1.6
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-07-2014 a las 21:19:47
+-- Tiempo de generación: 23-07-2014 a las 15:31:53
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.9
 
@@ -293,7 +293,6 @@ INSERT INTO `estado` (`id`, `nombre`) VALUES
 (3, 'exceso'),
 (4, 'vencido');
 
-
 -- --------------------------------------------------------
 
 --
@@ -346,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `pasaje` (
   KEY `id_vuelo` (`id_vuelo`),
   KEY `id_vuelo_2` (`id_vuelo`),
   KEY `id_estado` (`id_estado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- RELACIONES PARA LA TABLA `pasaje`:
@@ -355,6 +354,13 @@ CREATE TABLE IF NOT EXISTS `pasaje` (
 --   `id_vuelo`
 --       `vuelo` -> `id_vuelo`
 --
+
+--
+-- Volcado de datos para la tabla `pasaje`
+--
+
+INSERT INTO `pasaje` (`id_pasaje`, `dni`, `nombre`, `fecha_nacimiento`, `id_vuelo`, `id_estado`, `email`, `categoria`) VALUES
+(11, 32123457, 'Carlos Funetes', '1986-07-01', 13, 3, 'c.fuentes@gmail.com', 'Primera');
 
 -- --------------------------------------------------------
 
@@ -730,7 +736,7 @@ INSERT INTO `vuelo` (`id_vuelo`, `fecha`, `asientos_disponibles_primera`, `asien
 (10, '2014-11-28', 10, 250, 0, 2, 10),
 (11, '2014-11-09', 90, 90, 0, 1, 11),
 (12, '2014-10-24', 120, 40, 0, 4, 12),
-(13, '2014-11-19', 10, 250, 0, 2, 13),
+(13, '2014-11-19', 9, 250, 0, 2, 13),
 (14, '2014-07-26', 10, 250, 0, 2, 14),
 (15, '2014-12-25', 10, 250, 0, 2, 15),
 (16, '2014-10-17', 10, 250, 0, 2, 16),
