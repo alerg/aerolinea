@@ -6,12 +6,15 @@ include "../core/ConexionMySQL.php";
 include "../core/Entidad.php";
 include "../core/Recurso.php";
 include "../recursos/Aeropuertos.php";
+include "../recursos/Checkin.php";
 include "../recursos/Pasajes.php";
 include "../recursos/Vuelos.php";
 include "../entidades/Aeropuerto.php";
+include "../entidades/Checkin.php";
 include "../entidades/Pasaje.php";
 include "../entidades/Vuelo.php";
 include "../entidades/Recorrido.php";
+include "../Asiento.php";
 
 $recurso = new Recurso_Pasajes();
 $retorno = $recurso->obtenerPorId($_GET['id']);
@@ -95,8 +98,5 @@ $html = str_replace($valoresPorReemplazar, $valoresFinales, $html);
 	$html2pdf = new HTML2PDF('P','A4','fr');
     $html2pdf->WriteHTML($html);
     $html2pdf->Output("pasaje". date("dmyHihs") .".pdf");
-    //$html2pdf->Output("pasaje.pdf");
-
-
 
 ?>

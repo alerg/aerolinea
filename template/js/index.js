@@ -192,14 +192,12 @@ jQuery(document).ready(function(){
 
 	function qr(reserva){
 		cargarDatosPersonales(reserva);
+		jQuery('[data-interactive="imprimir_pasaje"]').click(function(){
+			generarPopup("/template/imprimir_pasaje.php?id=" + reserva.id, "Pasaje");
+		});
 		jQuery('[data-interactive="qr"]').click(function(){
-			var posicion_x; 
-			var posicion_y; 
-			var ancho = 400;
-			var alto = 300;
-			posicion_x=(screen.width/2)-(ancho/2); 
-			posicion_y=(screen.height/2)-(alto/2); 
-			window.open("/template/impresionpdf_qr.php?id=" + reserva.id, "leonpurpura.com", "width="+ancho+",height="+alto+",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left="+posicion_x+",top="+posicion_y+"");
+			generarPopup("/template/boardingpass.php?id=" + reserva.id, 'Boarding Pass');
+			
 		});
 
 		jQuery('[data-interactive="contenedor"]').attr('data-mode', 'last');

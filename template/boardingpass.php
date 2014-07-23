@@ -1,5 +1,34 @@
-<html>
-  <body>
+<?php 
+require_once('../lib/html2pdf/html2pdf.class.php');
+
+include '../lib/phpqrcode/qrlib.php';
+include "../core/ConexionMySQL.php";
+include "../core/Entidad.php";
+include "../core/Recurso.php";
+include "../recursos/Aeropuertos.php";
+include "../recursos/Checkin.php";
+include "../recursos/Pasajes.php";
+include "../recursos/Vuelos.php";
+include "../entidades/Aeropuerto.php";
+include "../entidades/Checkin.php";
+include "../entidades/Pasaje.php";
+include "../entidades/Recorrido.php";
+include "../entidades/Vuelo.php";
+include "../Asiento.php";
+
+$id = $_GET['id'];
+$recurso = new Recurso_Pasajes();
+$retorno = $recurso->obtenerPorId($id);
+
+if($retorno->categoria == 'Primera'){
+	$serie = array('A', 'B', 'C', 'D');
+}else{
+	$serie = array('V', 'W', 'X', 'Y', 'Z');
+}
+
+$asiento = $serie[$retorno->asiento->columna-1] . $retorno->asiento->fila;
+
+$html = '<html>
 	<head>
 		<style type="text/css">
 			.contenedor{ width:700px; margin:0 auto;}
@@ -23,17 +52,18 @@
 							<table cellspacing="0" cellpadding="0" border="0">
 								<tr>
 									<td colspan="2" width="120">
-										<img style="vertical-align:top;" src="img/logo.gif" width="100" height="38" />
+										<img style="vertical-align:top;" src="http://localhost/template/img/logo.gif" width="100" height="38" />
 									</td>
 								</tr>
+								<tr>
 									<td style="padding-right:20px; padding-top:20px;">
-										<img src="img/QR.jpg" height="100" width="100" />
+										<img src="http://localhost/qr?id='.$id.'" height="100" width="100"/>
 									</td>
 									<td style="padding:0px 0 40px 0;">
-										<p>Hola, <b>ALEJANDRO GARCÍA</b><br />Este es tu boarding pass para el vuelo <b>#111</b> desde <b>Capital</b> hasta <b>Pinamar</b>.</p>
+										<p>Hola, <b>{{nombre}}</b><br />Este es tu boarding pass para el vuelo <b>#{{vuelo}}</b> desde <b>{{origen}}</b> hasta <b>{{destino}}</b>.</p>
 										
-										<p>Tu asiento, de categoría <b>Primary</b>, es el <b>A17</b>.<br />
-										El vuelo es el <b>22/07/2014 a las 17:45hs</b>.</p>
+										<p>Tu asiento, de categoría <b>{{categoria}}</b>, es el <b>{{asiento}}</b>.<br />
+										El vuelo es el <b>{{fecha_partida}}</b>.</p>
 									</td>
 								</tr>
 							</table>
@@ -42,33 +72,40 @@
 							<table cellspacing="0" cellpadding="0" border="0">
 								<tr>
 									<td style="padding-bottom:10px;" colspan="2">
-										<img style="vertical-align:top;" src="img/logo.gif" width="100" height="38" />
+										<img style="vertical-align:top;" src="http://localhost/template/img/logo.gif" width="100" height="38" />
 									</td>
 								</tr>
 								<tr>
 									<td style="font-size:12px;" colspan="2">
-									ALEJANDRO GARCÍA,<br />
-									disfruta el vuelo #111<br />
-									desde Capital hasta Pinamar.<br /><br />
+									{{nombre}},<br />
+									disfruta el vuelo #{{vuelo}}<br />
+									desde {{origen}} hasta {{destino}}.<br /><br />
 									</td>
 								</tr>
 								<tr>
-									<td style="font-size:12px;" >ASIENTO</td><td style="font-size:12px;">A17</td>
-								</tr>
-								<tr>
-									<td style="font-size:12px;">ABORDAJE</td><td style="font-size:12px;">17:45hs</td>
+									<td style="font-size:12px;" >ASIENTO</td><td style="font-size:12px;">{{asiento}}</td>
 								</tr>
 								<tr>
 									<td style="padding-top:10px;" colspan="2">
-										<img src="img/QR.jpg" height="50" width="50" />
+										<img src="http://localhost/qr?id='.$id.'" height="50" width="50"/>
 									</td>
 								</tr>
 							</table>
 						</td>
 					</tr>
 				</table>
-				
 			</div>
 		</div>
 	</body>
-</html>
+</html>';
+
+$valoresPorReemplazar = array('{{precio}}','{{nombre}}','{{vuelo}}','{{categoria}}','{{fecha_partida}}','{{origen}}','{{destino}}', '{{asiento}}');
+$valoresFinales =array($retorno->precio, $retorno->nombre, $retorno->vuelo, $retorno->categoria, $retorno->fechaPartida, $retorno->aeropuertoOrigen->ciudad.' - '.$retorno->aeropuertoOrigen->provincia, $retorno->aeropuertoDestino->ciudad.' - '.$retorno->aeropuertoDestino->provincia, $asiento);
+
+
+$html = str_replace($valoresPorReemplazar, $valoresFinales, $html);
+	#echo $html;
+
+	$html2pdf = new HTML2PDF('P','A4','fr');
+    $html2pdf->WriteHTML($html);
+    $html2pdf->Output("boarding.pdf");

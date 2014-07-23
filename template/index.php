@@ -53,7 +53,7 @@
 				</div>
 				<div class="columna columna--doble">
 					<button class="boton grande pasaje" data-interactive="imprimir_pasaje">Imprimir Pasaje</button>
-					<button class="boton grande qr" data-interactive="qr">Generar QR</button>
+					<button class="boton grande qr" data-interactive="qr">Imprimir Boarding Pass</button>
 				</div>
 			</fieldset>
 		</section>

@@ -535,11 +535,15 @@ button.pasaje{
 	display:none;
 }
 
-section[data-mode="checkin"], [data-mode="data_imprimir"] button.pasaje{
+section[data-mode="checkin"] button.pasaje{
 	display:block;
 }
 
-section[data-mode="last"] section.qr{
+section[data-mode="data_imprimir"] button.pasaje{
+	display:block;
+}
+
+section[data-mode="last"] button.qr, button.pasaje{
 	display:block;
 }
 

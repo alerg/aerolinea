@@ -69,6 +69,12 @@
 				$recursoAeropuertoDestino->codigo = $entidadRecorrido->id_ciudad_destino;
 				$this->aeropuertoDestino = $recursoAeropuertoDestino->obtenerPorCodigo();
 
+				if($entidad->id_estado == 2){
+					$recursoCheckin = new Recurso_Checkin();
+					$recursoCheckin->obtenerPorId($entidad->id_pasaje);
+					$this->asiento = new Asiento($recursoCheckin->columna, $recursoCheckin->fila, $entidad->categoria);
+				}
+
 				$this->id = $entidad->id_pasaje;
 				$this->vuelo = $entidad->id_vuelo;
 				$this->email = $entidad->email;

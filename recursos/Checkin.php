@@ -46,9 +46,20 @@
 			$fechaActual = new DateTime("now");
 			$fechaVuelo = date_create($recursoVuelo->fecha);
 			$interval = date_diff($fechaActual, $fechaVuelo);
-			$horas = $interval->format('%r%h');
+			$dias = $interval->format('%r%d');
+			return ($dias < 2);
+		}
 
-			return ($horas <= 48 && $horas >0);
+		public function obtenerPorId($id){
+			$entidadCheckin = new Entidad_Checkin();
+			$entidadCheckin->id_pasaje = $id;
+			$entidadCheckin->obtenerPor('id_pasaje');
+
+			$this->pasaje = $entidadCheckin->id_pasaje;
+			$this->columna = $entidadCheckin->columna;
+			$this->fila = $entidadCheckin->fila;
+			$this->fecha = $entidadCheckin->fecha;
+			return $this;
 		}
 	}
 ?>
