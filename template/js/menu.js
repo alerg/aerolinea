@@ -12,8 +12,8 @@ jQuery(document).ready(function(){
 	});
 
 	jQuery('[data-interactive="purgar"]').click(function(e){
-		jQuery.get('/template/purgarVencidos.php', {}, function(data){
-			if(data != 'false'){
+		jQuery.getJSON('/template/purgarVencidos.php', function(data){
+			if(data.pasajes > 0){
 				alert('Se han eliminados '+ data.pasajes +' Pasajes.');
 			}else{
 				alert('No hay pasajes por vencer.');
