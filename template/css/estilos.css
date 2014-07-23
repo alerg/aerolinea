@@ -535,6 +535,10 @@ button.pasaje{
 	display:none;
 }
 
+button.boarding{
+	display:none;
+}
+
 section[data-mode="checkin"] button.pasaje{
 	display:block;
 }
@@ -543,7 +547,15 @@ section[data-mode="data_imprimir"] button.pasaje{
 	display:block;
 }
 
-section[data-mode="last"] button.qr, button.pasaje{
+section[data-mode="last"] button.qr{
+	display:block;
+}
+
+section[data-mode="last"] button.pasaje{
+	display:block;
+}
+
+section[data-mode="last"] button.boarding{
 	display:block;
 }
 

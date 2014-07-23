@@ -14,10 +14,9 @@ include "../entidades/Vuelo.php";
 include "../entidades/Recorrido.php";
 include "../Asiento.php";
 
+$id = $_GET['id'];
 $recurso = new Recurso_Pasajes();
-$retorno = $recurso->obtenerPorId($_GET['id']);
-if($retorno <> false)
-    $retorno = $recurso;
+$retorno = $recurso->obtenerPorId($id);
 
 QRcode::png(json_encode($retorno));
 

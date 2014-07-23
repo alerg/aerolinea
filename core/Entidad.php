@@ -102,5 +102,10 @@
 			}
 			return $entidades;	
 		}
+
+		protected function ejecutarQuery($query){
+			$this->init_conexion();
+			return $this->conexion->ejecutarQuery($query);
+		}
 	}
 ?>

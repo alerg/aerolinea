@@ -95,8 +95,7 @@ $valoresFinales =array($retorno->precio,$retorno->nombre,$retorno->id,$retorno->
 $html = str_replace($valoresPorReemplazar, $valoresFinales, $html);
 	#echo $html;
 
-	$html2pdf = new HTML2PDF('P','A4','fr');
-    $html2pdf->WriteHTML($html);
-    $html2pdf->Output("pasaje". date("dmyHihs") .".pdf");
-
+$html2pdf = new HTML2PDF('L','A4','fr', true, 'UTF-8');
+$html2pdf->WriteHTML(utf8_encode($html));
+$html2pdf->Output("pasaje". date("dmyHihs") .".pdf");
 ?>

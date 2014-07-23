@@ -1,7 +1,6 @@
 <?php 
 require_once('../lib/html2pdf/html2pdf.class.php');
 
-include '../lib/phpqrcode/qrlib.php';
 include "../core/ConexionMySQL.php";
 include "../core/Entidad.php";
 include "../core/Recurso.php";
@@ -18,7 +17,7 @@ include "../Asiento.php";
 
 $id = $_GET['id'];
 $recurso = new Recurso_Pasajes();
-$retorno = $recurso->obtenerPorId($id);
+$retorno = $recurso->obtenerPasaje($id);
 
 if($retorno->categoria == 'Primera'){
 	$serie = array('A', 'B', 'C', 'D');
@@ -57,7 +56,7 @@ $html = '<html>
 								</tr>
 								<tr>
 									<td style="padding-right:20px; padding-top:20px;">
-										<img src="http://localhost/qr?id='.$id.'" height="100" width="100"/>
+										<!--<img src="http://localhost/qr?id='.$id.'" height="100" width="100"/>-->
 									</td>
 									<td style="padding:0px 0 40px 0;">
 										<p>Hola, <b>{{nombre}}</b><br />Este es tu boarding pass para el vuelo <b>#{{vuelo}}</b> desde <b>{{origen}}</b> hasta <b>{{destino}}</b>.</p>
@@ -87,7 +86,7 @@ $html = '<html>
 								</tr>
 								<tr>
 									<td style="padding-top:10px;" colspan="2">
-										<img src="http://localhost/qr?id='.$id.'" height="50" width="50"/>
+										<!--<img src="http://localhost/qr?id='.$id.'" height="50" width="50"/>-->
 									</td>
 								</tr>
 							</table>
@@ -100,12 +99,12 @@ $html = '<html>
 </html>';
 
 $valoresPorReemplazar = array('{{precio}}','{{nombre}}','{{vuelo}}','{{categoria}}','{{fecha_partida}}','{{origen}}','{{destino}}', '{{asiento}}');
-$valoresFinales =array($retorno->precio, $retorno->nombre, $retorno->vuelo, $retorno->categoria, $retorno->fechaPartida, $retorno->aeropuertoOrigen->ciudad.' - '.$retorno->aeropuertoOrigen->provincia, $retorno->aeropuertoDestino->ciudad.' - '.$retorno->aeropuertoDestino->provincia, $asiento);
+$valoresFinales =array($retorno->precio, $retorno->nombre, $retorno->vuelo, $retorno->categoria, $retorno->fechaPartida, $retorno->ciudadOrigen.' - '.$retorno->provinciaOrigen, $retorno->ciudadDestino.' - '.$retorno->provinciaDestino, $asiento);
 
 
 $html = str_replace($valoresPorReemplazar, $valoresFinales, $html);
 	#echo $html;
 
-	$html2pdf = new HTML2PDF('P','A4','fr');
-    $html2pdf->WriteHTML($html);
+	$html2pdf = new HTML2PDF('L','A4','fr', true, 'UTF-8');
+    $html2pdf->WriteHTML(utf8_encode($html));
     $html2pdf->Output("boarding.pdf");

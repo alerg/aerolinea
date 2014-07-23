@@ -162,6 +162,7 @@ jQuery(document).ready(function(){
 						checkin.crear(function(data){
 							if(data){
 								alert("El checkin fue realizado con éxito");
+								qr(reserva);
 								jQuery('[data-interactive="contenedor"]').attr('data-mode', 'last');
 							}
 							else
@@ -195,9 +196,11 @@ jQuery(document).ready(function(){
 		jQuery('[data-interactive="imprimir_pasaje"]').click(function(){
 			generarPopup("/template/imprimir_pasaje.php?id=" + reserva.id, "Pasaje");
 		});
-		jQuery('[data-interactive="qr"]').click(function(){
+		jQuery('[data-interactive="boarding"]').click(function(){
 			generarPopup("/template/boardingpass.php?id=" + reserva.id, 'Boarding Pass');
-			
+		});
+		jQuery('[data-interactive="qr"]').click(function(){
+			generarPopup("/template/qr.php?id=" + reserva.id, 'QR');
 		});
 
 		jQuery('[data-interactive="contenedor"]').attr('data-mode', 'last');

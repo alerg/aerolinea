@@ -48,6 +48,9 @@
 			<div class="columna columna--doble">
 				<a href="" consulta="4" data-interactive="consulta">4- Cantidad de reservas caídas</a>
 			</div>
+			<div class="columna columna--doble">
+				<button data-interactive="purgar">Purgar vencidos</button>
+			</div>
 		</fieldset>
 	</section>
 		

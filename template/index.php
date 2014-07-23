@@ -51,9 +51,14 @@
 					<label for="origen">Origen:</label>
 					<input name="origen" data-interactive="datosOrigen" type="text" disabled />
 				</div>
-				<div class="columna columna--doble">
+				<div class="columna columna--triple">
 					<button class="boton grande pasaje" data-interactive="imprimir_pasaje">Imprimir Pasaje</button>
-					<button class="boton grande qr" data-interactive="qr">Imprimir Boarding Pass</button>
+				</div>
+				<div class="columna columna--triple">
+					<button class="boton grande boarding" data-interactive="boarding">Imprimir Boarding Pass</button>
+				</div>
+				<div class="columna columna--triple">
+					<button class="boton grande qr" data-interactive="qr">Imprimir QR</button>
 				</div>
 			</fieldset>
 		</section>

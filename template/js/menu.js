@@ -9,8 +9,15 @@ jQuery(document).ready(function(){
 		posicion_x=(screen.width/2)-(ancho/2); 
 		posicion_y=(screen.height/2)-(alto/2); 
 		window.open("/template/impresionpdf.php?id=" + consulta, "Consultas", "width="+ancho+",height="+alto+",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left="+posicion_x+",top="+posicion_y+"");
+	});
 
-		//window.open("http://api.htm2pdf.co.uk/urltopdf?apikey=abcde12345&url="+'/template/impresionpdf.php?id="' + consulta, "Consultas", "width="+ancho+",height="+alto+",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left="+posicion_x+",top="+posicion_y+"");
-
+	jQuery('[data-interactive="purgar"]').click(function(e){
+		jQuery.get('/template/purgarVencidos.php', {}, function(data){
+			if(data != 'false'){
+				alert('Se han eliminados '+ data.pasajes +' Pasajes.');
+			}else{
+				alert('No hay pasajes por vencer.');
+			}
+		});
 	});
 });

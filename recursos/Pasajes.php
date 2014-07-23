@@ -34,6 +34,7 @@
 		}
 
 		public function obtenerPorId($id){
+
 			$entidad = new Entidad_Pasaje();
 			$entidad->id_pasaje = $id;
 			$retorno = $entidad->obtenerPor(array("id_pasaje"));
@@ -88,6 +89,47 @@
 			}else{
 				return false;
 			}
+		}
+
+		public function obtenerPasaje($id){
+			$entidadPasaje = new Entidad_Pasaje();
+			$registros = $entidadPasaje->obtenerPasaje($id);
+			$registro = $registros[0];
+
+			$fechaVuelo = new DateTime($registro['fecha_partida']);
+			$this->fechaPartida = $fechaVuelo->format('d/m/Y');
+
+			date_default_timezone_set('UTC');
+			//Imprimimos la fecha actual dandole un formato
+			$fechaActual = new DateTime("now");
+			$interval = date_diff($fechaActual, $fechaVuelo);
+			$horas = $interval->format('%r%h');
+			$this->vencido = $horas < 0;
+
+			if($registro['categoria'] == 'Primera')
+					$this->precio = $registro['precio_primera'];
+				else
+					$this->precio = $registro['precio_economy'];
+
+			$this->ciudadOrigen = $registro['ciudad_origen'];
+			$this->provinciaOrigen = $registro['provincia_origen'];
+			$this->ciudadDestino = $registro['ciudad_destino'];
+			$this->provinciaDestino = $registro['provincia_destino'];
+
+			if($registro['id_estado'] == 2){
+				$this->asiento = new Asiento($registro['asiento_columna'], $registro['asiento_fila'], $registro['categoria']);
+			}
+
+			$this->id = $registro['id_pasaje'];
+			$this->vuelo = $registro['id_vuelo'];
+			$this->email = $registro['email'];
+			$this->nombre = $registro['nombre'];
+			$this->fecha = $registro['fecha_nacimiento'];
+			$this->dni = $registro['dni'];
+			$this->categoria = $registro['categoria'];
+			$this->estado = $registro['id_estado'];
+
+			return $this;
 		}
 
 		public function obtenerTodosPorVueloConEstadoCheckin($id){

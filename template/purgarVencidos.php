@@ -8,11 +8,13 @@ include "../core/ConexionMySQL.php";
 	$conexion = new ConexionMySQL();
 	$matriz = $conexion->ejecutarQuery($sqlReservasCaidas);
 
+	$cantidadPasajes = 0;
 	$primera= true;
 	$query = 'UPDATE pasaje SET id_estado = 4 WHERE id_pasaje IN (' ;
 	for ($i=0; $i < count($matriz); $i++) {
 		$registro = $matriz[$i];
 	 	foreach ($registro as $key => $value) {
+	 		$cantidadPasajes += 1;
 			$query .= $value . ',';
 		}
 	}
@@ -23,5 +25,5 @@ include "../core/ConexionMySQL.php";
 	if($retorno == false)
 		echo json_encode(false);
 	else
-		echo json_encode(true);
+		echo '{pasajes:'.$cantidadPasajes.'}';
 ?>
